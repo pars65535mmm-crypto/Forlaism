@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_polycrystal_solution_bottle" },
+    "title": { "text": "液体の結晶", "color": "aqua" },
+    "description": { "text": "フォラリス多結晶養液を入手する。飲んだらどうなるんだろう…" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_polycrystal",
+  "criteria": {
+    "get_solution": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_polycrystal_solution_bottle"] }] }
+    }
+  }
+}

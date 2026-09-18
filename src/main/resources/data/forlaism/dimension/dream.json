@@ -1,0 +1,17 @@
+{
+  "type": "forlaism:dream",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "minecraft:the_void",
+      "layers": [
+        {
+          "block": "forlaism:dream_floor",
+          "height": 1
+        }
+      ],
+      "features": false,
+      "lakes": false
+    }
+  }
+}

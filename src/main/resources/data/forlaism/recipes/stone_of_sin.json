@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HHH",
+    "HHH",
+    "HHH"
+  ],
+  "key": {
+    "H": {
+      "item": "forlaism:stone_of_hatred"
+    }
+  },
+  "result": {
+    "item": "forlaism:stone_of_sin",
+    "count": 1
+  }
+}

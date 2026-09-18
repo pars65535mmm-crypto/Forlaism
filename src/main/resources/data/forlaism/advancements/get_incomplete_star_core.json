@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:incomplete_forlaism_star_core" },
+    "title": { "text": "未完成の星", "color": "dark_gray" },
+    "description": { "text": "不完全なフォラリス星核を入手する。まだ未完成。" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_ore_star",
+  "criteria": {
+    "get_incomplete": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:incomplete_forlaism_star_core"] }] }
+    }
+  }
+}

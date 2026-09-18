@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:garbage_metal" },
+    "title": { "text": "ゴミの中の輝き", "color": "gray" },
+    "description": { "text": "コミメタルを入手する" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_iron_alloy",
+  "criteria": {
+    "get_garbage": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:garbage_metal"] }] }
+    }
+  }
+}

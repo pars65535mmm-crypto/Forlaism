@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forlaism:item/book_of_sacrifice"
+  }
+}

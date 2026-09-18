@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "PIP",
+    " R "
+  ],
+  "key": {
+    "P": {
+      "item": "forlaism:forlaism_polycrystal"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "forlaism:forlaism_fusion_machine",
+    "count": 1
+  }
+}

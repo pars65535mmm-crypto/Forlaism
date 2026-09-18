@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGC",
+    "SAS"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "A": {
+      "item": "forlaism:forlaism_iron_alloy"
+    }
+  },
+  "result": {
+    "item": "forlaism:garbage_metal",
+    "count": 1
+  }
+}

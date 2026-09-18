@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_polycrystal" },
+    "title": { "text": "結晶の進化", "color": "light_purple" },
+    "description": { "text": "フォラリス多結晶体を入手する。美しい…" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_iron_alloy",
+  "criteria": {
+    "get_polycrystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_polycrystal"] }] }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    " R ",
+    " R "
+  ],
+  "key": {
+    "M": {
+      "item": "forlaism:forlaism_star_core"
+    },
+    "R": {
+      "item": "forlaism:forlaism_concentrated_iron_alloy_rod"
+    }
+  },
+  "result": {
+    "item": "forlaism:tokino_staff_tier3",
+    "count": 1
+  }
+}

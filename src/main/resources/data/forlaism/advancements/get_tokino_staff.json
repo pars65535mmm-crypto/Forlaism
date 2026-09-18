@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:tokino_staff_tier1" },
+    "title": { "text": "時を刻む者", "color": "green" },
+    "description": { "text": "刻乃杖を入手する" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_polycrystal",
+  "criteria": {
+    "get_staff": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:tokino_staff_tier1"] }] }
+    }
+  }
+}

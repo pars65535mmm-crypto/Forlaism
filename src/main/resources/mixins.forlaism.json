@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.tyami.forlaism.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.forlaism.refmap.json",
+  "mixins": [
+    "LivingEntityMixin",
+    "EntityMixin",
+    "LivingEntitySovereignMixin",
+    "MobMixin",
+    "MobPacifiedMixin"
+  ],
+  "client": [
+    "MinecraftMixin",
+    "GuiGraphicsMixin",
+    "ItemEntityRendererMixin",
+    "LivingEntitySwrequimetMixin",
+    "ItemRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+

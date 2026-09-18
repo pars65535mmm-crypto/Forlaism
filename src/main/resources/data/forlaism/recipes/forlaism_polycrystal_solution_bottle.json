@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forlaism:forlaism_polycrystal_solution_bucket"
+    },
+    {
+      "item": "forlaism:forlaism_polycrystal_bottle"
+    },
+    {
+      "item": "forlaism:forlaism_polycrystal_bottle"
+    },
+    {
+      "item": "forlaism:forlaism_polycrystal_bottle"
+    }
+  ],
+  "result": {
+    "item": "forlaism:forlaism_polycrystal_solution_bottle",
+    "count": 3
+  }
+}

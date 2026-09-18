@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:halo_of_the_advent" },
+    "title": { "text": "界臨の光輪", "color": "aqua" },
+    "description": { "text": "界臨の光輪を入手する" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_star_core",
+  "criteria": {
+    "get_halo": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:halo_of_the_advent"] }] }
+    }
+  },
+  "rewards": { "experience": 200 }
+}

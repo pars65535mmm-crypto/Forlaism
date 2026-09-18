@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "forlaism:forlaism_ore",
+    "forlaism:deepslate_forlaism_ore",
+    "forlaism:forlaism_crystal_block",
+    "forlaism:steel_block",
+    "forlaism:forlaism_high_crystal_block",
+    "forlaism:forlaism_fusion_machine",
+    "forlaism:forlaism_inserter",
+    "forlaism:dream_floor"
+  ]
+}

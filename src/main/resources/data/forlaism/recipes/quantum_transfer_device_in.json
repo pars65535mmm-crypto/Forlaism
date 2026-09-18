@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RQR",
+    "QCQ",
+    "RQR"
+  ],
+  "key": {
+    "R": { "item": "forlaism:forlaism_concentrated_iron_alloy_rod" },
+    "Q": { "item": "forlaism:forlaism_star_core" },
+    "C": { "item": "forlaism:forlaism_high_crystal_block" }
+  },
+  "result": {
+    "item": "forlaism:quantum_transfer_device_in",
+    "count": 1
+  }
+}

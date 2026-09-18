@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forlaism:star_ore_book"
+    },
+    {
+      "item": "forlaism:dream_fragment"
+    }
+  ],
+  "result": {
+    "item": "forlaism:dream_book",
+    "count": 1
+  }
+}

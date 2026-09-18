@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:rough_steel" },
+    "title": { "text": "雑な鋼鉄でも一応鋼鉄", "color": "dark_gray" },
+    "description": { "text": "雑な鋼鉄を入手する。中身は鉄の粉と石炭のハイブリッド。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:crush_iron",
+  "criteria": {
+    "get_rough": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:rough_steel"] }] }
+    }
+  }
+}

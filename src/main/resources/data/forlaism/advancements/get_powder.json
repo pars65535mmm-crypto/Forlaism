@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_powder" },
+    "title": { "text": "粉々にする者", "color": "yellow" },
+    "description": { "text": "フォラリスの粉末を入手する。粉々にしてやったぜ。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "get_powder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_powder"] }] }
+    }
+  }
+}

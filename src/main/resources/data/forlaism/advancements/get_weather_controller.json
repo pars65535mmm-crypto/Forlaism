@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_weather_controller" },
+    "title": { "text": "天候を操る者", "color": "blue" },
+    "description": { "text": "フォラリス天候制御器を入手する" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_star_core",
+  "criteria": {
+    "get_controller": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_weather_controller"] }] }
+    }
+  }
+}

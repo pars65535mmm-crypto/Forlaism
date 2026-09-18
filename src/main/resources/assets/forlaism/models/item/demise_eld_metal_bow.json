@@ -1,0 +1,22 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "forlaism:item/demise_eld_metal_bow"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.66
+      },
+      "model": "forlaism:item/demise_eld_metal_bow_pulling_1"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.9
+      },
+      "model": "forlaism:item/demise_eld_metal_bow_pulling_2"
+    }
+  ]
+}

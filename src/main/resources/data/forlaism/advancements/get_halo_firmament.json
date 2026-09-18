@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:halo_of_the_firmament" },
+    "title": { "text": "天宇の光輪", "color": "gold" },
+    "description": { "text": "天宇の光輪を入手する" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_halo_advent",
+  "criteria": {
+    "get_halo": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:halo_of_the_firmament"] }] }
+    }
+  },
+  "rewards": { "experience": 300 }
+}

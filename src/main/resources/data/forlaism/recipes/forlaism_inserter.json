@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DPD",
+    "DPD",
+    " D "
+  ],
+  "key": {
+    "P": {
+      "item": "forlaism:forlaism_polycrystal"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result": {
+    "item": "forlaism:forlaism_inserter",
+    "count": 1
+  }
+}

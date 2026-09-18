@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "forlaism:steel_ingot"
+    }
+  },
+  "result": {
+    "item": "forlaism:steel_block",
+    "count": 1
+  }
+}

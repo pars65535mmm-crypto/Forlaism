@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MMM",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "forlaism:madoromu"
+    }
+  },
+  "result": {
+    "item": "forlaism:madoromu_block",
+    "count": 1
+  }
+}

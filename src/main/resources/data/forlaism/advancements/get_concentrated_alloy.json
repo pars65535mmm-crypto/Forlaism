@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_concentrated_iron_alloy" },
+    "title": { "text": "濃縮！濃縮！濃縮！", "color": "dark_aqua" },
+    "description": { "text": "フォラリス濃縮鉄合金を入手する。濃縮された闇を感じる。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_iron_alloy",
+  "criteria": {
+    "get_concentrated": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_concentrated_iron_alloy"] }] }
+    }
+  }
+}

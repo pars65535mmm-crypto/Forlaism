@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:steel_question" },
+    "title": { "text": "鋼鉄？", "color": "white" },
+    "description": { "text": "鋼鉄？を入手する。これで精錬すると鋼鉄になるとかならないとか。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_rough_steel",
+  "criteria": {
+    "get_question": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:steel_question"] }] }
+    }
+  }
+}

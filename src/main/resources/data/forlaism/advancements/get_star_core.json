@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_star_core" },
+    "title": { "text": "星核覚醒", "color": "dark_purple" },
+    "description": { "text": "フォラリス星核を入手する。完全体の星。" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_incomplete_star_core",
+  "criteria": {
+    "get_star_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_star_core"] }] }
+    }
+  },
+  "rewards": { "experience": 100 }
+}

@@ -1,0 +1,239 @@
+================================================================================
+waveTextLib API Usage Guide
+
+Target Version: Minecraft Java Edition 1.20.1 / Forge 47.x
+Library Mod ID: watelib
+Author: tyamizumoti
+Current Version: 1.0.1
+
+waveTextLib is a client-side text animation library for Minecraft 1.20.1 Forge
+that provides per-character “Sine Wave” animations and multi-color gradients.
+
+⸻
+
+【Table of Contents】
+
+1. Basic Import and Creating Text
+2. Applying Wave Animation
+3. Applying Gradients (2-Color & Multi-Color)
+4. Rendering on a GUI / Screen
+5. Applying to Items (Tooltip & Hotbar HUD)
+    * Method A: Custom Items (IAnimatedTextItem)
+    * Method B: Existing / Other Mod Items (WaveTextRegistry)
+6. Vanilla-Compatible Tooltip Renderer (WaveTooltipRenderer)
+7. Test Item: “Prototype Stick”
+8. Creating Custom Effects
+
+⸻
+
+1. Basic Import and Creating Text
+
+⸻
+
+First, import the main class and pass the text you want to animate.
+
+import com.tyami.watelib.text.AnimatedText;
+AnimatedText text = AnimatedText.of("Text to display");
+
+2. Applying Wave Animation
+
+⸻
+
+Use wave(amplitude, speed, phaseOffset) to add a wave effect.
+
+text.wave(3.0f, 0.10f, 0.50f);
+
+* 1st argument (amplitude): Vertical movement range in pixels. Example: 2.0f–3.0f
+* 2nd argument (speed): Animation speed.
+* 3rd argument (phaseOffset): Phase difference between characters.
+    A positive value makes the wave travel from left to right.
+
+The text uses fractional movement through the GuiGraphics PoseStack rather than
+coarse pixel-based movement, allowing smooth sine-wave animation.
+
+3. Applying Gradients (2-Color & Multi-Color)
+
+⸻
+
+Colors can be specified as 0xRRGGBB or 0xAARRGGBB.
+Alpha is automatically added when omitted.
+
+◆ Traditional 2-color gradient (backward compatible)
+
+// Cyan to pink
+text.gradient(0x00FFFF, 0xFF00FF)
+    .gradientSpeed(1.0f)     // Speed of color animation
+    .gradientPhase(0.50f);   // Per-character color phase offset
+
+◆ Multi-color gradient with 3 or more colors (New in v1.0.1)
+
+You can smoothly interpolate 3 or more colors, such as red → black → blue.
+
+// 3 colors (red -> black -> blue)
+text.gradient(0xFFFF0000, 0xFF000000, 0xFF0000FF)
+    .gradientSpeed(0.08f)
+    .gradientPhase(0.50f);
+// 4 or more colors (variable arguments)
+text.gradient(0xFFFF0000, 0xFFFFFF00, 0xFF00FF00, 0xFF0000FF);
+// Using List<Integer> for custom gradients
+List<Integer> rainbow = List.of(
+    0xFFFF0000, // Red
+    0xFFFFFF00, // Yellow
+    0xFF00FF00, // Green
+    0xFF00FFFF, // Cyan
+    0xFF0000FF, // Blue
+    0xFFFF00FF  // Purple
+);
+text.gradient(rainbow).gradientSpeed(0.1f);
+
+◆ Dynamic gradient in one line
+
+// 2 colors
+AnimatedText.of("COLOR WAVE")
+    .dynamicGradient(0x00FFFF, 0xFF00FF, 1.0f, 0.50f);
+// 3 or more colors (speed, phaseOffset, colors...)
+AnimatedText.of("MULTI WAVE")
+    .dynamicGradient(1.0f, 0.50f, 0xFFFF0000, 0xFF000000, 0xFF0000FF);
+
+4. Rendering on a GUI / Screen
+
+⸻
+
+Call the render method inside the Screen’s render method.
+
+@Override
+public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    super.render(guiGraphics, mouseX, mouseY, partialTick);
+    // Normal rendering (automatic animation timing)
+    text.render(guiGraphics, 20, 20);
+    // Explicit time in continuous seconds
+    float timeSeconds = (minecraft.level == null ? minecraft.gui.getGuiTicks() : minecraft.level.getGameTime()) / 20.0f;
+    text.render(guiGraphics, 20, 20, timeSeconds);
+}
+
+◆ Center the text:
+
+int x = (guiGraphics.guiWidth() - text.getWidth()) / 2;
+text.render(guiGraphics, x, 40);
+
+5. Applying to Items (Tooltip & Hotbar HUD)
+
+⸻
+
+v1.0.1 includes an integrated system for displaying animated item names and
+Tooltips with wave and gradient effects.
+
+★ Rapid slot switching:
+Switching between Hotbar Slot 1 and Slot 2 rapidly is handled without
+retaining the previous item’s state or falling back to vanilla rendering.
+
+★ Preventing mouse cursor overlap:
+Tooltip positioning follows the vanilla DefaultTooltipPositioner logic,
+keeping the text away from the mouse cursor.
+
+【Method A: Custom Item Classes (Recommended)】
+
+Implement IAnimatedTextItem in your custom Item class.
+
+import com.tyami.watelib.item.IAnimatedTextItem;
+import com.tyami.watelib.text.AnimatedText;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+public class MyMagicSword extends Item implements IAnimatedTextItem {
+    public MyMagicSword(Properties properties) {
+        super(properties);
+    }
+    @Override
+    public AnimatedText createAnimatedName(ItemStack stack) {
+        // Apply wave + 3-color gradient to the item name
+        return AnimatedText.of("Magic Sword Balmung")
+                .wave(2.5f, 0.15f, 0.5f)
+                .gradient(0xFFFF0000, 0xFF000000, 0xFF0000FF)
+                .gradientSpeed(0.08f)
+                .gradientPhase(0.5f);
+    }
+}
+
+【Method B: Existing or Other Mod Items】
+
+Register the item with WaveTextRegistry during your mod’s initialization
+(client-side events, etc.).
+
+import com.tyami.watelib.WaveTextRegistry;
+import com.tyami.watelib.text.AnimatedText;
+import net.minecraft.world.item.Items;
+// Example: Apply rainbow animated text to a vanilla diamond sword
+WaveTextRegistry.registerItemName(Items.DIAMOND_SWORD, stack ->
+    AnimatedText.of("Legendary Diamond Sword")
+        .wave(3.0f, 0.2f, 0.5f)
+        .gradient(List.of(0xFFFF0000, 0xFFFFFF00, 0xFF00FF00, 0xFF0000FF))
+        .gradientSpeed(0.1f)
+);
+
+6. Vanilla-Compatible Tooltip Renderer (WaveTooltipRenderer)
+
+⸻
+
+For manually rendering Tooltips in custom screens, use WaveTooltipRenderer
+to calculate positions using the vanilla positioning logic and render the
+Tooltip with a background frame.
+
+import com.tyami.watelib.client.WaveTooltipRenderer;
+import org.joml.Vector2i;
+// 1. Calculate the Tooltip position only
+Vector2i pos = WaveTooltipRenderer.calculateTooltipPosition(
+    guiGraphics.guiWidth(),
+    guiGraphics.guiHeight(),
+    mouseX, mouseY,
+    tooltipWidth, tooltipHeight
+);
+int x = pos.x;
+int y = pos.y;
+// 2. Render an AnimatedText Tooltip with a background
+WaveTooltipRenderer.renderTooltip(
+    guiGraphics,
+    font,
+    animatedTitle,      // Animated title on the first line
+    additionalLines,    // Component list for additional lines
+    mouseX, mouseY,
+    animationTime
+);
+
+7. Test Item: “Prototype Stick”
+
+⸻
+
+waveTextLib includes a test item for checking all major features.
+
+* Item ID: watelib:prototype_stick
+* Texture: Vanilla wooden stick
+* Display Name: “Prototype Stick” (wave + red → black → blue 3-color gradient)
+* Tooltip: “It’s a prototype ^^”
+* Obtained from: Creative inventory “Tools & Utilities” or “Ingredients” tabs
+
+Hold the item in-game, rapidly switch slots, or hover over it in the inventory
+to check the following:
+
+* Smooth wave animation
+* Red → black → blue 3-color gradient
+* Tooltip text staying clear of the mouse cursor
+* Animated text remaining visible during rapid slot switching
+
+8. Creating Custom Effects
+
+⸻
+
+Implement the PositionEffect or ColorEffect interface to create your own
+effects.
+
+import com.tyami.watelib.effect.PositionEffect;
+import com.tyami.watelib.effect.ColorEffect;
+// Example: Custom bounce effect
+public class CustomBounceEffect implements PositionEffect {
+    @Override
+    public float yOffset(int index, float time) {
+        return (float) Math.abs(Math.sin(time * 2.0f + index)) * -4.0f;
+    }
+}
+
+================================================================================

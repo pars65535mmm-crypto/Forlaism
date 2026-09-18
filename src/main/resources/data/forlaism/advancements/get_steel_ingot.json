@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:steel_ingot" },
+    "title": { "text": "やっと本物の鋼鉄", "color": "gray" },
+    "description": { "text": "鋼鉄インゴットを入手する。長かった…" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_steel_question",
+  "criteria": {
+    "get_steel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:steel_ingot"] }] }
+    }
+  }
+}

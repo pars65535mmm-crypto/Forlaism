@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    " QC",
+    "Q  "
+  ],
+  "key": {
+    "R": { "item": "forlaism:forlaism_concentrated_iron_alloy_rod" },
+    "Q": { "item": "forlaism:forlaism_polycrystal" },
+    "C": { "item": "forlaism:forlaism_star_core" }
+  },
+  "result": {
+    "item": "forlaism:quantum_wrench",
+    "count": 1
+  }
+}

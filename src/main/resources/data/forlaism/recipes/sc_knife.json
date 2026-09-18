@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:r_knife" },
+    { "item": "forlaism:forlaism_star_core" }
+  ],
+  "result": { "item": "forlaism:sc_knife", "count": 1 }
+}

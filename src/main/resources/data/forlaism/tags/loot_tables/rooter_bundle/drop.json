@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:entities/zombie",
+    "minecraft:entities/skeleton",
+    "minecraft:entities/creeper",
+    "minecraft:entities/spider",
+    "minecraft:entities/enderman",
+    "minecraft:entities/witch",
+    "minecraft:entities/blaze",
+    "minecraft:entities/ghast",
+    "minecraft:entities/wither_skeleton",
+    "minecraft:entities/guardian",
+    "minecraft:entities/elder_guardian",
+    "minecraft:entities/warden",
+    "minecraft:entities/ender_dragon",
+    "minecraft:entities/wither",
+    "minecraft:entities/ravager",
+    "minecraft:entities/pillager",
+    "minecraft:entities/vindicator",
+    "minecraft:entities/evoker",
+    "minecraft:entities/phantom",
+    "minecraft:entities/shulker",
+    "minecraft:entities/hoglin",
+    "minecraft:entities/zoglin",
+    "minecraft:entities/piglin_brute",
+    "minecraft:entities/magma_cube",
+    "minecraft:entities/slime"
+  ]
+}

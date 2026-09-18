@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "forlaism:item/blades_of_the_sovereign_ani6"
+  }
+}

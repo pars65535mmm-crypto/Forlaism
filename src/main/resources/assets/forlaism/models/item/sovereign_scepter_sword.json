@@ -1,0 +1,50 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "forlaism:item/blades_of_the_sovereign_ani0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.125
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani1"
+    },
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.25
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani2"
+    },
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.375
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani3"
+    },
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.5
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani4"
+    },
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.625
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani5"
+    },
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.75
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani6"
+    },
+    {
+      "predicate": {
+        "forlaism:sovereign_animation": 0.875
+      },
+      "model": "forlaism:item/sovereign_scepter_sword_ani7"
+    }
+  ]
+}

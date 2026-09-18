@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:crushed_iron" },
+    "title": { "text": "鉄粉製造機(物理)", "color": "gray" },
+    "description": { "text": "鉄インゴットを右手で粉砕して鉄の粉を入手する。手が痛い。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "get_crushed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:crushed_iron"] }] }
+    }
+  }
+}

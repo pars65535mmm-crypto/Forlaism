@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_ore_star" },
+    "title": { "text": "星のカケラ", "color": "light_purple" },
+    "description": { "text": "フォラリス鉱星体を入手する。小さな星だ。" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_concentrated_alloy",
+  "criteria": {
+    "get_ore_star": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_ore_star"] }] }
+    }
+  }
+}

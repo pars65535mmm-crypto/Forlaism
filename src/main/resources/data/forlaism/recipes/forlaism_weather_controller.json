@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "ETE",
+    "ECE"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone_torch"
+    },
+    "E": {
+      "item": "minecraft:iron_block"
+    },
+    "T": {
+      "item": "minecraft:wayfinder_armor_trim_smithing_template"
+    },
+    "C": {
+      "item": "forlaism:forlaism_star_core"
+    }
+  },
+  "result": {
+    "item": "forlaism:forlaism_weather_controller",
+    "count": 1
+  }
+}

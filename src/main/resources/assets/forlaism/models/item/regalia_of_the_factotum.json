@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "forlaism:item/regalia_of_the_factotum"
+  }
+}

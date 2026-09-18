@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:regalia_of_the_factotum" },
+    "title": { "text": "万能なる君主", "color": "dark_red" },
+    "description": { "text": "万能なる君主の灯笏を入手する" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_star_core",
+  "criteria": {
+    "get_regalia": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:regalia_of_the_factotum"] }] }
+    }
+  },
+  "rewards": { "experience": 250 }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "forlaism:rough_steel"
+    }
+  },
+  "result": {
+    "item": "forlaism:steel_question",
+    "count": 1
+  }
+}

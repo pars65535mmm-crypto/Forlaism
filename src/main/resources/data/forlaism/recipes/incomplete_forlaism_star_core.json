@@ -1,0 +1,31 @@
+{
+  "type": "mekanism:reaction",
+
+  "itemInput": {
+    "ingredient": {
+      "item": "forlaism:forlaism_ore_star"
+    }
+  },
+
+  "fluidInput": {
+    "amount": 1000,
+    "fluid": "forlaism:fo"
+  },
+
+  "gasInput": {
+    "amount": 100,
+    "gas": "mekanism:plutonium"
+  },
+
+  "duration": 100,
+
+  "itemOutput": {
+    "count": 1,
+    "item": "forlaism:incomplete_forlaism_star_core"
+  },
+
+  "gasOutput": {
+    "amount": 30,
+    "gas": "mekanism:ethene"
+  }
+}

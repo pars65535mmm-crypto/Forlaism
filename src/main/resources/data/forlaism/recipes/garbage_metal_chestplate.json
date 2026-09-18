@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G G",
+    "GGG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "forlaism:garbage_metal"
+    }
+  },
+  "result": {
+    "item": "forlaism:garbage_metal_chestplate",
+    "count": 1
+  }
+}

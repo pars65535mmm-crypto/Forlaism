@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:garbage_metal_chestplate" },
+    "title": { "text": "完全装備の廃人", "color": "dark_gray" },
+    "description": { "text": "コミメタル防具をフルセット装備する" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_garbage_metal",
+  "criteria": {
+    "has_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:garbage_metal_helmet"] }] }
+    },
+    "has_chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:garbage_metal_chestplate"] }] }
+    },
+    "has_leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:garbage_metal_leggings"] }] }
+    },
+    "has_boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:garbage_metal_boots"] }] }
+    }
+  },
+  "requirements": [["has_helmet"], ["has_chestplate"], ["has_leggings"], ["has_boots"]]
+}

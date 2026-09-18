@@ -1,0 +1,369 @@
+================================================================================
+Magic Item Effect Shader & Rendering System API Usage Guide
+
+Target Version: Minecraft Java Edition 1.20.1 / Forge 47.x
+Mod ID: forlaism
+Author: tyamizumoti
+Current Version: 1.0.0
+
+A high-performance, GPU-driven procedural shader rendering pipeline for
+Minecraft 1.20.1 Forge. It creates ethereal, radiant magical aura effects
+(diamond sparkles "✦", orbital star particles, cross flares, and celestial halos)
+around any ItemStack in GUIs, in-world drops, hand-held items, and Curios models.
+
+================================================================================
+
+【Table of Contents】
+
+1. Architecture & Pipeline Overview
+2. The Procedural GPU Shader (GLSL 150) Deep Dive
+    * Mathematics of the 4-Pointed Star "✦" (Astroid Beam SDF)
+    * Orbital Particle Simulation (Time-Parameterized Motion)
+    * Circular Falloff & Quad-Edge Prevention
+    * Pure Additive Blending (HDR Visual Core)
+3. Configuring MagicEffectStyle (Builder API)
+    * Complete Parameter Reference
+    * Preset Examples (Advent, Firmament, Trial Staff)
+4. Applying Effects to Items
+    * Method A: Custom Items (IMagicEffectItem)
+    * Method B: Vanilla & Other Mod Items (MagicEffectRegistry)
+5. Direct Rendering API (MagicItemEffectRenderer)
+    * GUI / Slot Rendering
+    * 3D World & Entity / Billboard Rendering
+    * Curios Equipment Integration (Back & Head Halos)
+6. Rendering State Safety & Clean Up
+7. Performance & Memory Safety Guarantees
+
+================================================================================
+
+1. Architecture & Pipeline Overview
+--------------------------------------------------------------------------------
+
+The system is decoupled into modular layers:
+
+    [ItemStack / Item Model / Curios Renderer]
+                        ↓
+            MagicItemEffectRenderer (Facade API)
+                        ↓
+         ┌──────────────┴──────────────┐
+         ↓                             ↓
+MagicEffectGuiRenderer       MagicEffectWorldRenderer
+ (2D Orthographic GUI)        (3D World / Billboards)
+         │                             │
+         └──────────────┬──────────────┘
+                        ↓
+                MagicEffectShader
+          (Uniform Dispatch & RenderType)
+                        ↓
+           GPU Shader: magic_item_effect
+              (Vertex & Fragment GLSL 150)
+
+Key Components:
+* MagicEffectStyle: Immutable parameter container configuring colors, speeds,
+  scales, sparkle counts, rings, and core glow.
+* IMagicEffectItem: Interface implemented directly by Item classes.
+* MagicEffectRegistry: Dynamic registry for applying styles to vanilla/mod items.
+* MagicEffectShader: Registers core shaders and provides RenderType instances.
+* MagicEffectGuiRenderer: Safe 2D rendering for inventory, chests, hotbars.
+* MagicEffectWorldRenderer: 3D billboard and plane rendering for ItemEntity
+  drops, first/third-person hands, and Curios models.
+
+================================================================================
+
+2. The Procedural GPU Shader (GLSL 150) Deep Dive
+--------------------------------------------------------------------------------
+
+Unlike standard mods that stretch blurry textures or apply post-processing blooms,
+this system calculates all visual elements procedurally inside the fragment
+shader (magic_item_effect.fsh) using analytical Signed Distance Functions (SDF).
+
+It requires NO external texture files and never loses sharpness regardless of
+GUI scale (GUI Scale 1 to Auto), screen resolution (1080p, 4K), or zoom.
+
+◆ Mathematics of the 4-Pointed Star "✦" (Astroid Beam SDF)
+
+The iconic "✦" sparkle is computed analytically using exponential decay on
+rotated UV coordinates:
+
+    vec2 pRot = rotateVec(p, time * speed);
+    
+    // Horizontal and vertical sharp beams (cross flares)
+    float rayX = exp(-abs(pRot.y) * 25.0) * exp(-abs(pRot.x) * 3.0);
+    float rayY = exp(-abs(pRot.x) * 25.0) * exp(-abs(pRot.y) * 3.0);
+    
+    // Diamond center core
+    float diamond = exp(-(abs(pRot.x) + abs(pRot.y)) * 12.0);
+    
+    float sparkle = (rayX + rayY) * 0.65 + diamond * 0.85;
+
+This produces a diamond-flare star ("✦") with razor-sharp tapering tips and a
+bright glowing heart. Multiple stars rotate at contrasting angular velocities,
+breathing in and out periodically.
+
+◆ Orbital Particle Simulation (Time-Parameterized Motion)
+
+Particles do not consume CPU cycles or require Java object allocations. Instead,
+each particle i ∈ [0, count) is computed deterministically in GLSL:
+
+    float orbRadius = 0.50 + 0.14 * sin(float(i) * 2.1 + time * 0.45);
+    float dir = (mod(float(i), 2.0) < 1.0) ? 1.0 : -0.85;
+    float orbAngle = time * 0.85 * dir + float(i) * (2.0 * PI / count);
+    
+    vec2 pos = vec2(cos(orbAngle), sin(orbAngle)) * orbRadius;
+    vec2 pParticle = p - pos;
+    
+    // Each orbiting particle is its own self-spinning mini "✦"
+    float star = calcSparkle(rotateVec(pParticle, time * 1.5 + float(i)), ...);
+
+Particles travel in elliptical paths with alternating directions (clockwise and
+counter-clockwise), creating a mesmerizing celestial dance.
+
+◆ Circular Falloff & Quad-Edge Prevention
+
+To completely prevent the rectangular boundary of the quad mesh from showing,
+the fragment shader evaluates a smooth radial falloff mask:
+
+    float edgeMask = smoothstep(0.95, 0.65, length(p));
+    totalEnergy *= edgeMask;
+
+Any energy approaching the quad's edges drops smoothly to absolute zero. The
+halo appears as a perfect organic sphere/circle of light with zero box seams.
+
+◆ Pure Additive Blending (HDR Visual Core)
+
+The renderer uses Pure Additive Blending:
+    RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+
+The shader computes RGB energy as an intense light emission:
+* Peak cores: Saturated pure white (vec3(1.0, 1.0, 1.0))
+* Outskirts: Soft tinted ethereal color (Cyan, Gold, Rose, etc.)
+Because it directly adds photon values to the destination buffer, the effect
+glows vibrantly over dark slots, colorful items, and outdoor terrain alike.
+
+================================================================================
+
+3. Configuring MagicEffectStyle (Builder API)
+--------------------------------------------------------------------------------
+
+MagicEffectStyle is built using a clean Fluent Builder:
+
+import com.tyami.forlaism.client.magiceffect.MagicEffectStyle;
+
+MagicEffectStyle style = MagicEffectStyle.builder()
+    .color(0x80E8FFFF)       // Base tint (ARGB or RGB)
+    .intensity(1.8f)         // Radiant glow intensity (default: 1.0f)
+    .scale(1.1f)             // Size multiplier (default: 1.0f)
+    .speed(0.8f)             // Rotation and pulsation speed multiplier
+    .ringCount(0)            // Geometric concentric rings (0 = Stars Only)
+    .particleCount(8)        // Number of orbiting "✦" sparkles (2 to 12)
+    .flares(true)            // Enable main central "✦" sparkle
+    .coreGlow(true)          // Enable central soft atmospheric aura
+    .build();
+
+◆ Parameters Breakdown:
+
+| Method                  | Type    | Default      | Description |
+|-------------------------|---------|--------------|-------------|
+| .color(int)             | int     | 0x80E8FFFF   | Color tint in ARGB or RGB format. |
+| .intensity(float)       | float   | 1.0f         | Brightness. 1.5f–2.2f creates brilliant radiance. |
+| .scale(float)           | float   | 1.0f         | Spatial radius multiplier. |
+| .speed(float)           | float   | 1.0f         | Animation time multiplier. |
+| .ringCount(int)         | int     | 3            | 0 = Pure "✦" star mode (no magic circles). 1–2 = Halo rings. |
+| .particleCount(int)     | int     | 8            | Count of orbiting mini "✦" stars. |
+| .flares(boolean)        | boolean | true         | Toggles the large center rotating "✦" sparkle. |
+| .coreGlow(boolean)      | boolean | true         | Toggles the soft central aura illumination. |
+
+◆ Presets in Forlaism:
+
+1. Halo of the Advent (降臨乃光輪):
+   * Color: 0x80B0FFFF (Pure White ~ Cyan Divine Radiance)
+   * Intensity: 1.8f, Speed: 0.6f, Rings: 0, Particles: 0 (Single Center "✦" Sparkle)
+
+2. Halo of the Firmament (天穹乃光輪):
+   * Color: 0x80FFA500 (Solar Crimson-Gold ~ Amber Radiance)
+   * Intensity: 1.8f, Speed: 0.7f, Rings: 0, Particles: 0 (Single Center "✦" Sparkle)
+
+3. Prototype Stick (試作杖):
+   * Color: 0x8080FFFF (Mystic Ethereal Blue-Violet)
+   * Intensity: 1.6f, Speed: 0.8f, Rings: 0, Particles: 0 (Single Center "✦" Sparkle)
+
+================================================================================
+
+4. Applying Effects to Items
+--------------------------------------------------------------------------------
+
+There are two primary ways to attach effects to items:
+
+◆ Method A: Direct Item Class Implementation (IMagicEffectItem)
+
+Implement IMagicEffectItem on your custom Item class:
+
+import com.tyami.forlaism.client.magiceffect.IMagicEffectItem;
+import com.tyami.forlaism.client.magiceffect.MagicEffectStyle;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+
+public class CelestialBladeItem extends Item implements IMagicEffectItem {
+
+    public static final MagicEffectStyle CELESTIAL_STYLE = MagicEffectStyle.builder()
+            .color(0x80E0FFFF)
+            .intensity(2.0f)
+            .ringCount(0)      // "✦" star mode
+            .particleCount(8)
+            .build();
+
+    public CelestialBladeItem(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public MagicEffectStyle getMagicEffect(ItemStack stack) {
+        // You can dynamically alter style based on NBT, stack damage, or enchantments!
+        return CELESTIAL_STYLE;
+    }
+}
+
+Once implemented, the item AUTOMATICALLY receives full rendering across:
+* All inventory and container GUI slots
+* Ground item entity drops
+* First-person and third-person held hands
+* Item frames
+
+◆ Method B: Vanilla & Other Mod Items (MagicEffectRegistry)
+
+If you cannot edit the Item class directly (such as vanilla Nether Star or
+another mod's item), register it externally:
+
+import com.tyami.forlaism.client.magiceffect.MagicEffectRegistry;
+import com.tyami.forlaism.client.magiceffect.MagicEffectStyle;
+import net.minecraft.world.item.Items;
+
+// Register for a specific item:
+MagicEffectRegistry.register(
+    Items.NETHER_STAR,
+    MagicEffectStyle.builder()
+        .color(0xFFFFF0)
+        .intensity(2.2f)
+        .ringCount(0)
+        .particleCount(10)
+        .build()
+);
+
+// Register dynamically using Predicate:
+MagicEffectRegistry.register(
+    stack -> stack.isEnchanted(),
+    stack -> MagicEffectStyle.builder().color(0xD080FF).intensity(1.2f).build()
+);
+
+================================================================================
+
+5. Direct Rendering API (MagicItemEffectRenderer)
+--------------------------------------------------------------------------------
+
+For custom GUIs, HUD overlays, boss models, or Curios equipment, you can
+directly invoke the rendering engine.
+
+◆ GUI / Slot Rendering:
+
+import com.tyami.forlaism.client.magiceffect.MagicItemEffectRenderer;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.ItemStack;
+
+// Render automatically from the item's registered style:
+MagicItemEffectRenderer.renderGui(graphics, stack, slotX, slotY);
+
+// Render using an on-the-fly custom style:
+MagicItemEffectRenderer.renderGui(graphics, slotX, slotY, customStyle);
+
+◆ 3D World / In-World Rendering:
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+
+// Renders a camera-facing billboard quad:
+MagicItemEffectRenderer.renderWorld(stack, poseStack, buffer, true);
+
+// Renders with a custom style and manual transform:
+MagicItemEffectRenderer.renderWorld(poseStack, buffer, customStyle, false);
+
+◆ Curios Equipment Integration (Back & Head Halos):
+
+Inside your ICurioRenderer:
+
+@Override
+public <T extends LivingEntity, M extends EntityModel<T>> void render(
+        ItemStack stack,
+        SlotContext slotContext,
+        PoseStack poseStack,
+        RenderLayerParent<T, M> renderLayerParent,
+        MultiBufferSource renderTypeBuffer,
+        int light,
+        float limbSwing,
+        float limbSwingAmount,
+        float partialTicks,
+        float ageInTicks,
+        float netHeadYaw,
+        float headPitch) {
+
+    poseStack.pushPose();
+    
+    // 1. Follow entity body or head
+    if (renderLayerParent.getModel() instanceof HumanoidModel<?> humanoidModel) {
+        humanoidModel.body.translateAndRotate(poseStack);
+    }
+    
+    // 2. Position behind the back or above the head
+    poseStack.translate(0.0D, -0.1D, 0.4D);
+    
+    // 3. Render the ethereal halo!
+    MagicEffectStyle backHalo = MagicEffectStyle.builder()
+            .color(0x80B0FFFF)
+            .intensity(2.2f)
+            .scale(2.2f)
+            .ringCount(0)      // "✦" star mode
+            .particleCount(8)
+            .build();
+            
+    MagicEffectWorldRenderer.render(poseStack, renderTypeBuffer, backHalo, false);
+    
+    poseStack.popPose();
+}
+
+================================================================================
+
+6. Rendering State Safety & Clean Up
+--------------------------------------------------------------------------------
+
+Modifying OpenGL states incorrectly in Minecraft can cause invisible GUI texts,
+black inventory backgrounds, or flickering world chunks.
+
+MagicItemEffectRenderer guarantees complete state restoration:
+1. depthMask(false): Halos do not write to the Z-buffer. Other slot textures,
+   item icons, and text labels are NEVER clipped or occluded.
+2. flush(): GuiGraphics vertex buffers are flushed cleanly before shader binds.
+3. Restoration: blendFunc, depthMask, blendState, and GameRenderer shaders are
+   restored immediately after drawing:
+       RenderSystem.depthMask(true);
+       RenderSystem.defaultBlendFunc();
+       RenderSystem.disableBlend();
+       RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+4. MultiBufferSource Compatibility: World rendering is executed through a
+   standard RenderType composite state, ensuring 100% compatibility with
+   vanilla rendering passes and shader-injection mods.
+
+================================================================================
+
+7. Performance & Memory Safety Guarantees
+--------------------------------------------------------------------------------
+
+* Zero Heap Allocations Per Frame: No `new Random()` or vector objects are
+  allocated during render loops.
+* Single Draw-Call Quads: The effect transmits exactly 1 quad (4 vertices) per
+  halo. Complex multi-ring mathematics, rotational physics, and particle arrays
+  execute entirely in GPU hardware via GLSL 150.
+* Re-entrancy Protection: ItemRenderer and ItemEntityRenderer mixins use
+  ThreadLocal recursion guards to prevent duplicate rendering for stacked items.
+* Shader Conflict Avoidance: Uses dedicated `EffectTime` uniforms instead of
+  vanilla's `GameTime`, preventing vanilla tick-time resets in GUI screens.
+
+================================================================================

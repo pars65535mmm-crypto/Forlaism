@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_iron_alloy" },
+    "title": { "text": "合金への道", "color": "gold" },
+    "description": { "text": "フォラリス鉄合金を入手する。ここから本番。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_powder",
+  "criteria": {
+    "get_alloy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_iron_alloy"] }] }
+    }
+  }
+}

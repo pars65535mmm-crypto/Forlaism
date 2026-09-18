@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_culture_bottle" },
+    "title": { "text": "培養液って飲めるの？", "color": "green" },
+    "description": { "text": "フォラリス培養液入り瓶を入手する。飲むと即死するらしいよ。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "get_culture": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_culture_bottle"] }] }
+    }
+  }
+}

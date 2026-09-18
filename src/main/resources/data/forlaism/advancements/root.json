@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:forlaism_crystal" },
+    "title": { "text": "フォラリスの始まり", "color": "aqua" },
+    "description": { "text": "フォラリスの結晶を入手する。全てはここから。" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/block/amethyst_block.png"
+  },
+  "criteria": {
+    "get_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "items": ["forlaism:forlaism_crystal"] }] }
+    }
+  }
+}
