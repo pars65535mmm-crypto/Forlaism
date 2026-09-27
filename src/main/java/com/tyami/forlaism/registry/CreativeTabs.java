@@ -104,6 +104,42 @@ public class CreativeTabs {
                                 output.accept(Items.STONE_OF_FOOL.get());
                                 output.accept(Items.STONE_OF_HATRED.get());
                                 output.accept(Items.STONE_OF_SIN.get());
+                                output.accept(Items.MINION_HALO.get());
+                                output.accept(Items.PARADOX.get());
+                                output.accept(Items.TOKINO_STAFF_TIER4.get());
+                                output.accept(Items.META_ADAMANTINE.get());
+                                output.accept(Items.META_ADAMANTINE_SWORD.get());
+                                output.accept(Items.META_ADAMANTINE_AXE.get());
+                                output.accept(Items.META_ADAMANTINE_PICKAXE.get());
+                                output.accept(Items.META_ADAMANTINE_SHOVEL.get());
+                                output.accept(Items.META_ADAMANTINE_HOE.get());
+                                output.accept(Items.META_ADAMANTINE_HELMET.get());
+                                output.accept(Items.META_ADAMANTINE_CHESTPLATE.get());
+                                output.accept(Items.META_ADAMANTINE_LEGGINGS.get());
+                                output.accept(Items.META_ADAMANTINE_BOOTS.get());
+                                output.accept(Items.CACACA.get());
+                                output.accept(Items.MURATSUKUMO.get());
+                                output.accept(Items.WARP_SENDER.get());
+                                output.accept(Items.CRITICAL_CORE.get());
+                                output.accept(Items.NUCLEUS.get());
+                                output.accept(Items.RINNEDIUM_INGOT.get());
+                                output.accept(Items.CONS_STEEL.get());
+                                output.accept(Items.CONS_STEEL.get());
+                                output.accept(Items.CONS_STEEL_SWORD.get());
+                                output.accept(Items.CONS_STEEL_AXE.get());
+                                output.accept(Items.CONS_STEEL_PICKAXE.get());
+                                output.accept(Items.CONS_STEEL_SHOVEL.get());
+                                output.accept(Items.CONS_STEEL_HOE.get());
+                                output.accept(Items.CONS_STEEL_HELMET.get());
+                                output.accept(Items.CONS_STEEL_CHESTPLATE.get());
+                                output.accept(Items.CONS_STEEL_LEGGINGS.get());
+                                output.accept(Items.CONS_STEEL_BOOTS.get());
+                                output.accept(Items.POTATO_PROCESS.get());
+                                output.accept(Items.KONNYAKU.get());
+                                output.accept(Items.KONNYAKU_DAITE.get());
+                                output.accept(Items.CHERENKOV_KONNYAKU_DAITE.get());
+                                output.accept(Items.CHERENKOV_META_ADAMANEDIUM_RAILGUN_BLADE.get());
+
 
 
                                 output.accept(Items.ADAMETAL.get());
@@ -111,4 +147,27 @@ public class CreativeTabs {
                             })
                             .build()
             );
+
+public static final RegistryObject<CreativeModeTab> FORLAISM_DIARY_TAB =
+        CREATIVE_MODE_TABS.register("forlaism_diary_tab", () ->
+                CreativeModeTab.builder()
+                        .title(Component.translatable("item_group.forlaism.forlaism_diary_tab"))
+                        .icon(() -> new ItemStack(Items.DIARY.get()))
+                        .displayItems((parameters, output) -> {
+
+                            output.accept(Items.DIARY.get());
+                            output.accept(Items.MINERAL_RESEARCHER_DIARY.get());
+                            output.accept(Items.MINERAL_RESEARCHER_DIARY_2.get());
+                            output.accept(Items.SAKURA_DIARY.get());
+                            output.accept(Items.SAKURA_DIARY_RESTORED.get());
+                            output.accept(Items.EXPLORER_DIARY_1.get());
+                            output.accept(Items.EXPLORER_DIARY_2.get());
+                            output.accept(Items.EXPLORER_DIARY_3.get());
+                            output.accept(Items.EXPLORER_DIARY_4.get());
+                            output.accept(Items.EXPLORER_DIARY_5.get());
+                            output.accept(Items.EXPLORER_DIARY_7.get());
+
+                        })
+                        .build()
+        );
 }

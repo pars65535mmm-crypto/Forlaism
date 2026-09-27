@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,powered=false": { "model": "forlaism:block/warp_sender", "y": 0 },
+    "facing=east,powered=false":  { "model": "forlaism:block/warp_sender", "y": 90 },
+    "facing=south,powered=false": { "model": "forlaism:block/warp_sender", "y": 180 },
+    "facing=west,powered=false":  { "model": "forlaism:block/warp_sender", "y": 270 },
+    "facing=north,powered=true":  { "model": "forlaism:block/warp_sender", "y": 0 },
+    "facing=east,powered=true":   { "model": "forlaism:block/warp_sender", "y": 90 },
+    "facing=south,powered=true":  { "model": "forlaism:block/warp_sender", "y": 180 },
+    "facing=west,powered=true":   { "model": "forlaism:block/warp_sender", "y": 270 }
+  }
+}

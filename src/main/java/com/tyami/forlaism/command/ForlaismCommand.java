@@ -12,6 +12,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import javax.annotation.Nullable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -27,13 +33,17 @@ public class ForlaismCommand {
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
 
         dispatcher.register(
-                Commands.literal("fo")
+Commands.literal("fo")
                         .then(Commands.literal("test1")
                                 .executes(ForlaismCommand::executeTest1))
 // ForlaismCommand に追加
 .then(Commands.literal("diag")
         .executes(ForlaismCommand::executeDiag))
-        );
+        
+.then(Commands.literal("qqqs")
+        .executes(ForlaismCommand::executeQqqs))
+);
+
     }
 
     /**
@@ -227,4 +237,99 @@ for (Direction d : new Direction[]{
     }
     return 1;
 }
+
+/**
+ * /fo qqqs
+ *
+ * プレイヤーの足元に輪廻再転式量子融合炉を一括生成する。
+ * LAYERS の構造をそのまま設置する。
+ *
+ * origin はプレイヤーの前方 3 マスあたりの Y-1。
+ */
+private static int executeQqqs(CommandContext<CommandSourceStack> ctx) {
+    CommandSourceStack source = ctx.getSource();
+
+    if (!(source.getEntity() instanceof Player player)) {
+        source.sendFailure(Component.literal("プレイヤーのみ実行できます。"));
+        return 0;
+    }
+
+    if (!(player.level() instanceof ServerLevel level)) {
+        return 0;
+    }
+
+    // プレイヤーの向きから origin を決定
+    Direction facing = player.getDirection();
+    // プレイヤー前方3マス、y-1
+    BlockPos origin = player.blockPosition()
+            .relative(facing, 3)
+            .below(1);
+
+    // LAYERS を設置
+    int placed = ForlaismCommand.buildReactor(level, origin);
+
+    source.sendSuccess(
+            () -> Component.literal("§a[Forlaism] §f輪廻再転式量子融合炉を生成しました: "
+                    + origin.toShortString() + " (§7" + placed + " blocks§f)"),
+            true
+    );
+    return 1;
+}
+
+/**
+ * LAYERS を一括設置。設置数を返す。
+ */
+private static int buildReactor(ServerLevel level, BlockPos origin) {
+
+    var LAYERS = com.tyami.forlaism.world.ForlaismReactorMultiblockManager.LAYERS;
+
+    int count = 0;
+
+    for (int y = 0; y < LAYERS.length; y++) {
+        String[] layer = LAYERS[y];
+        for (int z = 0; z < layer.length; z++) {
+            String row = layer[z];
+            for (int x = 0; x < row.length(); x++) {
+                char c = row.charAt(x);
+                BlockPos p = origin.offset(x, y, z);
+
+                var state = charToBlock(c);
+                if (state == null) continue;
+
+                level.setBlock(p, state, 3);
+                count++;
+            }
+        }
+    }
+
+    return count;
+}
+
+/**
+ * LAYERS のシンボル → BlockState 変換。
+ * null = 空気のままにする（設置しない）。
+ */
+@Nullable
+private static net.minecraft.world.level.block.state.BlockState charToBlock(char c) {
+    return switch (c) {
+        case 'S' -> net.minecraft.world.level.block.Blocks.SMOOTH_STONE.defaultBlockState();
+        case 'M' -> com.tyami.forlaism.registry.Blocks.MADOROMU_BLOCK.get().defaultBlockState();
+        case 'K' -> com.tyami.forlaism.registry.Blocks.FORLAISM_CRYSTAL_BLOCK.get().defaultBlockState();
+        case 'T' -> com.tyami.forlaism.registry.Blocks.STEEL_BLOCK.get().defaultBlockState();
+        case 'I' -> com.tyami.forlaism.registry.Blocks.FORLAISM_INSERTER.get().defaultBlockState();
+        case 'C' -> blockById("mekanismgenerators:fission_reactor_casing");
+        case 'G' -> blockById("mekanism:structural_glass");
+        case 'E' -> blockById("mekanism:ultimate_energy_cube");
+        case 'O' -> blockById("mekanism:sps_port");
+        default -> null; // 空気
+    };
+}
+
+@Nullable
+private static net.minecraft.world.level.block.state.BlockState blockById(String id) {
+    var block = net.minecraftforge.registries.ForgeRegistries.BLOCKS
+            .getValue(new net.minecraft.resources.ResourceLocation(id));
+    return block == null ? null : block.defaultBlockState();
+}
+
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RQR",
+    "QCQ",
+    "RQR"
+  ],
+  "key": {
+    "R": { "item": "forlaism:forlaism_concentrated_iron_alloy_rod" },
+    "Q": { "item": "forlaism:forlaism_polycrystal" },
+    "C": { "item": "minecraft:null" }
+  },
+  "result": {
+    "item": "forlaism:warp_sender",
+    "count": 1
+  }
+}

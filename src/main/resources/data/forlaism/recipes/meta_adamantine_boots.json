@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M M",
+    "M M"
+  ],
+  "key": {
+    "M": { "item": "forlaism:meta_adamantine" }
+  },
+  "result": {
+    "item": "forlaism:meta_adamantine_boots",
+    "count": 1
+  }
+}

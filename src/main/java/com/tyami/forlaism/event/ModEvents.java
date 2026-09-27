@@ -288,6 +288,23 @@ if (serverLevel.getGameTime() % 100 == 0) {
     com.tyami.forlaism.quantum.QuantumTransferData.get(serverLevel.getServer()).setDirty();
 }
 
+        // Warpゴーストの寿命管理（100tick後に消す）
+        if (serverLevel.getGameTime() % 5 == 0) {
+            var ghosts = serverLevel.getEntitiesOfClass(
+                    net.minecraft.world.entity.item.ItemEntity.class,
+                    new net.minecraft.world.phys.AABB(
+                            -30000000, -64, -30000000,
+                            30000000, 320, 30000000
+                    ),
+                    e -> e.getPersistentData().getBoolean("ForlaismWarpGhost")
+            );
+
+            for (var ghost : ghosts) {
+                if (ghost.tickCount > 100) {
+                    ghost.discard();
+                }
+            }
+        }
     }
 
 
@@ -309,6 +326,9 @@ public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
 private static final UUID GARBAGE_METAL_SPEED_UUID =
         UUID.fromString("8b5c8c45-5b0a-4f3c-9f36-2d1b5a8e7c11");
 
+private static final UUID CONS_STEEL_ATTACK_UUID =
+        UUID.fromString("9c6d9e56-6c1b-4a4d-a047-3e2c6b9f8d22");
+
 @SubscribeEvent
 public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 
@@ -318,7 +338,11 @@ public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 
     Player player = event.player;
 
-    boolean fullSet =
+    // =========================================================
+    // コミメタルフルセットで移動速度 +10%
+    // =========================================================
+
+    boolean garbageFullSet =
             player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(
                     com.tyami.forlaism.registry.Items.GARBAGE_METAL_HELMET.get()
             )
@@ -335,29 +359,77 @@ public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
     AttributeInstance speed =
             player.getAttribute(Attributes.MOVEMENT_SPEED);
 
-    if (speed == null) {
-        return;
+    if (speed != null) {
+        AttributeModifier existing =
+                speed.getModifier(GARBAGE_METAL_SPEED_UUID);
+
+        if (garbageFullSet) {
+            if (existing == null) {
+                speed.addTransientModifier(
+                        new AttributeModifier(
+                                GARBAGE_METAL_SPEED_UUID,
+                                "Garbage Metal full set speed",
+                                0.1D,
+                                AttributeModifier.Operation.MULTIPLY_TOTAL
+                        )
+                );
+            }
+        } else {
+            if (existing != null) {
+                speed.removeModifier(GARBAGE_METAL_SPEED_UUID);
+            }
+        }
     }
 
-    AttributeModifier existing =
-            speed.getModifier(GARBAGE_METAL_SPEED_UUID);
+    // =========================================================
+    // コンスチールフルセットで攻撃力 +5
+    // =========================================================
 
-    if (fullSet) {
-        if (existing == null) {
-            speed.addTransientModifier(
-                    new AttributeModifier(
-                            GARBAGE_METAL_SPEED_UUID,
-                            "Garbage Metal full set speed",
-                            0.1D,
-                            AttributeModifier.Operation.MULTIPLY_TOTAL
-                    )
+    boolean consSteelFullSet =
+            player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(
+                    com.tyami.forlaism.registry.Items.CONS_STEEL_HELMET.get()
+            )
+            && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(
+                    com.tyami.forlaism.registry.Items.CONS_STEEL_CHESTPLATE.get()
+            )
+            && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(
+                    com.tyami.forlaism.registry.Items.CONS_STEEL_LEGGINGS.get()
+            )
+            && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(
+                    com.tyami.forlaism.registry.Items.CONS_STEEL_BOOTS.get()
             );
-        }
-    } else {
-        if (existing != null) {
-            speed.removeModifier(GARBAGE_METAL_SPEED_UUID);
+
+    AttributeInstance attackDamage =
+            player.getAttribute(Attributes.ATTACK_DAMAGE);
+
+    if (attackDamage != null) {
+        AttributeModifier existingAttack =
+                attackDamage.getModifier(CONS_STEEL_ATTACK_UUID);
+
+        if (consSteelFullSet) {
+            if (existingAttack == null) {
+                attackDamage.addTransientModifier(
+                        new AttributeModifier(
+                                CONS_STEEL_ATTACK_UUID,
+                                "Cons Steel full set attack",
+                                15.0D,
+                                AttributeModifier.Operation.ADDITION
+                        )
+                );
+            }
+        } else {
+            if (existingAttack != null) {
+                attackDamage.removeModifier(CONS_STEEL_ATTACK_UUID);
+            }
         }
     }
 }
+    @SubscribeEvent
+    public static void onServerTick(net.minecraftforge.event.TickEvent.ServerTickEvent event) {
+        if (event.phase != net.minecraftforge.event.TickEvent.Phase.END) return;
+        if (event.getServer() == null) return;
+
+        com.tyami.forlaism.quantum.WarpDeliveryData.tick(event.getServer());
+    }
 
 }

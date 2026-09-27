@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "C C"
+  ],
+  "key": {
+    "C": { "item": "forlaism:cons_steel" }
+  },
+  "result": {
+    "item": "forlaism:cons_steel_helmet",
+    "count": 1
+  }
+}

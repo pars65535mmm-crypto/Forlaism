@@ -156,4 +156,81 @@ public abstract class EntityMixin {
 
         ci.cancel();
     }
+
+        /*
+     * =========================================================
+     * 眷属の光輪耐性（discard / remove 無効化）
+     * =========================================================
+     */
+
+    /**
+     * 眷属の光輪を装備したMobの discard() を無効化。
+     */
+    @Inject(
+            method = "discard",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void forlaism$blockMinionDiscard(
+            CallbackInfo ci
+    ) {
+        Entity self = (Entity) (Object) this;
+
+        // Player除外
+        if (self instanceof Player) return;
+
+        // Mobのみ
+        if (!(self instanceof net.minecraft.world.entity.Mob)) return;
+
+        // Level未ロード時は無視
+        if (self.level() == null) return;
+
+        if (!(self instanceof net.minecraft.world.entity.LivingEntity living)) return;
+
+        net.minecraft.world.item.ItemStack helmet =
+                living.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD);
+
+        if (helmet.isEmpty()
+                || !helmet.is(com.tyami.forlaism.registry.Items.MINION_HALO.get())) {
+            return;
+        }
+
+        ci.cancel();
+    }
+
+    /**
+     * 眷属の光輪を装備したMobの remove(RemovalReason) を無効化。
+     */
+    @Inject(
+            method = "remove",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void forlaism$blockMinionRemove(
+            Entity.RemovalReason reason,
+            CallbackInfo ci
+    ) {
+        Entity self = (Entity) (Object) this;
+
+        // Player除外
+        if (self instanceof Player) return;
+
+        // Mobのみ
+        if (!(self instanceof net.minecraft.world.entity.Mob)) return;
+
+        // Level未ロード時は無視
+        if (self.level() == null) return;
+
+        if (!(self instanceof net.minecraft.world.entity.LivingEntity living)) return;
+
+        net.minecraft.world.item.ItemStack helmet =
+                living.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD);
+
+        if (helmet.isEmpty()
+                || !helmet.is(com.tyami.forlaism.registry.Items.MINION_HALO.get())) {
+            return;
+        }
+
+        ci.cancel();
+    }
 }

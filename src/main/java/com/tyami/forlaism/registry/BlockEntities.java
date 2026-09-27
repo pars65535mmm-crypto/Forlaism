@@ -70,4 +70,11 @@ public static final RegistryObject<BlockEntityType<QuantumTransferDeviceOutBlock
         BLOCK_ENTITIES.register("quantum_transfer_device_out", () ->
                 BlockEntityType.Builder.of(QuantumTransferDeviceOutBlockEntity::new,
                         Blocks.QUANTUM_TRANSFER_DEVICE_OUT.get()).build(null));
-                        }
+
+    public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.entity.WarpSenderBlockEntity>> WARP_SENDER =
+            BLOCK_ENTITIES.register("warp_sender", () ->
+                    BlockEntityType.Builder.of(
+                            com.tyami.forlaism.block.entity.WarpSenderBlockEntity::new,
+                            Blocks.WARP_SENDER.get()
+                    ).build(null));
+}

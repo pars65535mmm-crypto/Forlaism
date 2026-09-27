@@ -50,6 +50,8 @@ public class InserterBlockEntity extends BlockEntity implements MenuProvider {
     public static final int QUANTUM_FE_MAX_RECEIVE = Integer.MAX_VALUE;
 
     private boolean quantumFusionMode = false;
+    /** 輪廻再転式量子融合炉モード。 */
+private boolean reactorMode = false;
 
     private final CustomEnergyStorage quantumEnergyStorage =
             new CustomEnergyStorage(
@@ -137,6 +139,19 @@ public class InserterBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
+    public boolean isReactorMode() {
+    return reactorMode;
+}
+
+public void setReactorMode(boolean mode) {
+    this.reactorMode = mode;
+    setChanged();
+
+    if (level != null && !level.isClientSide) {
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+    }
+}
+
     public CustomEnergyStorage getQuantumEnergyStorage() {
         return quantumEnergyStorage;
     }
@@ -168,9 +183,9 @@ public class InserterBlockEntity extends BlockEntity implements MenuProvider {
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
 
         // 量子融合モード時: Energy を公開
-        if (quantumFusionMode && cap == ForgeCapabilities.ENERGY) {
-            return lazyQuantumEnergy.cast();
-        }
+if ((quantumFusionMode || reactorMode) && cap == ForgeCapabilities.ENERGY) {
+    return lazyQuantumEnergy.cast();
+}
 
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
@@ -206,6 +221,7 @@ public class InserterBlockEntity extends BlockEntity implements MenuProvider {
         tag.put("inventory", itemHandler.serializeNBT());
         tag = fluidTank.writeToNBT(tag);
         tag.putBoolean("QuantumFusionMode", quantumFusionMode);
+        tag.putBoolean("ReactorMode", reactorMode);
         tag.putInt("QuantumFE", quantumEnergyStorage.getEnergyStored());
         super.saveAdditional(tag);
     }
@@ -216,6 +232,7 @@ public class InserterBlockEntity extends BlockEntity implements MenuProvider {
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         fluidTank.readFromNBT(tag);
         quantumFusionMode = tag.getBoolean("QuantumFusionMode");
+        reactorMode = tag.getBoolean("ReactorMode");
         quantumEnergyStorage.setEnergy(tag.getInt("QuantumFE"));
     }
 

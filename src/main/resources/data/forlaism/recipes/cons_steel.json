@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/lead"
+    },
+    {
+      "item": "forlaism:garbage_metal"
+    },
+    [
+      { "item": "minecraft:white_concrete" },
+      { "item": "minecraft:orange_concrete" },
+      { "item": "minecraft:magenta_concrete" },
+      { "item": "minecraft:light_blue_concrete" },
+      { "item": "minecraft:yellow_concrete" },
+      { "item": "minecraft:lime_concrete" },
+      { "item": "minecraft:pink_concrete" },
+      { "item": "minecraft:gray_concrete" },
+      { "item": "minecraft:light_gray_concrete" },
+      { "item": "minecraft:cyan_concrete" },
+      { "item": "minecraft:purple_concrete" },
+      { "item": "minecraft:blue_concrete" },
+      { "item": "minecraft:brown_concrete" },
+      { "item": "minecraft:green_concrete" },
+      { "item": "minecraft:red_concrete" },
+      { "item": "minecraft:black_concrete" }
+    ]
+  ],
+  "result": {
+    "item": "forlaism:cons_steel",
+    "count": 1
+  }
+}

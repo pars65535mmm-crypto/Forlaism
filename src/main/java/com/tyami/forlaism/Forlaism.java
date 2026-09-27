@@ -25,11 +25,13 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 
 import com.tyami.forlaism.client.renderer.CrescentSlashRenderer;
 import com.tyami.forlaism.client.renderer.FactotumMinionRenderer;
+import com.tyami.forlaism.client.renderer.FactotumOverlordRenderer;
 import com.tyami.forlaism.client.renderer.FactotumPhantomRenderer;
 import com.tyami.watelib.WaveTextRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import com.tyami.watelib.text.AnimatedText;
 import net.minecraftforge.data.event.GatherDataEvent;
+import com.tyami.forlaism.client.renderer.FactotumOverlordRenderer;
 
 @Mod(Forlaism.MOD_ID)
 public class Forlaism {
@@ -59,6 +61,13 @@ public class Forlaism {
 
 
         System.out.println("[Forlaism] Forlaism has been loaded!");
+    // サーバー起動/停止フック
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @net.minecraftforge.eventbus.api.SubscribeEvent
+    public void onServerStarting(net.minecraftforge.event.server.ServerStartingEvent event) {
+        com.tyami.forlaism.quantum.QuantumTransferNetwork.setServer(event.getServer());
     }
 
 
@@ -89,10 +98,38 @@ public static class ClientModEvents {
         event.registerEntityRenderer(ModEntityTypes.CRESCENT_SLASH.get(), CrescentSlashRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.FACTOTUM_MINION.get(), FactotumMinionRenderer::new);
         event.registerEntityRenderer(ModEntityTypes.FACTOTUM_PHANTOM.get(), FactotumPhantomRenderer::new);
+        event.registerEntityRenderer(
+        ModEntityTypes.FACTOTUM_OVERLORD.get(),
+        FactotumOverlordRenderer::new
+);
         event.registerBlockEntityRenderer(
         BlockEntities.AETHERIC_GENERATOR.get(),
         AethericGeneratorRenderer::new
         );
+        event.registerEntityRenderer(
+            ModEntityTypes.ZOMBIE_LORD.get(),
+            net.minecraft.client.renderer.entity.ZombieRenderer::new
+    );
+    event.registerEntityRenderer(
+            ModEntityTypes.ELITE_ZOMBIE.get(),
+            net.minecraft.client.renderer.entity.ZombieRenderer::new
+    );
+    event.registerEntityRenderer(
+        ModEntityTypes.SKELETON_LORD.get(),
+        net.minecraft.client.renderer.entity.SkeletonRenderer::new
+);
+event.registerEntityRenderer(
+        ModEntityTypes.CREEPER_LORD.get(),
+        net.minecraft.client.renderer.entity.CreeperRenderer::new
+);
+event.registerEntityRenderer(
+        ModEntityTypes.WITHER_SKELETON_LORD.get(),
+        net.minecraft.client.renderer.entity.WitherSkeletonRenderer::new
+);
+event.registerEntityRenderer(
+        ModEntityTypes.ENDERMAN_LORD.get(),
+        net.minecraft.client.renderer.entity.EndermanRenderer::new
+);
 
         
     }
@@ -236,6 +273,7 @@ ItemProperties.register(
 private void commonSetup(FMLCommonSetupEvent event) {
     event.enqueueWork(() -> {
         com.tyami.forlaism.quantum.QuantumFusionRecipes.bootstrap();
+        com.tyami.forlaism.quantum.ReactorRecipes.bootstrap();
     });
 }
 

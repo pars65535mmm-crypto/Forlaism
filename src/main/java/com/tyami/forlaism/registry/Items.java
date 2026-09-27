@@ -521,7 +521,329 @@ public static final RegistryObject<Item> STONE_OF_SIN =
         ITEMS.register("stone_of_sin",
                 () -> new Item(new Item.Properties().fireResistant()));
 
-        }
+
+public static final RegistryObject<Item> MINION_HALO =
+        ITEMS.register("minion_halo",
+                () -> new com.tyami.forlaism.item.MinionHaloItem(
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> PARADOX =
+        ITEMS.register("paradox",
+                () -> new com.tyami.forlaism.item.ParadoxItem(
+                        new Item.Properties()
+                ));
+public static final RegistryObject<Item> TOKINO_STAFF_TIER4 =
+        ITEMS.register("tokino_staff_tier4",
+                () -> new com.tyami.forlaism.item.TokinoStaffTier4Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+// ===== メタアダマンタイン =====
+
+public static final RegistryObject<Item> META_ADAMANTINE =
+        ITEMS.register("meta_adamantine",
+                () -> new com.tyami.forlaism.item.MetaAdamantineItem(
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_SWORD =
+        ITEMS.register("meta_adamantine_sword",
+                () -> new net.minecraft.world.item.SwordItem(
+                        com.tyami.forlaism.item.MetaAdamantineTier.INSTANCE,
+                        254,   // 攻撃力 255 (ベース1 + 254)
+                        254F, // 攻撃速度 3.0
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_AXE =
+        ITEMS.register("meta_adamantine_axe",
+                () -> new net.minecraft.world.item.AxeItem(
+                        com.tyami.forlaism.item.MetaAdamantineTier.INSTANCE,
+                        253.0F,
+                        254F,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_PICKAXE =
+        ITEMS.register("meta_adamantine_pickaxe",
+                () -> new net.minecraft.world.item.PickaxeItem(
+                        com.tyami.forlaism.item.MetaAdamantineTier.INSTANCE,
+                        254,
+                        254F,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_SHOVEL =
+        ITEMS.register("meta_adamantine_shovel",
+                () -> new net.minecraft.world.item.ShovelItem(
+                        com.tyami.forlaism.item.MetaAdamantineTier.INSTANCE,
+                        254.5F,
+                        254F,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_HOE =
+        ITEMS.register("meta_adamantine_hoe",
+                () -> new net.minecraft.world.item.HoeItem(
+                        com.tyami.forlaism.item.MetaAdamantineTier.INSTANCE,
+                        254,
+                        254F,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_HELMET =
+        ITEMS.register("meta_adamantine_helmet",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.MetaAdamantineArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.HELMET,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_CHESTPLATE =
+        ITEMS.register("meta_adamantine_chestplate",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.MetaAdamantineArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.CHESTPLATE,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_LEGGINGS =
+        ITEMS.register("meta_adamantine_leggings",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.MetaAdamantineArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.LEGGINGS,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> META_ADAMANTINE_BOOTS =
+        ITEMS.register("meta_adamantine_boots",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.MetaAdamantineArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.BOOTS,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> CACACA =
+        ITEMS.register(
+                "cacacaccacacacacacaccacacacacaaoooooooooooo",
+                () -> new com.tyami.forlaism.item.CacacaItem(
+                        new Item.Properties()
+                )
+        );
+public static final RegistryObject<Item> DIARY =
+        ITEMS.register("diary",
+                () -> new com.tyami.forlaism.item.DiaryItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> MINERAL_RESEARCHER_DIARY =
+        ITEMS.register("mineral_researcher_diary",
+                () -> new com.tyami.forlaism.item.MineralResearcherDiaryItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> MINERAL_RESEARCHER_DIARY_2 =
+        ITEMS.register("mineral_researcher_diary_2",
+                () -> new com.tyami.forlaism.item.MineralResearcherDiary2Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> SAKURA_DIARY =
+        ITEMS.register("sakura_diary",
+                () -> new com.tyami.forlaism.item.SakuraDiaryItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> SAKURA_DIARY_RESTORED =
+        ITEMS.register("sakura_diary_restored",
+                () -> new com.tyami.forlaism.item.SakuraDiaryRestoredItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== 双刀 ムラツクモ =====
+public static final RegistryObject<Item> MURATSUKUMO =
+        ITEMS.register("muratsukumo",
+                () -> new com.tyami.forlaism.item.MuratsukumoItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+    public static final RegistryObject<Item> WARP_SENDER =
+            ITEMS.register("warp_sender",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.WARP_SENDER.get(),
+                            new Item.Properties()
+                    ));
+    // ===== 核シリーズ =====
+
+    public static final RegistryObject<Item> CRITICAL_CORE =
+            ITEMS.register("critical_core",
+                    () -> new com.tyami.forlaism.item.CriticalCoreItem(
+                            new Item.Properties()
+                    ));
+
+    public static final RegistryObject<Item> NUCLEUS =
+            ITEMS.register("nucleus",
+                    () -> new com.tyami.forlaism.item.NucleusItem(
+                            new Item.Properties()
+                    ));
+
+    public static final RegistryObject<Item> RINNEDIUM_INGOT =
+            ITEMS.register("rinnedium_ingot",
+                    () -> new com.tyami.forlaism.item.RinnediumIngotItem(
+                            new Item.Properties()
+                    ));
+public static final RegistryObject<Item> PLANAZITE_AXE =
+        ITEMS.register("planaite_axe",
+                () -> new com.tyami.forlaism.entity.PlanaiteAxeItem(
+                        new net.minecraft.world.item.Item.Properties()
+                ));
+public static final RegistryObject<Item> SILK_BOW =
+        ITEMS.register("silk_bow",
+                () -> new com.tyami.forlaism.entity.SilkBowItem(
+                        new net.minecraft.world.item.Item.Properties()
+                ));
+public static final RegistryObject<Item> CONS_STEEL =
+        ITEMS.register("cons_steel",
+                () -> new com.tyami.forlaism.item.ConsSteelItem(
+                        new Item.Properties()
+                ));
+// ===== コンスチール装備 =====
+
+public static final RegistryObject<Item> CONS_STEEL_SWORD =
+        ITEMS.register("cons_steel_sword",
+                () -> new net.minecraft.world.item.SwordItem(
+                        com.tyami.forlaism.item.ConsSteelTier.INSTANCE,
+                        3,      // 攻撃力（ダイヤ剣と同じ）
+                        -2.4F,  // 攻撃速度
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_AXE =
+        ITEMS.register("cons_steel_axe",
+                () -> new net.minecraft.world.item.AxeItem(
+                        com.tyami.forlaism.item.ConsSteelTier.INSTANCE,
+                        6.0F,
+                        -3.1F,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_PICKAXE =
+        ITEMS.register("cons_steel_pickaxe",
+                () -> new net.minecraft.world.item.PickaxeItem(
+                        com.tyami.forlaism.item.ConsSteelTier.INSTANCE,
+                        1,
+                        -2.8F,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_SHOVEL =
+        ITEMS.register("cons_steel_shovel",
+                () -> new net.minecraft.world.item.ShovelItem(
+                        com.tyami.forlaism.item.ConsSteelTier.INSTANCE,
+                        1.5F,
+                        -3.0F,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_HOE =
+        ITEMS.register("cons_steel_hoe",
+                () -> new net.minecraft.world.item.HoeItem(
+                        com.tyami.forlaism.item.ConsSteelTier.INSTANCE,
+                        -3,
+                        0.0F,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_HELMET =
+        ITEMS.register("cons_steel_helmet",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.ConsSteelArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.HELMET,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_CHESTPLATE =
+        ITEMS.register("cons_steel_chestplate",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.ConsSteelArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.CHESTPLATE,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_LEGGINGS =
+        ITEMS.register("cons_steel_leggings",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.ConsSteelArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.LEGGINGS,
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> CONS_STEEL_BOOTS =
+        ITEMS.register("cons_steel_boots",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.ConsSteelArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.BOOTS,
+                        new Item.Properties()
+                ));
+// ===== ジャガイモ加工シリーズ =====
+
+public static final RegistryObject<Item> POTATO_PROCESS =
+        ITEMS.register("potato_process",
+                () -> new com.tyami.forlaism.item.PotatoProcessItem(
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> KONNYAKU =
+        ITEMS.register("konnyaku",
+                () -> new com.tyami.forlaism.item.KonnyakuItem(
+                        new Item.Properties()
+                ));
+public static final RegistryObject<Item> KONNYAKU_DAITE =
+        ITEMS.register("konnyaku_daite",
+                () -> new com.tyami.forlaism.item.KonnyakuDaiteItem(
+                        new Item.Properties()
+                ));
+public static final RegistryObject<Item> CHERENKOV_KONNYAKU_DAITE =
+        ITEMS.register("cherenkov_konnyaku_daite",
+                () -> new com.tyami.forlaism.item.CherenkovKonnyakuDaiteItem(
+                        new Item.Properties().fireResistant()
+                ));
+public static final RegistryObject<Item> EXPLORER_DIARY_1 =
+        ITEMS.register("explorer_diary_1",
+                () -> new com.tyami.forlaism.item.ExplorerDiary1Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> EXPLORER_DIARY_2 =
+        ITEMS.register("explorer_diary_2",
+                () -> new com.tyami.forlaism.item.ExplorerDiary2Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> EXPLORER_DIARY_3 =
+        ITEMS.register("explorer_diary_3",
+                () -> new com.tyami.forlaism.item.ExplorerDiary3Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> EXPLORER_DIARY_4 =
+        ITEMS.register("explorer_diary_4",
+                () -> new com.tyami.forlaism.item.ExplorerDiary4Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> EXPLORER_DIARY_5 =
+        ITEMS.register("explorer_diary_5",
+                () -> new com.tyami.forlaism.item.ExplorerDiary5Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> EXPLORER_DIARY_7 =
+        ITEMS.register("explorer_diary_7",
+                () -> new com.tyami.forlaism.item.ExplorerDiary7Item(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== チェレンコフ・メタアダマンエディウム・レールガン・ブレード =====
+public static final RegistryObject<Item> CHERENKOV_META_ADAMANEDIUM_RAILGUN_BLADE =
+        ITEMS.register("cherenkov_meta_adamanedium_railgun_blade",
+                () -> new com.tyami.forlaism.item.CherenkovMetaAdamanediumRailgunBladeItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+
+}
 
 
 

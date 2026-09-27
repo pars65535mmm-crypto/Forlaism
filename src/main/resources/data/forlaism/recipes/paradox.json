@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "forlaism:paradox"
+    }
+  ],
+  "result": {
+    "item": "forlaism:paradox",
+    "count": 2
+  }
+}

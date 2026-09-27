@@ -23,10 +23,25 @@ public class FactotumPacketHandler {
     }
 
     public static void register() {
+
+        // 既存: ChangeMiningRangePacket
         CHANNEL.messageBuilder(ChangeMiningRangePacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ChangeMiningRangePacket::new)
                 .encoder(ChangeMiningRangePacket::encode)
                 .consumerMainThread(ChangeMiningRangePacket::handle)
                 .add();
+
+        // ★追加: CherenkovEffectPacket (SERVER → CLIENT)
+        CHANNEL.messageBuilder(CherenkovEffectPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CherenkovEffectPacket::new)
+                .encoder(CherenkovEffectPacket::encode)
+                .consumerMainThread(CherenkovEffectPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(RailgunLaserPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+        .decoder(RailgunLaserPacket::new)
+        .encoder(RailgunLaserPacket::encode)
+        .consumerMainThread(RailgunLaserPacket::handle)
+        .add();
     }
 }

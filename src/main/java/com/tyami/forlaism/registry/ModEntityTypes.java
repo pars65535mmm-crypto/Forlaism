@@ -1,17 +1,29 @@
 package com.tyami.forlaism.registry;
 
 import com.tyami.forlaism.Forlaism;
+import com.tyami.forlaism.entity.CreeperLordEntity;
 import com.tyami.forlaism.entity.CrescentSlashEntity;
+import com.tyami.forlaism.entity.EliteZombieEntity;
+import com.tyami.forlaism.entity.EndermanLordEntity;
 import com.tyami.forlaism.entity.FactotumMinionEntity;
+import com.tyami.forlaism.entity.FactotumOverlordEntity;
 import com.tyami.forlaism.entity.FactotumPhantomEntity;
+import com.tyami.forlaism.entity.SkeletonLordEntity;
+import com.tyami.forlaism.entity.WitherSkeletonLordEntity;
+import com.tyami.forlaism.entity.ZombieLordEntity;
+import com.tyami.forlaism.entity.WitherSkeletonLordEntity;
+import com.tyami.forlaism.entity.EndermanLordEntity;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import com.tyami.forlaism.entity.CreeperLordEntity;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import com.tyami.forlaism.entity.FactotumOverlordEntity;
 
 @Mod.EventBusSubscriber(modid = Forlaism.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntityTypes {
@@ -43,8 +55,94 @@ public class ModEntityTypes {
                             .updateInterval(1)
                             .build("factotum_phantom"));
 
+public static final RegistryObject<EntityType<FactotumOverlordEntity>> FACTOTUM_OVERLORD =
+        ENTITY_TYPES.register("factotum_overlord",
+                () -> EntityType.Builder.<FactotumOverlordEntity>of(
+                                FactotumOverlordEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(1.5F, 3.0F)
+                        .clientTrackingRange(32)
+                        .updateInterval(1)
+                        .fireImmune()
+                        .build("factotum_overlord"));
+
+// クラス内に追加
+
+public static final RegistryObject<EntityType<ZombieLordEntity>> ZOMBIE_LORD =
+        ENTITY_TYPES.register("zombie_lord",
+                () -> EntityType.Builder.<ZombieLordEntity>of(
+                                ZombieLordEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(0.7F, 2.0F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("zombie_lord"));
+
+public static final RegistryObject<EntityType<EliteZombieEntity>> ELITE_ZOMBIE =
+        ENTITY_TYPES.register("elite_zombie",
+                () -> EntityType.Builder.<EliteZombieEntity>of(
+                                EliteZombieEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(0.6F, 1.95F)
+                        .clientTrackingRange(48)
+                        .updateInterval(2)
+                        .build("elite_zombie"));
+public static final RegistryObject<EntityType<SkeletonLordEntity>> SKELETON_LORD =
+        ENTITY_TYPES.register("skeleton_lord",
+                () -> EntityType.Builder.<SkeletonLordEntity>of(
+                                SkeletonLordEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(0.6F, 1.99F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("skeleton_lord"));
+
+public static final RegistryObject<EntityType<CreeperLordEntity>> CREEPER_LORD =
+        ENTITY_TYPES.register("creeper_lord",
+                () -> EntityType.Builder.<CreeperLordEntity>of(
+                                CreeperLordEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(0.6F, 1.7F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("creeper_lord"));
+public static final RegistryObject<EntityType<WitherSkeletonLordEntity>> WITHER_SKELETON_LORD =
+        ENTITY_TYPES.register("wither_skeleton_lord",
+                () -> EntityType.Builder.<WitherSkeletonLordEntity>of(
+                                WitherSkeletonLordEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(0.7F, 2.4F)
+                        .clientTrackingRange(96)
+                        .updateInterval(1)
+                        .fireImmune()
+                        .build("wither_skeleton_lord"));
+
+public static final RegistryObject<EntityType<EndermanLordEntity>> ENDERMAN_LORD =
+        ENTITY_TYPES.register("enderman_lord",
+                () -> EntityType.Builder.<EndermanLordEntity>of(
+                                EndermanLordEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(0.7F, 2.9F)
+                        .clientTrackingRange(128)
+                        .updateInterval(1)
+                        .build("enderman_lord"));
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(FACTOTUM_PHANTOM.get(), FactotumPhantomEntity.createAttributes().build());
+        event.put(FACTOTUM_OVERLORD.get(), FactotumOverlordEntity.createAttributes().build());
+        event.put(ZOMBIE_LORD.get(), ZombieLordEntity.createAttributes().build());
+        event.put(ELITE_ZOMBIE.get(), EliteZombieEntity.createAttributes().build());
+        event.put(SKELETON_LORD.get(), SkeletonLordEntity.createAttributes().build());
+        event.put(CREEPER_LORD.get(), CreeperLordEntity.createAttributes().build());
+        event.put(WITHER_SKELETON_LORD.get(), WitherSkeletonLordEntity.createAttributes().build());
+        event.put(ENDERMAN_LORD.get(), EndermanLordEntity.createAttributes().build());
     }
 }

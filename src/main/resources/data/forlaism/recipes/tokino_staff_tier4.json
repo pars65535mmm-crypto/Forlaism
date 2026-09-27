@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:madoromu" },
+    { "item": "forlaism:tokino_staff_tier1" },
+    { "item": "forlaism:tokino_staff_tier2" }
+  ],
+  "result": {
+    "item": "forlaism:tokino_staff_tier4",
+    "count": 1
+  }
+}

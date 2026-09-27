@@ -9,14 +9,21 @@
     "EntityMixin",
     "LivingEntitySovereignMixin",
     "MobMixin",
-    "MobPacifiedMixin"
+    "MobPacifiedMixin",
+    "MinionHaloMixin",
+    "EntityFreezeMixin",
+    "LivingEntityFreezeMixin",
+    "LivingEntityRinneMixin",
+    "AttributeInstanceMixin"
   ],
   "client": [
     "MinecraftMixin",
     "GuiGraphicsMixin",
     "ItemEntityRendererMixin",
     "LivingEntitySwrequimetMixin",
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "HumanoidArmorLayerMixin",
+    "HumanoidMobRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

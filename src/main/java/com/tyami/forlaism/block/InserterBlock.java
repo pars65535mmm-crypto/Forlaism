@@ -9,7 +9,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,34 +41,35 @@ public class InserterBlock extends BaseEntityBlock {
         return new InserterBlockEntity(pos, state);
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+@Override
+public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
+                             InteractionHand hand, BlockHitResult hit) {
 
-        if (!level.isClientSide) {
-            BlockEntity entity = level.getBlockEntity(pos);
-
-            if (entity instanceof InserterBlockEntity inserter) {
-
-                // =========================================================
-                // 量子融合モード時: GUIを開かず、メッセージだけ表示
-                // =========================================================
-                if (inserter.isQuantumFusionMode()) {
-                    player.displayClientMessage(
-                            Component.literal("§dこの搬入機は §b量子融合機 §dとして覚醒している…"),
-                            true
-                    );
-                    return InteractionResult.SUCCESS;
-                }
-
-                // 通常モード: GUIを開く
-                if (player instanceof ServerPlayer serverPlayer) {
-                    NetworkHooks.openScreen(serverPlayer, inserter, pos);
-                }
-            }
-        }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+    if (level.isClientSide) {
+        return InteractionResult.SUCCESS;
     }
+
+    BlockEntity entity = level.getBlockEntity(pos);
+    if (!(entity instanceof InserterBlockEntity inserter)) {
+        return InteractionResult.PASS;
+    }
+
+    // 量子融合モード時: GUI を開かずメッセージだけ
+    if (inserter.isQuantumFusionMode()) {
+        player.displayClientMessage(
+                Component.literal("§dこの搬入機は §b量子融合機 §dとして覚醒している…"),
+                true
+        );
+        return InteractionResult.SUCCESS;
+    }
+
+    // 通常モード: GUI を開く
+    if (player instanceof ServerPlayer serverPlayer) {
+        NetworkHooks.openScreen(serverPlayer, inserter, pos);
+    }
+
+    return InteractionResult.sidedSuccess(level.isClientSide);
+}
 
     @Nullable
     @Override

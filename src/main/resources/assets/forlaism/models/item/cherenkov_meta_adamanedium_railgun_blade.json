@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "forlaism:item/cherenkov_meta_adamanedium_railgun_blade"
+  }
+}

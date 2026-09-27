@@ -220,4 +220,13 @@ public static final RegistryObject<Block> QUANTUM_TRANSFER_DEVICE_OUT =
                                     .noLootTable()
                                     .sound(SoundType.DEEPSLATE)
                     ));
+    public static final RegistryObject<Block> WARP_SENDER =
+            BLOCKS.register("warp_sender", () ->
+                    new com.tyami.forlaism.block.WarpSenderBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_CYAN)
+                                    .requiresCorrectToolForDrops()
+                                    .strength(4.0F, 1200.0F)
+                                    .sound(SoundType.METAL)
+                    ));
 }
