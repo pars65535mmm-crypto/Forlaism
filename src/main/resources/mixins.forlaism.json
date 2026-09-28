@@ -14,7 +14,14 @@
     "EntityFreezeMixin",
     "LivingEntityFreezeMixin",
     "LivingEntityRinneMixin",
-    "AttributeInstanceMixin"
+    "AttributeInstanceMixin",
+    "LivingEntityMadoromiMixin",
+    "LivingEntityOvernullMixin",
+    "overovernull.LivingEntityOverOverNullMixin",
+    "overovernull.LivingEntityAliveMixin",
+    "overovernull.EntityOverOverNullMixin",
+    "overovernull.ServerBossEventMixin",
+    "overovernull.EntityJoinLevelBlockerMixin"
   ],
   "client": [
     "MinecraftMixin",

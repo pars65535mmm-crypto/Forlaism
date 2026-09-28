@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " k ",
+    "FIF"
+  ],
+  "key": {
+    "k": { "item": "forlaism:sage_stone" },
+    "F": { "item": "forlaism:forlaism_crystal" },
+    "I": { "item": "minecraft:sand" }
+  },
+  "result": { "item": "forlaism:aqua_ring", "count": 1 }
+}

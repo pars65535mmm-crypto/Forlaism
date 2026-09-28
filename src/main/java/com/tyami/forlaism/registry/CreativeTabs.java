@@ -139,6 +139,19 @@ public class CreativeTabs {
                                 output.accept(Items.KONNYAKU_DAITE.get());
                                 output.accept(Items.CHERENKOV_KONNYAKU_DAITE.get());
                                 output.accept(Items.CHERENKOV_META_ADAMANEDIUM_RAILGUN_BLADE.get());
+                                output.accept(Items.DASH_RING.get());
+                                output.accept(Items.JUMP_RING.get());
+                                output.accept(Items.ROCKET_RING.get());
+                                output.accept(Items.RING_OF_RINGS.get());
+                                output.accept(Items.FIRE_RING.get());
+                                output.accept(Items.BLAZE_RING.get());
+                                output.accept(Items.HOOK_RING.get());
+                                output.accept(Items.FLAME_RING.get());
+                                output.accept(Items.WATER_RING.get());
+                                output.accept(Items.AQUA_RING.get());
+                                output.accept(Items.MARINE_RING.get());
+                                output.accept(Items.NULL.get());
+                                output.accept(Items.MAHOUTSUKAI_NO_BOUSHI.get());
 
 
 

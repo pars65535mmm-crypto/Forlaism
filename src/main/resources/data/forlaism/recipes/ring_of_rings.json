@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SFS",
+    "SSS"
+  ],
+  "key": {
+    "S": { "item": "forlaism:sage_stone" },
+    "F": { "item": "forlaism:forlaism_crystal" }
+  },
+  "result": {
+    "item": "forlaism:ring_of_rings",
+    "count": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "WSB",
+    "   "
+  ],
+  "key": {
+    "W": { "item": "forlaism:water_ring" },
+    "S": { "item": "forlaism:sage_stone" },
+    "B": { "item": "forlaism:aqua_ring" }
+  },
+  "result": { "item": "forlaism:marine_ring", "count": 1 }
+}

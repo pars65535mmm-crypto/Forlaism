@@ -42,7 +42,10 @@ Commands.literal("fo")
         
 .then(Commands.literal("qqqs")
         .executes(ForlaismCommand::executeQqqs))
+.then(Commands.literal("madoromi")
+        .executes(ForlaismCommand::executeMadoromi))
 );
+
 
     }
 
@@ -330,6 +333,46 @@ private static net.minecraft.world.level.block.state.BlockState blockById(String
     var block = net.minecraftforge.registries.ForgeRegistries.BLOCKS
             .getValue(new net.minecraft.resources.ResourceLocation(id));
     return block == null ? null : block.defaultBlockState();
+}
+
+
+private static int executeMadoromi(CommandContext<CommandSourceStack> ctx) {
+    CommandSourceStack source = ctx.getSource();
+    if (!(source.getEntity() instanceof Player player)) {
+        source.sendFailure(Component.literal("プレイヤーのみ実行できます。"));
+        return 0;
+    }
+
+    // 目の前のLivingEntityを取得
+    var level = player.level();
+    var look = player.getLookAngle();
+    var eye = player.getEyePosition();
+    var end = eye.add(look.scale(10.0));
+
+    var hitResult = net.minecraft.world.entity.projectile.ProjectileUtil.getEntityHitResult(
+            level, player, eye, end,
+            player.getBoundingBox().expandTowards(look.scale(10.0)).inflate(1.0),
+            e -> e instanceof net.minecraft.world.entity.LivingEntity && e != player
+    );
+
+    if (hitResult == null || !(hitResult.getEntity() instanceof net.minecraft.world.entity.LivingEntity target)) {
+        source.sendFailure(Component.literal("対象が見つかりません。"));
+        return 0;
+    }
+
+    boolean success = com.tyami.forlaism.damage.MadoromiExecution.execute(
+            target,
+            com.tyami.forlaism.damage.MadoromiDamageSource.of(level, player)
+    );
+
+    source.sendSuccess(
+            () -> Component.literal("§d微睡ダメージ実行: §f" + target.getName().getString()
+                    + " §7→ " + (success ? "§a成功" : "§c失敗")
+                    + " §7(HP: " + target.getHealth() + "/" + target.getMaxHealth()
+                    + " dead: " + target.isDeadOrDying() + ")"),
+            true
+    );
+    return 1;
 }
 
 }

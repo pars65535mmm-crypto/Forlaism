@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "DSJ",
+    "   "
+  ],
+  "key": {
+    "D": { "item": "forlaism:dash_ring" },
+    "S": { "item": "forlaism:sage_stone" },
+    "J": { "item": "forlaism:jump_ring" }
+  },
+  "result": {
+    "item": "forlaism:rocket_ring",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "FSB",
+    "   "
+  ],
+  "key": {
+    "F": { "item": "forlaism:fire_ring" },
+    "S": { "item": "forlaism:sage_stone" },
+    "B": { "item": "forlaism:blaze_ring" }
+  },
+  "result": {
+    "item": "forlaism:flame_ring",
+    "count": 1
+  }
+}

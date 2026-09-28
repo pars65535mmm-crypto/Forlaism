@@ -842,6 +842,77 @@ public static final RegistryObject<Item> CHERENKOV_META_ADAMANEDIUM_RAILGUN_BLAD
                 () -> new com.tyami.forlaism.item.CherenkovMetaAdamanediumRailgunBladeItem(
                         new Item.Properties().stacksTo(1).fireResistant()
                 ));
+public static final RegistryObject<Item> DASH_RING =
+        ITEMS.register("dash_ring",
+                () -> new com.tyami.forlaism.item.DashRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> JUMP_RING =
+        ITEMS.register("jump_ring",
+                () -> new com.tyami.forlaism.item.JumpRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> ROCKET_RING =
+        ITEMS.register("rocket_ring",
+                () -> new com.tyami.forlaism.item.RocketRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> RING_OF_RINGS =
+        ITEMS.register("ring_of_rings",
+                () -> new com.tyami.forlaism.item.RingOfRingsItem(
+                        new Item.Properties().stacksTo(16)
+                ));
+public static final RegistryObject<Item> FIRE_RING =
+        ITEMS.register("fire_ring",
+                () -> new com.tyami.forlaism.item.FireRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> BLAZE_RING =
+        ITEMS.register("blaze_ring",
+                () -> new com.tyami.forlaism.item.BlazeRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> HOOK_RING =
+        ITEMS.register("hook_ring",
+                () -> new com.tyami.forlaism.item.HookRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> FLAME_RING =
+        ITEMS.register("flame_ring",
+                () -> new com.tyami.forlaism.item.FlameRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+public static final RegistryObject<Item> WATER_RING =
+        ITEMS.register("water_ring",
+                () -> new com.tyami.forlaism.item.WaterRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> AQUA_RING =
+        ITEMS.register("aqua_ring",
+                () -> new com.tyami.forlaism.item.AquaRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> MARINE_RING =
+        ITEMS.register("marine_ring",
+                () -> new com.tyami.forlaism.item.MarineRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== null =====
+public static final RegistryObject<Item> NULL =
+        ITEMS.register("null",
+                () -> new com.tyami.forlaism.item.NullItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+// ===== 魔法使いの帽子 =====
+public static final RegistryObject<Item> MAHOUTSUKAI_NO_BOUSHI =
+        ITEMS.register("mahoutukainobousi",
+                () -> new com.tyami.forlaism.item.MahouTsukaiNoBoushiItem(
+                        new Item.Properties()
+                ));
 
 }
 
