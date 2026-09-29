@@ -43,5 +43,13 @@ public class FactotumPacketHandler {
         .encoder(RailgunLaserPacket::encode)
         .consumerMainThread(RailgunLaserPacket::handle)
         .add();
+
+
+                // ★追加: BossSyncPacket (SERVER → CLIENT)
+        CHANNEL.messageBuilder(BossSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BossSyncPacket::new)
+                .encoder(BossSyncPacket::encode)
+                .consumerMainThread(BossSyncPacket::handle)
+                .add();
     }
 }

@@ -913,6 +913,18 @@ public static final RegistryObject<Item> MAHOUTSUKAI_NO_BOUSHI =
                 () -> new com.tyami.forlaism.item.MahouTsukaiNoBoushiItem(
                         new Item.Properties()
                 ));
+// ===== Tier 7 隠しアイテム =====
+public static final RegistryObject<Item> POSSIBILITY =
+        ITEMS.register("possibility",
+                () -> new com.tyami.forlaism.item.PossibilityItem(
+                        new Item.Properties()
+                ));
+// ===== Tier 7 隠しアイテム =====
+public static final RegistryObject<Item> CHALLENGE =
+        ITEMS.register("challenge",
+                () -> new com.tyami.forlaism.item.ChallengeItem(
+                        new Item.Properties()
+                ));
 
 }
 

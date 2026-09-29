@@ -152,10 +152,13 @@ public class CreativeTabs {
                                 output.accept(Items.MARINE_RING.get());
                                 output.accept(Items.NULL.get());
                                 output.accept(Items.MAHOUTSUKAI_NO_BOUSHI.get());
+                                
 
 
 
                                 output.accept(Items.ADAMETAL.get());
+                                output.accept(Items.POSSIBILITY.get());
+                                output.accept(Items.CHALLENGE.get());
                                
                             })
                             .build()

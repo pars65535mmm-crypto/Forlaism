@@ -222,5 +222,8 @@
 "item.forlaism.null": "null",
 "death.attack.forlaism.erase": "%1$s は存在を抹消された",
 "death.attack.forlaism.erase.player": "%1$s は %2$s によって存在を抹消された",
-"item.forlaism.mahoutukainobousi": "魔法使いの帽子"
+"item.forlaism.mahoutukainobousi": "魔法使いの帽子",
+"item.forlaism.possibility": "可能性",
+"item.forlaism.challenge": "挑戦",
+"entity.forlaism.boss_core": "???"
 }

@@ -17,6 +17,8 @@
     "AttributeInstanceMixin",
     "LivingEntityMadoromiMixin",
     "LivingEntityOvernullMixin",
+    "BossCoreEntityMixin",
+    "BossCoreLivingEntityMixin",
     "overovernull.LivingEntityOverOverNullMixin",
     "overovernull.LivingEntityAliveMixin",
     "overovernull.EntityOverOverNullMixin",

@@ -134,6 +134,19 @@ public static final RegistryObject<EntityType<EndermanLordEntity>> ENDERMAN_LORD
                         .updateInterval(1)
                         .build("enderman_lord"));
 
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.BossCoreEntity>> BOSS_CORE =
+        ENTITY_TYPES.register("boss_core",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.BossCoreEntity>of(
+                                com.tyami.forlaism.entity.BossCoreEntity::new,
+                                MobCategory.MISC
+                        )
+                        .sized(1.0F, 1.8F)
+                        .clientTrackingRange(128)
+                        .updateInterval(1)
+                        .fireImmune()
+                        .noSummon()
+                        .build("boss_core"));
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(FACTOTUM_PHANTOM.get(), FactotumPhantomEntity.createAttributes().build());
@@ -144,5 +157,6 @@ public static final RegistryObject<EntityType<EndermanLordEntity>> ENDERMAN_LORD
         event.put(CREEPER_LORD.get(), CreeperLordEntity.createAttributes().build());
         event.put(WITHER_SKELETON_LORD.get(), WitherSkeletonLordEntity.createAttributes().build());
         event.put(ENDERMAN_LORD.get(), EndermanLordEntity.createAttributes().build());
+        event.put(BOSS_CORE.get(), com.tyami.forlaism.entity.BossCoreEntity.createAttributes().build());
     }
 }

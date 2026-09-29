@@ -130,6 +130,10 @@ event.registerEntityRenderer(
         ModEntityTypes.ENDERMAN_LORD.get(),
         net.minecraft.client.renderer.entity.EndermanRenderer::new
 );
+event.registerEntityRenderer(
+        ModEntityTypes.BOSS_CORE.get(),
+        com.tyami.forlaism.client.renderer.BossCoreEmptyRenderer::new
+);
 
         
     }
