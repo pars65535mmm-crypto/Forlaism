@@ -7,6 +7,7 @@ import com.tyami.forlaism.registry.Items;
 import com.tyami.forlaism.world.TimeAccelerationManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -239,86 +240,99 @@ public class ModEvents {
     }
 
     /**
-     * アイテム投げ入れによる液体変換 & 刻乃杖の時間加速処理
-     */
-    @SubscribeEvent
-    public static void onLevelTick(TickEvent.LevelTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        Level level = event.level;
-        if (level.isClientSide || !(level instanceof ServerLevel serverLevel)) return;
+ * アイテム投げ入れによる液体変換 & 刻乃杖の時間加速処理
+ */
+@SubscribeEvent
+public static void onLevelTick(TickEvent.LevelTickEvent event) {
+    if (event.phase != TickEvent.Phase.END) return;
+    Level level = event.level;
+    if (level.isClientSide || !(level instanceof ServerLevel serverLevel)) return;
 
-        // 時間加速マネージャーの更新
-        TimeAccelerationManager.onLevelTick(level);
+    // 時間加速マネージャーの更新
+    TimeAccelerationManager.onLevelTick(level);
 
-        // アイテム投げ入れチェック (20 ticksごと = 1秒に1回チェックでパフォーマンスを維持)
-        if (serverLevel.getGameTime() % 10 == 0) {
-            List<ItemEntity> items = serverLevel.getEntitiesOfClass(ItemEntity.class,
-                    new AABB(-30000000, -64, -30000000, 30000000, 320, 30000000),
-                    e -> e.isAlive() && !e.getItem().isEmpty() &&
-                            (e.getItem().is(Items.FORLAISM_CRUDE_POWDER.get()) || e.getItem().is(Items.FORLAISM_POLYCRYSTAL.get())));
+    // =========================================================
+    // アイテム投げ入れチェック (10ticksごと)
+    // =========================================================
+    // 【軽量化】ワールド全域AABBを廃止し、プレイヤー周辺128ブロックに限定。
+    // クラフトや加工は通常プレイヤーの近くで行われるため、実用上問題なし。
+    if (serverLevel.getGameTime() % 10 == 0) {
 
-            for (ItemEntity itemEntity : items) {
-                BlockPos pos = itemEntity.blockPosition();
-                FluidState fluidState = level.getFluidState(pos);
-                ItemStack stack = itemEntity.getItem();
+        java.util.List<ItemEntity> items = new java.util.ArrayList<>();
 
-                // 粗粉 -> 水源を培養液に変換
-                if (stack.is(Items.FORLAISM_CRUDE_POWDER.get())) {
-                    if (fluidState.is(net.minecraft.world.level.material.Fluids.WATER) && fluidState.isSource()) {
-                        level.setBlock(pos, Blocks.FORLAISM_CULTURE.get().defaultBlockState(), 3);
-                        stack.shrink(1);
-                        if (stack.isEmpty()) itemEntity.discard();
-                        level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    }
-                }
-                // 多結晶体 -> 培養液を多結晶養液に変換
-                else if (stack.is(Items.FORLAISM_POLYCRYSTAL.get())) {
-                    if (fluidState.getType() == Fluids.FORLAISM_CULTURE.get() && fluidState.isSource()) {
-                        level.setBlock(pos, Blocks.FORLAISM_POLYCRYSTAL_SOLUTION.get().defaultBlockState(), 3);
-                        stack.shrink(1);
-                        if (stack.isEmpty()) itemEntity.discard();
-                        level.playSound(null, pos, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 0.8F, 1.5F);
-                    }
-                }
-            }
+        for (ServerPlayer player : serverLevel.players()) {
+            items.addAll(serverLevel.getEntitiesOfClass(
+                    ItemEntity.class,
+                    player.getBoundingBox().inflate(128.0),
+                    e -> e.isAlive()
+                            && !e.getItem().isEmpty()
+                            && (e.getItem().is(Items.FORLAISM_CRUDE_POWDER.get())
+                                || e.getItem().is(Items.FORLAISM_POLYCRYSTAL.get()))
+            ));
         }
 
-// 量子転送プールを定期保存
-if (serverLevel.getGameTime() % 100 == 0) {
-    com.tyami.forlaism.quantum.QuantumTransferData.get(serverLevel.getServer()).setDirty();
-}
+        // 重複排除（複数プレイヤーの範囲が重なった場合）
+        java.util.Set<Integer> seen = new java.util.HashSet<>();
+        items.removeIf(e -> !seen.add(e.getId()));
 
-        // Warpゴーストの寿命管理（100tick後に消す）
-        if (serverLevel.getGameTime() % 5 == 0) {
-            var ghosts = serverLevel.getEntitiesOfClass(
-                    net.minecraft.world.entity.item.ItemEntity.class,
-                    new net.minecraft.world.phys.AABB(
-                            -30000000, -64, -30000000,
-                            30000000, 320, 30000000
-                    ),
-                    e -> e.getPersistentData().getBoolean("ForlaismWarpGhost")
-            );
+        for (ItemEntity itemEntity : items) {
+            BlockPos pos = itemEntity.blockPosition();
+            FluidState fluidState = level.getFluidState(pos);
+            ItemStack stack = itemEntity.getItem();
 
-            for (var ghost : ghosts) {
-                if (ghost.tickCount > 100) {
-                    ghost.discard();
+            // 粗粉 -> 水源を培養液に変換
+            if (stack.is(Items.FORLAISM_CRUDE_POWDER.get())) {
+                if (fluidState.is(net.minecraft.world.level.material.Fluids.WATER) && fluidState.isSource()) {
+                    level.setBlock(pos, Blocks.FORLAISM_CULTURE.get().defaultBlockState(), 3);
+                    stack.shrink(1);
+                    if (stack.isEmpty()) itemEntity.discard();
+                    level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0F, 1.0F);
+                }
+            }
+            // 多結晶体 -> 培養液を多結晶養液に変換
+            else if (stack.is(Items.FORLAISM_POLYCRYSTAL.get())) {
+                if (fluidState.getType() == Fluids.FORLAISM_CULTURE.get() && fluidState.isSource()) {
+                    level.setBlock(pos, Blocks.FORLAISM_POLYCRYSTAL_SOLUTION.get().defaultBlockState(), 3);
+                    stack.shrink(1);
+                    if (stack.isEmpty()) itemEntity.discard();
+                    level.playSound(null, pos, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 0.8F, 1.5F);
                 }
             }
         }
     }
 
+    // 量子転送プールを定期保存
+    if (serverLevel.getGameTime() % 100 == 0) {
+        com.tyami.forlaism.quantum.QuantumTransferData.get(serverLevel.getServer()).setDirty();
+    }
 
+    // =========================================================
+    // Warpゴーストの寿命管理（100tick後に消す）
+    // =========================================================
+    // 【軽量化】ワールド全域AABBを廃止し、プレイヤー周辺128ブロックに限定。
+    if (serverLevel.getGameTime() % 5 == 0) {
 
+        java.util.List<ItemEntity> ghosts = new java.util.ArrayList<>();
 
+        for (ServerPlayer player : serverLevel.players()) {
+            ghosts.addAll(serverLevel.getEntitiesOfClass(
+                    ItemEntity.class,
+                    player.getBoundingBox().inflate(128.0),
+                    e -> e.getPersistentData().getBoolean("ForlaismWarpGhost")
+            ));
+        }
 
-/* 
-@SubscribeEvent
-public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-    CuriosApi.getCuriosInventory(event.getEntity()).ifPresent(curios -> {
-        curios.growSlotType("back", 1);
-    });
+        // 重複排除
+        java.util.Set<Integer> seen = new java.util.HashSet<>();
+        ghosts.removeIf(e -> !seen.add(e.getId()));
+
+        for (var ghost : ghosts) {
+            if (ghost.tickCount > 100) {
+                ghost.discard();
+            }
+        }
+    }
 }
-    */
 
 
 

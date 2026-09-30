@@ -13,7 +13,7 @@ public class ReactorBlockEntity extends Tier2MachineBlockEntity {
     public static final int PROCESS_TIME = 1280;
 
     private static final int ENERGY_CAPACITY = 6_400_000;
-    private static final int MAX_ENERGY_RECEIVE = 5000;
+    private static final int MAX_ENERGY_RECEIVE = 500_000;
 
     public ReactorBlockEntity(BlockPos pos, BlockState state) {
         super(

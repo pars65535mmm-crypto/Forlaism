@@ -6,13 +6,9 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -41,28 +37,18 @@ import java.util.List;
 /**
  * スケルトンロード。
  *
- * 中ボス。弓の使い手。
- *
- * - スケルトンスポーン時に1%で出現
- * - フルコミメタルフルエンチャ + 弓 + 盾
- * - HP100、速度1.7倍
- * - プレイヤーが盾構え → 円運動しながらショットガン
- * - 5マス以内 → バックステップ + 3発
- * - 15マス以上 → 上空からアローレイン
- * - プレイヤーが弓持ち → マシンガン連射
- * - 死亡時「シルクボウ」確定ドロップ
+ * 軽量化:
+ *   - フルエンチャント装備は static テンプレート化
+ *   - populateDefaultEquipmentSlots は 1 回だけ
+ *   - シルクボウのドロップもテンプレートから .copy() で渡す
  */
 public class SkeletonLordEntity extends Skeleton {
-
-    // =========================================================
-    // 定数
-    // =========================================================
 
     private static final double SHIELD_ORBIT_RADIUS = 5.0D;
     private static final double SHIELD_ORBIT_SPEED = 0.25D;
 
-    private static final int SHOTGUN_INTERVAL = 3;   // 3tickごと
-    private static final int SHOTGUN_PELLETS = 3;    // 3本
+    private static final int SHOTGUN_INTERVAL = 3;
+    private static final int SHOTGUN_PELLETS = 3;
 
     private static final int BACKSTEP_ARROWS = 3;
     private static final int BACKSTEP_INTERVAL = 4;
@@ -73,11 +59,8 @@ public class SkeletonLordEntity extends Skeleton {
 
     private static final int MACHINEGUN_INTERVAL = 2;
 
-    // =========================================================
-    // 状態
-    // =========================================================
+    private static final String TAG_EQUIP_DONE = "ForlaismSkeletonLordEquipped";
 
-    /** 攻撃モード。 */
     private enum Mode {
         IDLE,
         ORBIT_SHOTGUN,
@@ -90,8 +73,50 @@ public class SkeletonLordEntity extends Skeleton {
     private int modeTicks = 0;
     private int shotTimer = 0;
 
-    /** 円運動の角度。 */
     private double orbitAngle = 0.0D;
+
+    // =========================================================
+    // 装備テンプレート（static 1回だけ生成）
+    // =========================================================
+
+    private static final ItemStack TEMPLATE_BOW = createEnchantedBow();
+    private static final ItemStack TEMPLATE_SHIELD = new ItemStack(net.minecraft.world.item.Items.SHIELD);
+    private static final ItemStack TEMPLATE_HELMET = createEnchantedArmor(
+            new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_HELMET.get()));
+    private static final ItemStack TEMPLATE_CHEST = createEnchantedArmor(
+            new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_CHESTPLATE.get()));
+    private static final ItemStack TEMPLATE_LEGS = createEnchantedArmor(
+            new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_LEGGINGS.get()));
+    private static final ItemStack TEMPLATE_BOOTS = createEnchantedArmor(
+            new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_BOOTS.get()));
+
+    /** シルクボウのドロップテンプレート。 */
+    private static final ItemStack TEMPLATE_SILK_BOW = createEnchantedSilkBow();
+
+    private static ItemStack createEnchantedBow() {
+        ItemStack bow = new ItemStack(net.minecraft.world.item.Items.BOW);
+        fullEnchant(bow);
+        return bow;
+    }
+
+    private static ItemStack createEnchantedArmor(ItemStack stack) {
+        fullEnchant(stack);
+        return stack;
+    }
+
+    private static ItemStack createEnchantedSilkBow() {
+        ItemStack bow = new ItemStack(com.tyami.forlaism.registry.Items.SILK_BOW.get());
+        CompoundTag nbt = bow.getOrCreateTag();
+        ListTag list = new ListTag();
+        addEnchant(list, Enchantments.INFINITY_ARROWS, 10);
+        addEnchant(list, Enchantments.POWER_ARROWS, 10);
+        addEnchant(list, Enchantments.PUNCH_ARROWS, 10);
+        addEnchant(list, Enchantments.FLAMING_ARROWS, 10);
+        addEnchant(list, Enchantments.UNBREAKING, 10);
+        addEnchant(list, Enchantments.MENDING, 1);
+        nbt.put("Enchantments", list);
+        return bow;
+    }
 
     public SkeletonLordEntity(EntityType<? extends Skeleton> type, Level level) {
         super(type, level);
@@ -102,7 +127,7 @@ public class SkeletonLordEntity extends Skeleton {
     public static AttributeSupplier.Builder createAttributes() {
         return Skeleton.createAttributes()
                 .add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.425D) // 0.25 * 1.7
+                .add(Attributes.MOVEMENT_SPEED, 0.425D)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
                 .add(Attributes.ARMOR, 20.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 12.0D)
@@ -118,43 +143,33 @@ public class SkeletonLordEntity extends Skeleton {
     protected void populateDefaultEquipmentSlots(net.minecraft.util.RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
 
-        // メインハンド: 弓
-        ItemStack bow = new ItemStack(net.minecraft.world.item.Items.BOW);
-        fullEnchant(bow);
-        this.setItemSlot(EquipmentSlot.MAINHAND, bow);
+        if (this.getPersistentData().getBoolean(TAG_EQUIP_DONE)) {
+            return;
+        }
 
-        // オフハンド: 盾
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(net.minecraft.world.item.Items.SHIELD));
+        this.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_BOW.copy());
+        this.setItemSlot(EquipmentSlot.OFFHAND, TEMPLATE_SHIELD.copy());
 
-        // フルコミメタル防具
-        equipArmor(EquipmentSlot.HEAD,
-                new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_HELMET.get()));
-        equipArmor(EquipmentSlot.CHEST,
-                new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_CHESTPLATE.get()));
-        equipArmor(EquipmentSlot.LEGS,
-                new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_LEGGINGS.get()));
-        equipArmor(EquipmentSlot.FEET,
-                new ItemStack(com.tyami.forlaism.registry.Items.GARBAGE_METAL_BOOTS.get()));
+        this.setItemSlot(EquipmentSlot.HEAD, TEMPLATE_HELMET.copy());
+        this.setItemSlot(EquipmentSlot.CHEST, TEMPLATE_CHEST.copy());
+        this.setItemSlot(EquipmentSlot.LEGS, TEMPLATE_LEGS.copy());
+        this.setItemSlot(EquipmentSlot.FEET, TEMPLATE_BOOTS.copy());
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             this.setDropChance(slot, 0.0F);
         }
-    }
 
-    private void equipArmor(EquipmentSlot slot, ItemStack stack) {
-        fullEnchant(stack);
-        this.setItemSlot(slot, stack);
+        this.getPersistentData().putBoolean(TAG_EQUIP_DONE, true);
     }
 
     // =========================================================
-    // エンチャント（NBT直接書き込み）
+    // エンチャント（テンプレート生成用・1回だけ呼ばれる）
     // =========================================================
 
     private static void fullEnchant(ItemStack stack) {
         CompoundTag nbt = stack.getOrCreateTag();
         ListTag list = new ListTag();
 
-        // 防具エンチャ
         addEnchant(list, Enchantments.ALL_DAMAGE_PROTECTION, 10);
         addEnchant(list, Enchantments.FIRE_PROTECTION, 10);
         addEnchant(list, Enchantments.BLAST_PROTECTION, 10);
@@ -167,13 +182,11 @@ public class SkeletonLordEntity extends Skeleton {
         addEnchant(list, Enchantments.FROST_WALKER, 10);
         addEnchant(list, Enchantments.BINDING_CURSE, 1);
 
-        // 弓エンチャ
         addEnchant(list, Enchantments.POWER_ARROWS, 10);
         addEnchant(list, Enchantments.PUNCH_ARROWS, 10);
         addEnchant(list, Enchantments.FLAMING_ARROWS, 10);
         addEnchant(list, Enchantments.INFINITY_ARROWS, 1);
 
-        // 汎用
         addEnchant(list, Enchantments.UNBREAKING, 10);
         addEnchant(list, Enchantments.MENDING, 1);
         addEnchant(list, Enchantments.VANISHING_CURSE, 1);
@@ -206,10 +219,8 @@ public class SkeletonLordEntity extends Skeleton {
         return false;
     }
 
-
-
     // =========================================================
-    // Tick（メインロジック）
+    // Tick
     // =========================================================
 
     @Override
@@ -229,7 +240,6 @@ public class SkeletonLordEntity extends Skeleton {
 
         double distSqr = this.distanceToSqr(target);
 
-        // ---- モード選択 ----
         if (mode == Mode.IDLE || modeTicks <= 0) {
             mode = chooseMode(target, distSqr);
             modeTicks = getModeDuration(mode);
@@ -239,7 +249,6 @@ public class SkeletonLordEntity extends Skeleton {
 
         modeTicks--;
 
-        // ---- モード実行 ----
         switch (mode) {
             case ORBIT_SHOTGUN -> tickOrbitShotgun(target);
             case BACKSTEP_SHOT -> tickBackstepShot(target);
@@ -250,29 +259,23 @@ public class SkeletonLordEntity extends Skeleton {
     }
 
     private Mode chooseMode(LivingEntity target, double distSqr) {
-
-        // プレイヤーが弓を持っている → マシンガン
         if (target instanceof Player player && player.isUsingItem()
                 && player.getUseItem().is(net.minecraft.world.item.Items.BOW)) {
             return Mode.MACHINEGUN;
         }
 
-        // 15マス以上 → アローレイン
         if (distSqr >= 15.0 * 15.0) {
             return Mode.ARROW_RAIN;
         }
 
-        // 5マス以内 → バックステップ
         if (distSqr <= 5.0 * 5.0) {
             return Mode.BACKSTEP_SHOT;
         }
 
-        // プレイヤーが盾を構えてる → 円運動ショットガン
         if (target instanceof Player player && player.isBlocking()) {
             return Mode.ORBIT_SHOTGUN;
         }
 
-        // デフォルトはマシンガン
         return Mode.MACHINEGUN;
     }
 
@@ -288,30 +291,22 @@ public class SkeletonLordEntity extends Skeleton {
 
     private void onModeStart(LivingEntity target) {
         if (mode == Mode.ORBIT_SHOTGUN) {
-            // 円運動の初期角度
             Vec3 toTarget = target.position().subtract(this.position());
             orbitAngle = Math.atan2(toTarget.z, toTarget.x);
         }
     }
 
-    // =========================================================
-    // モード1: 円運動ショットガン
-    // =========================================================
-
     private void tickOrbitShotgun(LivingEntity target) {
-        // 円運動
         orbitAngle += SHIELD_ORBIT_SPEED;
 
         double cx = target.getX() + Math.cos(orbitAngle) * SHIELD_ORBIT_RADIUS;
         double cz = target.getZ() + Math.sin(orbitAngle) * SHIELD_ORBIT_RADIUS;
         double cy = target.getY();
 
-        // テレポート移動（速度より確実）
         this.getNavigation().stop();
         this.moveTo(cx, cy, cz, this.getYRot(), this.getXRot());
         this.lookAt(target, 360.0F, 360.0F);
 
-        // 3tickごとに3本発射
         shotTimer++;
         if (shotTimer >= SHOTGUN_INTERVAL) {
             shotTimer = 0;
@@ -320,7 +315,6 @@ public class SkeletonLordEntity extends Skeleton {
             Vec3 dirBase = target.getEyePosition().subtract(eye).normalize();
 
             for (int i = 0; i < SHOTGUN_PELLETS; i++) {
-                // 散弾: 少しずつ角度をずらす
                 double spreadY = (i - 1) * 0.12;
                 double spreadX = (this.random.nextDouble() - 0.5) * 0.08;
 
@@ -332,22 +326,15 @@ public class SkeletonLordEntity extends Skeleton {
         }
     }
 
-    // =========================================================
-    // モード2: バックステップしながら3発
-    // =========================================================
-
     private void tickBackstepShot(LivingEntity target) {
-        // バックステップ開始時のみノックバック付与
         if (modeTicks == BACKSTEP_DURATION - 1) {
             Vec3 away = this.position().subtract(target.position()).normalize();
             this.setDeltaMovement(away.x * 0.9D, 0.4D, away.z * 0.9D);
             this.hurtMarked = true;
         }
 
-        // 相手の方を向く
         this.lookAt(target, 360.0F, 360.0F);
 
-        // 4tickごとに3発
         shotTimer++;
         if (shotTimer >= BACKSTEP_INTERVAL) {
             shotTimer = 0;
@@ -365,10 +352,6 @@ public class SkeletonLordEntity extends Skeleton {
         }
     }
 
-    // =========================================================
-    // モード3: アローレイン
-    // =========================================================
-
     private void tickArrowRain(LivingEntity target) {
         this.lookAt(target, 360.0F, 360.0F);
 
@@ -376,30 +359,23 @@ public class SkeletonLordEntity extends Skeleton {
         if (shotTimer >= ARROW_RAIN_INTERVAL) {
             shotTimer = 0;
 
-            // プレイヤーの現在位置の上空から矢を降らせる
             if (!(this.level() instanceof ServerLevel sl)) return;
 
             double tx = target.getX();
-            double ty = target.getY() + 20.0D; // 上空20m
+            double ty = target.getY() + 20.0D;
             double tz = target.getZ();
 
-            // 上空に矢を召喚して下向きに飛ばす
             Arrow arrow = new Arrow(sl, this);
             arrow.setPos(tx, ty, tz);
             arrow.setDeltaMovement(0.0D, -1.5D, 0.0D);
             arrow.setOwner(this);
 
-            // エンチャント反映（強力な矢）
             arrow.setBaseDamage(6.0D);
             arrow.setCritArrow(true);
 
             sl.addFreshEntity(arrow);
         }
     }
-
-    // =========================================================
-    // モード4: マシンガン
-    // =========================================================
 
     private void tickMachinegun(LivingEntity target) {
         this.lookAt(target, 360.0F, 360.0F);
@@ -411,7 +387,6 @@ public class SkeletonLordEntity extends Skeleton {
             Vec3 eye = this.getEyePosition();
             Vec3 dir = target.getEyePosition().subtract(eye).normalize();
 
-            // わずかなブレ
             dir = dir.add(
                     (this.random.nextDouble() - 0.5) * 0.05,
                     (this.random.nextDouble() - 0.5) * 0.05,
@@ -422,10 +397,6 @@ public class SkeletonLordEntity extends Skeleton {
         }
     }
 
-    // =========================================================
-    // 矢発射ヘルパー
-    // =========================================================
-
     private void shootArrow(Vec3 direction, float speed) {
         if (!(this.level() instanceof ServerLevel sl)) return;
 
@@ -434,7 +405,6 @@ public class SkeletonLordEntity extends Skeleton {
         arrow.setDeltaMovement(direction.scale(speed));
         arrow.setOwner(this);
 
-        // エンチャント反映（Power 10 → ダメージ増）
         arrow.setBaseDamage(8.0D);
         arrow.setCritArrow(true);
 
@@ -448,10 +418,6 @@ public class SkeletonLordEntity extends Skeleton {
                     1.0F + (this.random.nextFloat() - 0.5F) * 0.2F);
         }
     }
-
-    // =========================================================
-    // クライアントパーティクル
-    // =========================================================
 
     private void clientParticles() {
         if (mode == Mode.ARROW_RAIN && this.tickCount % 3 == 0) {
@@ -472,29 +438,14 @@ public class SkeletonLordEntity extends Skeleton {
     @Override
     public void die(DamageSource source) {
         if (!this.level().isClientSide && this.level() instanceof ServerLevel sl) {
-            ItemStack reward = new ItemStack(com.tyami.forlaism.registry.Items.SILK_BOW.get());
-            fullEnchantSilkBow(reward);
-            this.spawnAtLocation(reward);
+            // テンプレートから .copy() で渡す（NBT 再構築ゼロ）
+            this.spawnAtLocation(TEMPLATE_SILK_BOW.copy());
 
             sl.sendParticles(ParticleTypes.EXPLOSION_EMITTER,
                     this.getX(), this.getY() + 1, this.getZ(),
                     1, 0, 0, 0, 0);
         }
         super.die(source);
-    }
-
-    private static void fullEnchantSilkBow(ItemStack stack) {
-        CompoundTag nbt = stack.getOrCreateTag();
-        ListTag list = new ListTag();
-
-        addEnchant(list, Enchantments.INFINITY_ARROWS, 10);
-        addEnchant(list, Enchantments.POWER_ARROWS, 10);
-        addEnchant(list, Enchantments.PUNCH_ARROWS, 10);
-        addEnchant(list, Enchantments.FLAMING_ARROWS, 10);
-        addEnchant(list, Enchantments.UNBREAKING, 10);
-        addEnchant(list, Enchantments.MENDING, 1);
-
-        nbt.put("Enchantments", list);
     }
 
     // =========================================================

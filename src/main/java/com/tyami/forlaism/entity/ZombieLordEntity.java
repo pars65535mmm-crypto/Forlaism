@@ -37,10 +37,15 @@ import javax.annotation.Nullable;
 
 /**
  * ゾンビロード。
+ *
+ * 軽量化:
+ *   - エンチャント済み装備は static テンプレート化（NBT 再構築ゼロ）
+ *   - populateDefaultEquipmentSlots は 1 回だけ実行
  */
 public class ZombieLordEntity extends Zombie {
 
     private static final String TAG_SUMMONED_MINIONS = "ForlaismZombieLordSummoned";
+    private static final String TAG_EQUIP_DONE = "ForlaismZombieLordEquipped";
 
     private int chargeCooldown = 0;
     private boolean charging = false;
@@ -51,6 +56,59 @@ public class ZombieLordEntity extends Zombie {
 
     private static final EntityDataAccessor<Boolean> DATA_SHIELDING =
             SynchedEntityData.defineId(ZombieLordEntity.class, EntityDataSerializers.BOOLEAN);
+
+    // =========================================================
+    // 装備テンプレート（static 1回だけ生成）
+    // =========================================================
+
+    private static final ItemStack TEMPLATE_AXE = createEnchantedAxe();
+    private static final ItemStack TEMPLATE_SWORD = createEnchantedSword();
+    private static final ItemStack TEMPLATE_HELMET = createEnchantedArmor(new ItemStack(net.minecraft.world.item.Items.NETHERITE_HELMET));
+    private static final ItemStack TEMPLATE_CHEST = createEnchantedArmor(new ItemStack(net.minecraft.world.item.Items.NETHERITE_CHESTPLATE));
+    private static final ItemStack TEMPLATE_LEGS = createEnchantedArmor(new ItemStack(net.minecraft.world.item.Items.NETHERITE_LEGGINGS));
+    private static final ItemStack TEMPLATE_BOOTS = createEnchantedArmor(new ItemStack(net.minecraft.world.item.Items.NETHERITE_BOOTS));
+    private static final ItemStack TEMPLATE_SHIELD = new ItemStack(net.minecraft.world.item.Items.SHIELD);
+
+    private static ItemStack createEnchantedAxe() {
+        ItemStack axe = new ItemStack(net.minecraft.world.item.Items.NETHERITE_AXE);
+        applyFullEnchant(axe);
+        return axe;
+    }
+
+    private static ItemStack createEnchantedSword() {
+        ItemStack sword = new ItemStack(net.minecraft.world.item.Items.NETHERITE_SWORD);
+        applyFullEnchant(sword);
+        return sword;
+    }
+
+    private static ItemStack createEnchantedArmor(ItemStack stack) {
+        applyFullEnchant(stack);
+        return stack;
+    }
+
+    private static void applyFullEnchant(ItemStack stack) {
+        stack.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
+        stack.enchant(Enchantments.FIRE_PROTECTION, 10);
+        stack.enchant(Enchantments.BLAST_PROTECTION, 10);
+        stack.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
+        stack.enchant(Enchantments.FALL_PROTECTION, 10);
+        stack.enchant(Enchantments.THORNS, 10);
+        stack.enchant(Enchantments.RESPIRATION, 10);
+        stack.enchant(Enchantments.AQUA_AFFINITY, 10);
+        stack.enchant(Enchantments.DEPTH_STRIDER, 10);
+        stack.enchant(Enchantments.FROST_WALKER, 10);
+        stack.enchant(Enchantments.BINDING_CURSE, 10);
+        stack.enchant(Enchantments.SHARPNESS, 10);
+        stack.enchant(Enchantments.SMITE, 10);
+        stack.enchant(Enchantments.BANE_OF_ARTHROPODS, 10);
+        stack.enchant(Enchantments.KNOCKBACK, 10);
+        stack.enchant(Enchantments.FIRE_ASPECT, 10);
+        stack.enchant(Enchantments.MOB_LOOTING, 10);
+        stack.enchant(Enchantments.SWEEPING_EDGE, 10);
+        stack.enchant(Enchantments.UNBREAKING, 10);
+        stack.enchant(Enchantments.MENDING, 1);
+        stack.enchant(Enchantments.VANISHING_CURSE, 1);
+    }
 
     public ZombieLordEntity(EntityType<? extends Zombie> type, Level level) {
         super(type, level);
@@ -91,52 +149,28 @@ public class ZombieLordEntity extends Zombie {
     protected void populateDefaultEquipmentSlots(net.minecraft.util.RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
 
+        // 既に装備済みフラグが立っているなら、再エンチャしない（拾い直し時の保護）
+        if (this.getPersistentData().getBoolean(TAG_EQUIP_DONE)) {
+            return;
+        }
+
         // メインハンド: ネザライト斧
-        ItemStack axe = new ItemStack(net.minecraft.world.item.Items.NETHERITE_AXE);
-        fullEnchant(axe);
-        this.setItemSlot(EquipmentSlot.MAINHAND, axe);
+        this.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_AXE.copy());
 
         // オフハンド: 盾
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(net.minecraft.world.item.Items.SHIELD));
+        this.setItemSlot(EquipmentSlot.OFFHAND, TEMPLATE_SHIELD.copy());
 
         // フルネザライト防具
-        equipArmor(EquipmentSlot.HEAD, new ItemStack(net.minecraft.world.item.Items.NETHERITE_HELMET));
-        equipArmor(EquipmentSlot.CHEST, new ItemStack(net.minecraft.world.item.Items.NETHERITE_CHESTPLATE));
-        equipArmor(EquipmentSlot.LEGS, new ItemStack(net.minecraft.world.item.Items.NETHERITE_LEGGINGS));
-        equipArmor(EquipmentSlot.FEET, new ItemStack(net.minecraft.world.item.Items.NETHERITE_BOOTS));
+        this.setItemSlot(EquipmentSlot.HEAD, TEMPLATE_HELMET.copy());
+        this.setItemSlot(EquipmentSlot.CHEST, TEMPLATE_CHEST.copy());
+        this.setItemSlot(EquipmentSlot.LEGS, TEMPLATE_LEGS.copy());
+        this.setItemSlot(EquipmentSlot.FEET, TEMPLATE_BOOTS.copy());
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             this.setDropChance(slot, 0.0F);
         }
-    }
 
-    private void equipArmor(EquipmentSlot slot, ItemStack stack) {
-        fullEnchant(stack);
-        this.setItemSlot(slot, stack);
-    }
-
-    private static void fullEnchant(ItemStack stack) {
-        stack.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-        stack.enchant(Enchantments.FIRE_PROTECTION, 10);
-        stack.enchant(Enchantments.BLAST_PROTECTION, 10);
-        stack.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
-        stack.enchant(Enchantments.FALL_PROTECTION, 10);
-        stack.enchant(Enchantments.THORNS, 10);
-        stack.enchant(Enchantments.RESPIRATION, 10);
-        stack.enchant(Enchantments.AQUA_AFFINITY, 10);
-        stack.enchant(Enchantments.DEPTH_STRIDER, 10);
-        stack.enchant(Enchantments.FROST_WALKER, 10);
-        stack.enchant(Enchantments.BINDING_CURSE, 10);
-        stack.enchant(Enchantments.SHARPNESS, 10);
-        stack.enchant(Enchantments.SMITE, 10);
-        stack.enchant(Enchantments.BANE_OF_ARTHROPODS, 10);
-        stack.enchant(Enchantments.KNOCKBACK, 10);
-        stack.enchant(Enchantments.FIRE_ASPECT, 10);
-        stack.enchant(Enchantments.MOB_LOOTING, 10);
-        stack.enchant(Enchantments.SWEEPING_EDGE, 10);
-        stack.enchant(Enchantments.UNBREAKING, 10);
-        stack.enchant(Enchantments.MENDING, 1);
-        stack.enchant(Enchantments.VANISHING_CURSE, 1);
+        this.getPersistentData().putBoolean(TAG_EQUIP_DONE, true);
     }
 
     // =========================================================
@@ -329,15 +363,13 @@ public class ZombieLordEntity extends Zombie {
     }
 
     private void equipAxe() {
-        ItemStack axe = new ItemStack(net.minecraft.world.item.Items.NETHERITE_AXE);
-        fullEnchant(axe);
-        this.setItemSlot(EquipmentSlot.MAINHAND, axe);
+        // テンプレートをコピーして渡す（NBT 再構築ゼロ）
+        this.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_AXE.copy());
     }
 
     private void equipSword() {
-        ItemStack sword = new ItemStack(net.minecraft.world.item.Items.NETHERITE_SWORD);
-        fullEnchant(sword);
-        this.setItemSlot(EquipmentSlot.MAINHAND, sword);
+        // テンプレートをコピーして渡す（NBT 再構築ゼロ）
+        this.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_SWORD.copy());
     }
 
     // =========================================================

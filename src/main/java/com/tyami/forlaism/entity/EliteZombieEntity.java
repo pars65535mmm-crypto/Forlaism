@@ -1,6 +1,6 @@
 package com.tyami.forlaism.entity;
 
-import net.minecraft.nbt.CompoundTag;   // ← ★これ追加！
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -22,17 +22,40 @@ import javax.annotation.Nullable;
 /**
  * エリートゾンビ。
  *
- * ゾンビロードの配下。
- *
- * - フル鉄装備 + 鉄斧
- * - HP40
- * - 突進持ち（15マス以上離れると突進ジャンプ）
+ * 軽量化:
+ *   - エンチャント済み装備は static テンプレート化
+ *   - populateDefaultEquipmentSlots は 1 回だけエンチャ詰め
  */
 public class EliteZombieEntity extends Zombie {
 
     private int chargeCooldown = 0;
     private boolean charging = false;
     private int chargeTicks = 0;
+
+    private static final String TAG_EQUIP_DONE = "ForlaismEliteZombieEquipped";
+
+    // =========================================================
+    // 装備テンプレート（static 1回だけ生成）
+    // =========================================================
+
+    private static final ItemStack TEMPLATE_AXE = createEnchantedAxe();
+    private static final ItemStack TEMPLATE_HELMET = createEnchantedArmor(new ItemStack(Items.IRON_HELMET));
+    private static final ItemStack TEMPLATE_CHEST = createEnchantedArmor(new ItemStack(Items.IRON_CHESTPLATE));
+    private static final ItemStack TEMPLATE_LEGS = createEnchantedArmor(new ItemStack(Items.IRON_LEGGINGS));
+    private static final ItemStack TEMPLATE_BOOTS = createEnchantedArmor(new ItemStack(Items.IRON_BOOTS));
+
+    private static ItemStack createEnchantedAxe() {
+        ItemStack axe = new ItemStack(Items.IRON_AXE);
+        axe.enchant(Enchantments.SHARPNESS, 5);
+        axe.enchant(Enchantments.UNBREAKING, 3);
+        return axe;
+    }
+
+    private static ItemStack createEnchantedArmor(ItemStack stack) {
+        stack.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 5);
+        stack.enchant(Enchantments.UNBREAKING, 3);
+        return stack;
+    }
 
     public EliteZombieEntity(EntityType<? extends Zombie> type, Level level) {
         super(type, level);
@@ -52,27 +75,24 @@ public class EliteZombieEntity extends Zombie {
     protected void populateDefaultEquipmentSlots(net.minecraft.util.RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
 
+        if (this.getPersistentData().getBoolean(TAG_EQUIP_DONE)) {
+            return;
+        }
+
         // 鉄斧
-        ItemStack axe = new ItemStack(Items.IRON_AXE);
-        axe.enchant(Enchantments.SHARPNESS, 5);
-        axe.enchant(Enchantments.UNBREAKING, 3);
-        this.setItemSlot(EquipmentSlot.MAINHAND, axe);
+        this.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_AXE.copy());
 
         // フル鉄装備
-        equipArmor(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
-        equipArmor(EquipmentSlot.CHEST, new ItemStack(Items.IRON_CHESTPLATE));
-        equipArmor(EquipmentSlot.LEGS, new ItemStack(Items.IRON_LEGGINGS));
-        equipArmor(EquipmentSlot.FEET, new ItemStack(Items.IRON_BOOTS));
+        this.setItemSlot(EquipmentSlot.HEAD, TEMPLATE_HELMET.copy());
+        this.setItemSlot(EquipmentSlot.CHEST, TEMPLATE_CHEST.copy());
+        this.setItemSlot(EquipmentSlot.LEGS, TEMPLATE_LEGS.copy());
+        this.setItemSlot(EquipmentSlot.FEET, TEMPLATE_BOOTS.copy());
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             this.setDropChance(slot, 0.0F);
         }
-    }
 
-    private void equipArmor(EquipmentSlot slot, ItemStack stack) {
-        stack.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 5);
-        stack.enchant(Enchantments.UNBREAKING, 3);
-        this.setItemSlot(slot, stack);
+        this.getPersistentData().putBoolean(TAG_EQUIP_DONE, true);
     }
 
     @Override

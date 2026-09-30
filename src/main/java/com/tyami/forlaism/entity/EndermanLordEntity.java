@@ -288,7 +288,7 @@ public class EndermanLordEntity extends EnderMan {
 
                     if (fluid.getType() == Fluids.WATER
                             || fluid.getType() == Fluids.FLOWING_WATER) {
-                        this.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        this.level().setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
                     }
                 }
             }

@@ -5,12 +5,10 @@ import com.tyami.forlaism.registry.ModEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -33,7 +31,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -42,82 +39,89 @@ import java.util.List;
 /**
  * ウィザースケルトンロード。
  *
- * 中ボス。
- *
- * - ウィザースケルトンスポーン時に 1% で置換出現
- * - フルネザライトエンチャ装備 + ネザライト剣二刀流
- * - HP250 / 攻撃力3倍 / 移動速度1.6倍
- * - 15マス以上離れていると切りながら接近（突進）
- * - プレイヤーが盾持ち かつ Yが低い と上に飛ぶ
- * - 32マス以上離れるとプレイヤーの背後にTP（壁なら同位置）
- * - HP75%でウィザスケ×10召喚
- * - HP50%で周囲に火炎 + 自身も炎 + 攻撃力2倍
- * - HP25%で周囲を切りまくり & ブロック破壊
- * - 倒すとウィザースケルトンの頭×64
- * - 儀式の短剣で確定召喚
+ * 軽量化:
+ *   - フルネザライト装備は static テンプレート化
+ *   - populateDefaultEquipmentSlots は 1 回だけ
  */
 public class WitherSkeletonLordEntity extends WitherSkeleton {
 
-    // =========================================================
-    // 定数
-    // =========================================================
-
-    /** 突進接近を開始する距離。 */
     private static final double CHARGE_DISTANCE = 15.0D;
-
-    /** 突進の速度ブースト。 */
     private static final double CHARGE_SPEED = 1.4D;
-
-    /** 盾持ちプレイヤーの上へ飛ぶ時の上昇速度。 */
     private static final double SHIELD_JUMP_UP = 0.9D;
-
-    /** 盾持ちプレイヤー判定を行うY差。 */
     private static final double SHIELD_Y_DIFF = 2.0D;
-
-    /** TPを開始する距離。 */
     private static final double TELEPORT_DISTANCE = 32.0D;
 
-    /** フェーズ移行のHP閾値。 */
     private static final float PHASE_75 = 0.75F;
     private static final float PHASE_50 = 0.50F;
     private static final float PHASE_25 = 0.25F;
 
-    /** HP75%時に召喚するウィザスケ数。 */
     private static final int SUMMON_COUNT_75 = 10;
-
-    /** HP50%時の火炎付与 tick。 */
     private static final int FIRE_TICKS = 200;
-
-    /** HP25%時の周囲切り範囲。 */
     private static final double PHASE25_SWEEP_RADIUS = 4.5D;
-
-    /** HP25%時の周囲切りダメージ。 */
     private static final float PHASE25_SWEEP_DAMAGE = 8.0F;
-
-    /** HP25%時のブロック破壊範囲。 */
     private static final int PHASE25_BREAK_RADIUS = 2;
-
-    /** TPクールダウン (tick)。 */
     private static final int TELEPORT_COOLDOWN = 60;
 
-    // =========================================================
-    // 状態
-    // =========================================================
+    private static final String TAG_EQUIP_DONE = "ForlaismWitherSkeletonLordEquipped";
 
-    /** フェーズ75 発動済み。 */
     private boolean phase75Done = false;
-
-    /** フェーズ50 発動済み。 */
     private boolean phase50Done = false;
-
-    /** フェーズ25 発動済み。 */
     private boolean phase25Done = false;
-
-    /** TPクールダウン残り。 */
     private int teleportCooldown = 0;
-
-    /** 突進tick残り。 */
     private int chargeTicks = 0;
+
+    // =========================================================
+    // 装備テンプレート（static 1回だけ生成）
+    // =========================================================
+
+    private static final ItemStack TEMPLATE_SWORD_MAIN = createEnchantedSword();
+    private static final ItemStack TEMPLATE_SWORD_OFF = createEnchantedSword();
+    private static final ItemStack TEMPLATE_HELMET = createEnchantedArmor(new ItemStack(Items.NETHERITE_HELMET));
+    private static final ItemStack TEMPLATE_CHEST = createEnchantedArmor(new ItemStack(Items.NETHERITE_CHESTPLATE));
+    private static final ItemStack TEMPLATE_LEGS = createEnchantedArmor(new ItemStack(Items.NETHERITE_LEGGINGS));
+    private static final ItemStack TEMPLATE_BOOTS = createEnchantedArmor(new ItemStack(Items.NETHERITE_BOOTS));
+
+    /** フェーズ75で召喚するウィザスケの剣テンプレート。 */
+    private static final ItemStack TEMPLATE_MINION_SWORD = createMinionSword();
+
+    private static ItemStack createEnchantedSword() {
+        ItemStack sword = new ItemStack(Items.NETHERITE_SWORD);
+        sword.enchant(Enchantments.SHARPNESS, 10);
+        sword.enchant(Enchantments.SMITE, 10);
+        sword.enchant(Enchantments.BANE_OF_ARTHROPODS, 10);
+        sword.enchant(Enchantments.KNOCKBACK, 10);
+        sword.enchant(Enchantments.FIRE_ASPECT, 10);
+        sword.enchant(Enchantments.MOB_LOOTING, 10);
+        sword.enchant(Enchantments.SWEEPING_EDGE, 10);
+        sword.enchant(Enchantments.UNBREAKING, 10);
+        sword.enchant(Enchantments.MENDING, 1);
+        sword.enchant(Enchantments.VANISHING_CURSE, 1);
+        return sword;
+    }
+
+    private static ItemStack createMinionSword() {
+        ItemStack sword = new ItemStack(Items.NETHERITE_SWORD);
+        sword.enchant(Enchantments.SHARPNESS, 10);
+        return sword;
+    }
+
+    private static ItemStack createEnchantedArmor(ItemStack stack) {
+        stack.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
+        stack.enchant(Enchantments.FIRE_PROTECTION, 10);
+        stack.enchant(Enchantments.BLAST_PROTECTION, 10);
+        stack.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
+        stack.enchant(Enchantments.FALL_PROTECTION, 10);
+        stack.enchant(Enchantments.THORNS, 10);
+        stack.enchant(Enchantments.RESPIRATION, 10);
+        stack.enchant(Enchantments.AQUA_AFFINITY, 10);
+        stack.enchant(Enchantments.DEPTH_STRIDER, 10);
+        stack.enchant(Enchantments.FROST_WALKER, 10);
+        stack.enchant(Enchantments.BINDING_CURSE, 1);
+        stack.enchant(Enchantments.UNBREAKING, 10);
+        stack.enchant(Enchantments.MENDING, 1);
+        stack.enchant(Enchantments.VANISHING_CURSE, 1);
+        return stack;
+    }
 
     public WitherSkeletonLordEntity(EntityType<? extends WitherSkeleton> type, Level level) {
         super(type, level);
@@ -125,13 +129,7 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
         this.setPersistenceRequired();
     }
 
-    // =========================================================
-    // 属性
-    // =========================================================
-
     public static AttributeSupplier.Builder createAttributes() {
-        // バニラWitherSkeleton: HP20, 攻撃力4, 移動速度0.25
-        // → HP250 / 攻撃力3倍(12) / 移動速度1.6倍(0.4)
         return WitherSkeleton.createAttributes()
                 .add(Attributes.MAX_HEALTH, 250.0D)
                 .add(Attributes.ATTACK_DAMAGE, 12.0D)
@@ -169,65 +167,23 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
     protected void populateDefaultEquipmentSlots(net.minecraft.util.RandomSource random, DifficultyInstance difficulty) {
         super.populateDefaultEquipmentSlots(random, difficulty);
 
-        // メインハンド: ネザライト剣
-        ItemStack mainSword = new ItemStack(Items.NETHERITE_SWORD);
-        fullEnchantWeapon(mainSword);
-        this.setItemSlot(EquipmentSlot.MAINHAND, mainSword);
+        if (this.getPersistentData().getBoolean(TAG_EQUIP_DONE)) {
+            return;
+        }
 
-        // オフハンド: ネザライト剣（二刀流）
-        ItemStack offSword = new ItemStack(Items.NETHERITE_SWORD);
-        fullEnchantWeapon(offSword);
-        this.setItemSlot(EquipmentSlot.OFFHAND, offSword);
+        this.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_SWORD_MAIN.copy());
+        this.setItemSlot(EquipmentSlot.OFFHAND, TEMPLATE_SWORD_OFF.copy());
 
-        // フルネザライト防具
-        equipArmor(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-        equipArmor(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-        equipArmor(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-        equipArmor(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+        this.setItemSlot(EquipmentSlot.HEAD, TEMPLATE_HELMET.copy());
+        this.setItemSlot(EquipmentSlot.CHEST, TEMPLATE_CHEST.copy());
+        this.setItemSlot(EquipmentSlot.LEGS, TEMPLATE_LEGS.copy());
+        this.setItemSlot(EquipmentSlot.FEET, TEMPLATE_BOOTS.copy());
 
-        // ドロップ無効化（剣・防具は落とさない）
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             this.setDropChance(slot, 0.0F);
         }
-    }
 
-    private void equipArmor(EquipmentSlot slot, ItemStack stack) {
-        fullEnchantArmor(stack);
-        this.setItemSlot(slot, stack);
-    }
-
-    // =========================================================
-    // フルエンチャント
-    // =========================================================
-
-    private static void fullEnchantWeapon(ItemStack stack) {
-        stack.enchant(Enchantments.SHARPNESS, 10);
-        stack.enchant(Enchantments.SMITE, 10);
-        stack.enchant(Enchantments.BANE_OF_ARTHROPODS, 10);
-        stack.enchant(Enchantments.KNOCKBACK, 10);
-        stack.enchant(Enchantments.FIRE_ASPECT, 10);
-        stack.enchant(Enchantments.MOB_LOOTING, 10);
-        stack.enchant(Enchantments.SWEEPING_EDGE, 10);
-        stack.enchant(Enchantments.UNBREAKING, 10);
-        stack.enchant(Enchantments.MENDING, 1);
-        stack.enchant(Enchantments.VANISHING_CURSE, 1);
-    }
-
-    private static void fullEnchantArmor(ItemStack stack) {
-        stack.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-        stack.enchant(Enchantments.FIRE_PROTECTION, 10);
-        stack.enchant(Enchantments.BLAST_PROTECTION, 10);
-        stack.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
-        stack.enchant(Enchantments.FALL_PROTECTION, 10);
-        stack.enchant(Enchantments.THORNS, 10);
-        stack.enchant(Enchantments.RESPIRATION, 10);
-        stack.enchant(Enchantments.AQUA_AFFINITY, 10);
-        stack.enchant(Enchantments.DEPTH_STRIDER, 10);
-        stack.enchant(Enchantments.FROST_WALKER, 10);
-        stack.enchant(Enchantments.BINDING_CURSE, 1);
-        stack.enchant(Enchantments.UNBREAKING, 10);
-        stack.enchant(Enchantments.MENDING, 1);
-        stack.enchant(Enchantments.VANISHING_CURSE, 1);
+        this.getPersistentData().putBoolean(TAG_EQUIP_DONE, true);
     }
 
     // =========================================================
@@ -262,35 +218,24 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
             return;
         }
 
-        // クールダウン
         if (teleportCooldown > 0) teleportCooldown--;
-
-        // 常時炎上演出
-        if (this.isOnFire()) {
-            // 何もしない (バニラに任せる)
-        }
 
         LivingEntity target = this.getTarget();
         if (target == null) return;
 
         double distSqr = this.distanceToSqr(target);
-
-        // ---- フェーズ判定 ----
         float hpRatio = this.getHealth() / this.getMaxHealth();
 
-        // HP75%: ウィザスケ召喚
         if (!phase75Done && hpRatio <= PHASE_75) {
             phase75Done = true;
             summonWitherSkeletons();
         }
 
-        // HP50%: 火炎ばら撒き + 自身炎上 + 攻撃力2倍
         if (!phase50Done && hpRatio <= PHASE_50) {
             phase50Done = true;
             phase50Activate();
         }
 
-        // HP25%: 周囲切りまくり
         if (!phase25Done && hpRatio <= PHASE_25) {
             phase25Done = true;
             this.addEffect(new net.minecraft.world.effect.MobEffectInstance(
@@ -299,22 +244,18 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
             ));
         }
 
-        // ---- HP25% フェーズ: 周囲を切りまくり ----
         if (phase25Done) {
             tickPhase25Sweep();
         }
 
-        // ---- 32マス以上 → 背後TP ----
         if (distSqr >= TELEPORT_DISTANCE * TELEPORT_DISTANCE && teleportCooldown <= 0) {
             teleportBehindTarget(target);
             teleportCooldown = TELEPORT_COOLDOWN;
             return;
         }
 
-        // ---- 盾持ちプレイヤー判定 ----
         if (target instanceof Player player && player.isBlocking()) {
             if (this.getY() < player.getY() - SHIELD_Y_DIFF) {
-                // 上に飛ぶ
                 this.setDeltaMovement(
                         this.getDeltaMovement().x,
                         SHIELD_JUMP_UP,
@@ -324,12 +265,10 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
             }
         }
 
-        // ---- 15マス以上 → 突進接近 ----
         if (distSqr >= CHARGE_DISTANCE * CHARGE_DISTANCE && chargeTicks <= 0) {
             startCharge(target);
         }
 
-        // ---- 突進中 ----
         if (chargeTicks > 0) {
             tickCharge(target);
         }
@@ -350,7 +289,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
         );
         this.hurtMarked = true;
 
-        // 斬撃パーティクル
         if (this.level() instanceof ServerLevel sl) {
             sl.sendParticles(
                     ParticleTypes.SWEEP_ATTACK,
@@ -378,7 +316,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
         );
         this.hurtMarked = true;
 
-        // 突進中の斬撃パーティクル
         if (this.level() instanceof ServerLevel sl && this.tickCount % 2 == 0) {
             sl.sendParticles(
                     ParticleTypes.SWEEP_ATTACK,
@@ -395,22 +332,16 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
     private void teleportBehindTarget(LivingEntity target) {
         if (!(this.level() instanceof ServerLevel sl)) return;
 
-        // プレイヤーの視線方向を取得
         Vec3 look = target.getLookAngle().normalize();
-
-        // 背後 = 視線の逆方向へ 2 マス
         Vec3 behindPos = target.position().subtract(look.scale(2.0));
 
-        // ブロックチェック: その位置の足元と頭が空気かどうか
         BlockPos behindBlock = BlockPos.containing(behindPos);
 
         boolean canPlace = sl.getBlockState(behindBlock).isAir()
                 && sl.getBlockState(behindBlock.above()).isAir();
 
-        // 壁なら同位置、空きなら背後
         Vec3 teleportPos = canPlace ? behindPos : target.position();
 
-        // 演出
         sl.sendParticles(
                 ParticleTypes.PORTAL,
                 this.getX(), this.getY() + 1.0, this.getZ(),
@@ -437,7 +368,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
                 1.0F, 1.4F
         );
 
-        // 視線をプレイヤーへ
         this.lookAt(target, 360.0F, 360.0F);
     }
 
@@ -461,10 +391,8 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
 
             skeleton.moveTo(sx, sy, sz, this.random.nextFloat() * 360.0F, 0.0F);
 
-            // 装備
-            ItemStack sword = new ItemStack(Items.NETHERITE_SWORD);
-            sword.enchant(Enchantments.SHARPNESS, 10);
-            skeleton.setItemSlot(EquipmentSlot.MAINHAND, sword);
+            // テンプレートから .copy() で渡す
+            skeleton.setItemSlot(EquipmentSlot.MAINHAND, TEMPLATE_MINION_SWORD.copy());
 
             skeleton.setTarget(this.getTarget());
 
@@ -485,7 +413,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
                 2.0F, 0.6F
         );
 
-        // 通知
         if (this.getTarget() instanceof Player player) {
             player.displayClientMessage(
                     Component.literal("§4§lウィザースケルトンロードが配下を召喚した！"),
@@ -495,16 +422,14 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
     }
 
     // =========================================================
-    // フェーズ50: 火炎ばら撒き + 自身炎上 + 攻撃力2倍
+    // フェーズ50
     // =========================================================
 
     private void phase50Activate() {
         if (!(this.level() instanceof ServerLevel sl)) return;
 
-        // 自身を炎上
         this.setSecondsOnFire(FIRE_TICKS / 20);
 
-        // 周囲に火を撒く
         for (int i = 0; i < 24; i++) {
             double angle = this.random.nextDouble() * Math.PI * 2.0;
             double radius = 2.0 + this.random.nextDouble() * 4.0;
@@ -514,7 +439,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
 
             BlockPos groundPos = BlockPos.containing(fx, this.getY(), fz);
 
-            // 地面を探す
             for (int dy = 2; dy >= -3; dy--) {
                 BlockPos candidate = groundPos.offset(0, dy, 0);
                 if (!sl.getBlockState(candidate).isAir()
@@ -530,7 +454,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
             }
         }
 
-        // 攻撃力2倍
         var attackAttr = this.getAttribute(Attributes.ATTACK_DAMAGE);
         if (attackAttr != null) {
             attackAttr.setBaseValue(attackAttr.getBaseValue() * 2.0D);
@@ -553,16 +476,14 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
     }
 
     // =========================================================
-    // フェーズ25: 周囲切りまくり + ブロック破壊
+    // フェーズ25
     // =========================================================
 
     private void tickPhase25Sweep() {
         if (!(this.level() instanceof ServerLevel sl)) return;
 
-        // 2tickに1回スイープ
         if (this.tickCount % 2 != 0) return;
 
-        // 周囲のLivingEntityにダメージ
         List<LivingEntity> targets = sl.getEntitiesOfClass(
                 LivingEntity.class,
                 this.getBoundingBox().inflate(PHASE25_SWEEP_RADIUS),
@@ -574,15 +495,12 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
             t.hurtTime = 0;
             t.hurt(this.damageSources().mobAttack(this), PHASE25_SWEEP_DAMAGE);
 
-            // ノックバック
             Vec3 away = t.position().subtract(this.position()).normalize();
             t.push(away.x * 1.5D, 0.4D, away.z * 1.5D);
         }
 
-        // ブロック破壊
         breakNearbyBlocks(sl);
 
-        // 斬撃パーティクル
         sl.sendParticles(
                 ParticleTypes.SWEEP_ATTACK,
                 this.getX(), this.getY() + 1.0, this.getZ(),
@@ -609,12 +527,11 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
                 for (int dz = -PHASE25_BREAK_RADIUS; dz <= PHASE25_BREAK_RADIUS; dz++) {
 
                     BlockPos pos = center.offset(dx, dy, dz);
-                    BlockState state = sl.getBlockState(pos);
+                    var state = sl.getBlockState(pos);
 
                     if (state.isAir()) continue;
-                    if (state.getDestroySpeed(sl, pos) < 0) continue; // 岩盤除外
+                    if (state.getDestroySpeed(sl, pos) < 0) continue;
 
-                    // チェスト等のコンテナも壊す（中身は消える）
                     sl.destroyBlock(pos, true, this);
                 }
             }
@@ -626,7 +543,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
     // =========================================================
 
     private void clientParticles() {
-        // 常時紫オーラ
         if (this.tickCount % 3 == 0) {
             this.level().addParticle(
                     ParticleTypes.SOUL_FIRE_FLAME,
@@ -646,11 +562,9 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
     public void die(DamageSource source) {
         if (!this.level().isClientSide && this.level() instanceof ServerLevel sl) {
 
-            // ウィザースケルトンの頭 ×64
             ItemStack skull = new ItemStack(Items.WITHER_SKELETON_SKULL, 64);
             this.spawnAtLocation(skull);
 
-            // 死亡演出
             sl.sendParticles(
                     ParticleTypes.EXPLOSION_EMITTER,
                     this.getX(), this.getY() + 1.0, this.getZ(),
@@ -707,7 +621,6 @@ public class WitherSkeletonLordEntity extends WitherSkeleton {
 
         @Override
         public boolean canUse() {
-            // 突進中は通常攻撃を止める
             if (lord.chargeTicks > 0) return false;
             return super.canUse();
         }
