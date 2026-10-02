@@ -51,5 +51,12 @@ public class FactotumPacketHandler {
                 .encoder(BossSyncPacket::encode)
                 .consumerMainThread(BossSyncPacket::handle)
                 .add();
+
+                // ★追加: GrappleFirePacket (CLIENT → SERVER)
+        CHANNEL.messageBuilder(GrappleFirePacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(GrappleFirePacket::new)
+                .encoder(GrappleFirePacket::encode)
+                .consumerMainThread(GrappleFirePacket::handle)
+                .add();
     }
 }

@@ -23,7 +23,10 @@
     "overovernull.LivingEntityAliveMixin",
     "overovernull.EntityOverOverNullMixin",
     "overovernull.ServerBossEventMixin",
-    "overovernull.EntityJoinLevelBlockerMixin"
+    "overovernull.EntityJoinLevelBlockerMixin",
+    "gmb.EntityGMBAbsoluteEraseMixin",
+    "gmb.LivingEntityGMBAbsoluteEraseMixin",
+    "gmb.ServerLevelGMBBlockJoinMixin"
   ],
   "client": [
     "MinecraftMixin",
@@ -32,7 +35,8 @@
     "LivingEntitySwrequimetMixin",
     "ItemRendererMixin",
     "HumanoidArmorLayerMixin",
-    "HumanoidMobRendererMixin"
+    "HumanoidMobRendererMixin",
+    "gmb.ClientLevelGMBEraseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

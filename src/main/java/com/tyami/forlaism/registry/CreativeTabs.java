@@ -150,8 +150,27 @@ public class CreativeTabs {
                                 output.accept(Items.WATER_RING.get());
                                 output.accept(Items.AQUA_RING.get());
                                 output.accept(Items.MARINE_RING.get());
+                                output.accept(Items.GRAPPLE_RING.get());
+                                output.accept(Items.LIGHT_RING.get());
+                                output.accept(Items.FEATHER_RING.get());
+                                output.accept(Items.ICE_RING.get());
+                                output.accept(Items.VAMPIRE_RING.get());
+                                output.accept(Items.TREASURE_RING.get());
+                                output.accept(Items.MOON_RING.get());
+                                output.accept(Items.SUN_RING.get());
+                                output.accept(Items.TWILIGHT_RING.get());
                                 output.accept(Items.NULL.get());
                                 output.accept(Items.MAHOUTSUKAI_NO_BOUSHI.get());
+                                output.accept(Items.DEATH_METAL.get());
+                                output.accept(Items.DEATH_METAL_SWORD.get());
+                                output.accept(Items.DEATH_METAL_AXE.get());
+                                output.accept(Items.DEATH_METAL_PICKAXE.get());
+                                output.accept(Items.DEATH_METAL_SHOVEL.get());
+                                output.accept(Items.DEATH_METAL_HOE.get());
+                                output.accept(Items.DEATH_METAL_HELMET.get());
+                                output.accept(Items.DEATH_METAL_CHESTPLATE.get());
+                                output.accept(Items.DEATH_METAL_LEGGINGS.get());
+                                output.accept(Items.DEATH_METAL_BOOTS.get());
                                 
 
 
@@ -159,6 +178,7 @@ public class CreativeTabs {
                                 output.accept(Items.ADAMETAL.get());
                                 output.accept(Items.POSSIBILITY.get());
                                 output.accept(Items.CHALLENGE.get());
+                                output.accept(Items.GAMING_MASTER_BLADE.get());
                                
                             })
                             .build()

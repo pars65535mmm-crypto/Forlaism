@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:cons_steel" },
+    { "item": "forlaism:konnyaku_daite" },
+    { "item": "forlaism:sage_stone" }
+  ],
+  "result": {
+    "item": "forlaism:death_metal",
+    "count": 2
+  }
+}

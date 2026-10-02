@@ -8,6 +8,8 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import com.tyami.forlaism.client.model.EndWardenModel;
+import com.tyami.forlaism.client.renderer.EndWardenRenderer;
 import com.tyami.forlaism.client.renderer.AethericGeneratorRenderer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,6 +45,7 @@ public class Forlaism {
         var modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         Items.ITEMS.register(modEventBus);
+        com.tyami.forlaism.registry.ModEnchantments.ENCHANTMENTS.register(modEventBus);
         Blocks.BLOCKS.register(modEventBus);
         Fluids.FLUIDS.register(modEventBus);
         FluidTypes.FLUID_TYPES.register(modEventBus);
@@ -91,6 +94,11 @@ public static class ClientModEvents {
                 HaloOfTheFirmament.LAYER_LOCATION,
                 HaloOfTheFirmament::createBodyLayer
         );
+                event.registerLayerDefinition(
+                EndWardenModel.LAYER_LOCATION,
+                EndWardenModel::createBodyLayer
+        );
+        
 }
 
     @SubscribeEvent
@@ -102,6 +110,10 @@ public static class ClientModEvents {
         ModEntityTypes.FACTOTUM_OVERLORD.get(),
         FactotumOverlordRenderer::new
 );
+        event.registerEntityRenderer(
+                ModEntityTypes.END_WARDEN.get(),
+                EndWardenRenderer::new
+        );
         event.registerBlockEntityRenderer(
         BlockEntities.AETHERIC_GENERATOR.get(),
         AethericGeneratorRenderer::new
@@ -118,6 +130,10 @@ public static class ClientModEvents {
         ModEntityTypes.SKELETON_LORD.get(),
         net.minecraft.client.renderer.entity.SkeletonRenderer::new
 );
+event.registerEntityRenderer(
+                ModEntityTypes.END_WARDEN_REVERSE.get(),
+                EndWardenRenderer::new
+        );
 event.registerEntityRenderer(
         ModEntityTypes.CREEPER_LORD.get(),
         net.minecraft.client.renderer.entity.CreeperRenderer::new

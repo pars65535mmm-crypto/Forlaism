@@ -926,6 +926,135 @@ public static final RegistryObject<Item> CHALLENGE =
                         new Item.Properties()
                 ));
 
+// ===== グラップルリング =====
+public static final RegistryObject<Item> GRAPPLE_RING =
+        ITEMS.register("grapple_ring",
+                () -> new com.tyami.forlaism.item.GrappleRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== ライトリング =====
+public static final RegistryObject<Item> LIGHT_RING =
+        ITEMS.register("light_ring",
+                () -> new com.tyami.forlaism.item.LightRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== フェザーリング =====
+public static final RegistryObject<Item> FEATHER_RING =
+        ITEMS.register("feather_ring",
+                () -> new com.tyami.forlaism.item.FeatherRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== アイスリング =====
+public static final RegistryObject<Item> ICE_RING =
+        ITEMS.register("ice_ring",
+                () -> new com.tyami.forlaism.item.IceRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== バンパイアリング =====
+public static final RegistryObject<Item> VAMPIRE_RING =
+        ITEMS.register("vampire_ring",
+                () -> new com.tyami.forlaism.item.VampireRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== トレジャーリング =====
+public static final RegistryObject<Item> TREASURE_RING =
+        ITEMS.register("treasure_ring",
+                () -> new com.tyami.forlaism.item.TreasureRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== 天体リング（ムーン・サン・トワイライト） =====
+public static final RegistryObject<Item> MOON_RING =
+        ITEMS.register("moon_ring",
+                () -> new com.tyami.forlaism.item.MoonRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> SUN_RING =
+        ITEMS.register("sun_ring",
+                () -> new com.tyami.forlaism.item.SunRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+public static final RegistryObject<Item> TWILIGHT_RING =
+        ITEMS.register("twilight_ring",
+                () -> new com.tyami.forlaism.item.TwilightRingItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+// ===== Tier 7: 極書聖典 GMB =====
+public static final RegistryObject<Item> GAMING_MASTER_BLADE =
+        ITEMS.register("gaming_master_blade",
+                () -> new com.tyami.forlaism.item.GamingMasterBladeItem(
+                        new Item.Properties()
+                ));
+public static final RegistryObject<Item> END_WARDEN_SUMMONER =
+        ITEMS.register("end_warden_summoner",
+                () -> new com.tyami.forlaism.item.EndWardenSummonerItem(
+                        new Item.Properties()
+                ));
+    public static final RegistryObject<Item> END_WARDEN_SUMMONER_REVERSE =
+            ITEMS.register("end_warden_summoner_reverse",
+                    () -> new com.tyami.forlaism.item.EndWardenSummonerReverseItem(
+                            new Item.Properties()
+                    ));
+    public static final RegistryObject<Item> DEATH_METAL =
+            ITEMS.register("death_metal",
+                    () -> new com.tyami.forlaism.item.DeathMetalItem(
+                            new Item.Properties()
+                    ));
+// ===== デスメタル装備群 =====
+
+public static final RegistryObject<Item> DEATH_METAL_SWORD =
+        ITEMS.register("death_metal_sword",
+                () -> new com.tyami.forlaism.item.DeathMetalSwordItem());
+
+public static final RegistryObject<Item> DEATH_METAL_AXE =
+        ITEMS.register("death_metal_axe",
+                () -> new com.tyami.forlaism.item.DeathMetalTools.Axe());
+
+public static final RegistryObject<Item> DEATH_METAL_PICKAXE =
+        ITEMS.register("death_metal_pickaxe",
+                () -> new com.tyami.forlaism.item.DeathMetalTools.Pickaxe());
+
+public static final RegistryObject<Item> DEATH_METAL_SHOVEL =
+        ITEMS.register("death_metal_shovel",
+                () -> new com.tyami.forlaism.item.DeathMetalTools.Shovel());
+
+public static final RegistryObject<Item> DEATH_METAL_HOE =
+        ITEMS.register("death_metal_hoe",
+                () -> new com.tyami.forlaism.item.DeathMetalTools.Hoe());
+
+public static final RegistryObject<Item> DEATH_METAL_HELMET =
+        ITEMS.register("death_metal_helmet",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.DeathMetalArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.HELMET,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> DEATH_METAL_CHESTPLATE =
+        ITEMS.register("death_metal_chestplate",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.DeathMetalArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.CHESTPLATE,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> DEATH_METAL_LEGGINGS =
+        ITEMS.register("death_metal_leggings",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.DeathMetalArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.LEGGINGS,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> DEATH_METAL_BOOTS =
+        ITEMS.register("death_metal_boots",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.DeathMetalArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.BOOTS,
+                        new Item.Properties().fireResistant()
+                ));
+
 }
 
 

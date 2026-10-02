@@ -147,6 +147,29 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.BossCore
                         .noSummon()
                         .build("boss_core"));
 
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.EndWardenEntity>> END_WARDEN =
+            ENTITY_TYPES.register("end_warden",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.EndWardenEntity>of(
+                                    com.tyami.forlaism.entity.EndWardenEntity::new,
+                                    MobCategory.MONSTER
+                            )
+                            .sized(1.0F, 3.5F)
+                            .clientTrackingRange(128)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("end_warden"));
+
+                                public static final RegistryObject<EntityType<com.tyami.forlaism.entity.EndWardenReverseEntity>> END_WARDEN_REVERSE =
+            ENTITY_TYPES.register("end_warden_reverse",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.EndWardenReverseEntity>of(
+                                    com.tyami.forlaism.entity.EndWardenReverseEntity::new,
+                                    MobCategory.MONSTER
+                            )
+                            .sized(1.0F, 3.5F)
+                            .clientTrackingRange(128)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("end_warden_reverse"));
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(FACTOTUM_PHANTOM.get(), FactotumPhantomEntity.createAttributes().build());
@@ -158,5 +181,7 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.BossCore
         event.put(WITHER_SKELETON_LORD.get(), WitherSkeletonLordEntity.createAttributes().build());
         event.put(ENDERMAN_LORD.get(), EndermanLordEntity.createAttributes().build());
         event.put(BOSS_CORE.get(), com.tyami.forlaism.entity.BossCoreEntity.createAttributes().build());
+                event.put(END_WARDEN.get(), com.tyami.forlaism.entity.EndWardenEntity.createAttributes().build());
+                        event.put(END_WARDEN_REVERSE.get(), com.tyami.forlaism.entity.EndWardenReverseEntity.createAttributes().build());
     }
 }

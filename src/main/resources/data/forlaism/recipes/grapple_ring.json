@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:dash_ring" },
+    { "item": "forlaism:hook_ring" },
+    { "item": "forlaism:sage_stone" }
+  ],
+  "result": {
+    "item": "forlaism:grapple_ring",
+    "count": 1
+  }
+}

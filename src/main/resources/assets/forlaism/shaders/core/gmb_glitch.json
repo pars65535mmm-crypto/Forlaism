@@ -1,0 +1,22 @@
+{
+    "blend": {
+        "func": "add",
+        "srcrgb": "srcalpha",
+        "dstrgb": "one"
+    },
+    "vertex": "forlaism:gmb_glitch",
+    "fragment": "forlaism:gmb_glitch",
+    "attributes": [
+        "Position",
+        "Color",
+        "UV0"
+    ],
+    "samplers": [],
+    "uniforms": [
+        { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [ 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 ] },
+        { "name": "ProjMat",       "type": "matrix4x4", "count": 16, "values": [ 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 ] },
+        { "name": "ColorModulator","type": "float", "count": 4, "values": [ 1.0, 1.0, 1.0, 1.0 ] },
+        { "name": "EffectTime",    "type": "float", "count": 1, "values": [ 0.0 ] },
+        { "name": "EffectAlpha",   "type": "float", "count": 1, "values": [ 1.0 ] }
+    ]
+}

@@ -59,6 +59,15 @@ public abstract class LivingEntityRinneMixin {
             cir.setReturnValue(false);
             return;
         }
+        //デスメタルフルセットなら特殊効果をスキップ
+        if (com.tyami.forlaism.item.DeathMetalFullSetHandler
+            .shouldConvertRinneToNormal(target, source)) {
+        // バニラの hurt() をそのまま実行させる（キャンセルしない）
+        // → ただし amount が 21億とかだとバニラでも防具貫通しない事があるので
+        //    念のため無敵時間だけリセットしておく
+        target.invulnerableTime = 0;
+        return;
+    }
 
         // =========================================================
         // 1. 最大HPを amount 分削る

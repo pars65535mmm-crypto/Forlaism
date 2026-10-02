@@ -29,7 +29,7 @@ public class MetaAdamantineItem extends ForalisItem implements IAnimatedTextItem
     public AnimatedText createAnimatedName(ItemStack stack) {
         return AnimatedText.of("メタアダマンタイン")
                 .wave(2.5F, 0.30F, 0.50F)
-                .gradient(0xFFFF0000, 0xFFFFAA00, 0xFFFFFFFF, 0xFF00FFFF)
+                .gradient(0xFF00DFFF, 0xFF000080, 0xFFFFFFFF)
                 .gradientSpeed(0.6F)
                 .gradientPhase(0.8F);
     }
@@ -43,9 +43,9 @@ public class MetaAdamantineItem extends ForalisItem implements IAnimatedTextItem
     ) {
         tooltip.add(Component.literal("§4§l未知なる金属。")
                 .withStyle(ChatFormatting.DARK_RED));
-        tooltip.add(Component.literal("§7武器・ツール・防具、あらゆる性能が §c255 §7に達する。")
+        tooltip.add(Component.literal("§7第四の壁を見つめている...")
                 .withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("§8愚者の石と200の粗鋼が、ここに至る。")
+        tooltip.add(Component.literal("§8第四の壁が壊れ..ないように願おう..")
                 .withStyle(ChatFormatting.DARK_GRAY));
     }
 

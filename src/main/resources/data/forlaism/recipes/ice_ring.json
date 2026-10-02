@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " k ",
+    "FIF"
+  ],
+  "key": {
+    "k": { "item": "forlaism:sage_stone" },
+    "F": { "item": "forlaism:forlaism_crystal" },
+    "I": { "item": "minecraft:snowball" }
+  },
+  "result": {
+    "item": "forlaism:ice_ring",
+    "count": 1
+  }
+}

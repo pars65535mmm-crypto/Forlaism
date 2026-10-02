@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "M M"
+  ],
+  "key": {
+    "M": {
+      "item": "forlaism:death_metal"
+    }
+  },
+  "result": {
+    "item": "forlaism:death_metal_helmet",
+    "count": 1
+  }
+}

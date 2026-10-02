@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:moon_ring" },
+    { "item": "forlaism:sun_ring" },
+    { "item": "forlaism:sage_stone" }
+  ],
+  "result": {
+    "item": "forlaism:twilight_ring",
+    "count": 1
+  }
+}

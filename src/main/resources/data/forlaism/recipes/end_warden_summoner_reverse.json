@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:madoromu" },
+    { "item": "minecraft:echo_shard" },
+    { "item": "minecraft:netherite_ingot" }
+  ],
+  "result": {
+    "item": "forlaism:end_warden_summoner_reverse",
+    "count": 1
+  }
+}
