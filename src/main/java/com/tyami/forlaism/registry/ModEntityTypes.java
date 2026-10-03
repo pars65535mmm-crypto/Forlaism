@@ -182,6 +182,17 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.EndWarde
                         .fireImmune()
                         .build("end_warden_final"));
 
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.EnergyKnifeEntity>> ENERGY_KNIFE =
+        ENTITY_TYPES.register("energy_knife",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.EnergyKnifeEntity>of(
+                                com.tyami.forlaism.entity.EnergyKnifeEntity::new,
+                                MobCategory.MISC
+                        )
+                        .sized(0.3F, 0.3F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("energy_knife"));
+
 
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {

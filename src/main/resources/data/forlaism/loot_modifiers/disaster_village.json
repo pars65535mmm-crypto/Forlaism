@@ -1,0 +1,11 @@
+{
+  "type": "forlaism:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "#forlaism:village_chests"
+    }
+  ],
+  "item": "forlaism:disaster",
+  "chance": 0.003
+}

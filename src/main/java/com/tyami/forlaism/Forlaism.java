@@ -55,6 +55,7 @@ public class Forlaism {
         MenuTypes.MENUS.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        com.tyami.forlaism.registry.ModLootModifiers.LOOT_MODIFIERS.register(modEventBus);
 
         
 
@@ -155,6 +156,10 @@ event.registerEntityRenderer(
 event.registerEntityRenderer(
         ModEntityTypes.BOSS_CORE.get(),
         com.tyami.forlaism.client.renderer.BossCoreEmptyRenderer::new
+);
+event.registerEntityRenderer(
+        ModEntityTypes.ENERGY_KNIFE.get(),
+        com.tyami.forlaism.client.renderer.EnergyKnifeRenderer::new
 );
 
 

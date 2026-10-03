@@ -171,6 +171,7 @@ public class CreativeTabs {
                                 output.accept(Items.DEATH_METAL_CHESTPLATE.get());
                                 output.accept(Items.DEATH_METAL_LEGGINGS.get());
                                 output.accept(Items.DEATH_METAL_BOOTS.get());
+                                output.accept(Items.ENERGY_DAGGER.get());
                                 
 
 

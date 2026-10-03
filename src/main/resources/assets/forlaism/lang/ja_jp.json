@@ -262,5 +262,7 @@
 "enchantment.forlaism.revenge": "リベンジ",
 "enchantment.forlaism.revenge.desc": "デスメタルの剣専用。死亡時、剣の耐久を100/Lv%削ってHP全快+耐性Lv5で2秒後に復活する。",
 "enchantment.forlaism.mugen": "無幻",
-"enchantment.forlaism.mugen.desc": "デスメタル防具専用。最大HP+500%、回復力+100%、装備の耐久値が1/t回復する。"
+"enchantment.forlaism.mugen.desc": "デスメタル防具専用。最大HP+500%、回復力+100%、装備の耐久値が1/t回復する。",
+"item.forlaism.disaster": "ディザスター",
+"item.forlaism.energy_dagger": "エネルギーダガー"
 }

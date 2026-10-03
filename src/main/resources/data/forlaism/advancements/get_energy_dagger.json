@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:energy_dagger"
+    },
+    "title": {
+      "text": "これがエネルギーか...",
+      "color": "aqua"
+    },
+    "description": {
+      "text": "これがあの例のどっかの誰かさんが言っていたどっかのナイフを再現したとかしてないとか噂の投げナイフ..なのか..?"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "get_energy_dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:energy_dagger"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

@@ -1054,6 +1054,18 @@ public static final RegistryObject<Item> DEATH_METAL_BOOTS =
                         net.minecraft.world.item.ArmorItem.Type.BOOTS,
                         new Item.Properties().fireResistant()
                 ));
+// ===== ディザスター =====
+public static final RegistryObject<Item> DISASTER =
+        ITEMS.register("disaster",
+                () -> new com.tyami.forlaism.item.DisasterItem(
+                        new Item.Properties()
+                ));
+// ===== エネルギーダガー =====
+public static final RegistryObject<Item> ENERGY_DAGGER =
+        ITEMS.register("energy_dagger",
+                () -> new com.tyami.forlaism.item.EnergyDaggerItem(
+                        new Item.Properties()
+                ));
 
 }
 

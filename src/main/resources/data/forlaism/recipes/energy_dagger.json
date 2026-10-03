@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    " S ",
+    " R "
+  ],
+  "key": {
+    "Q": { "item": "forlaism:forlaism_ore_star" },
+    "S": { "item": "forlaism:knife" },
+    "R": { "item": "forlaism:forlaism_iron_alloy_rod" }
+  },
+  "result": {
+    "item": "forlaism:energy_dagger",
+    "count": 1
+  }
+}
