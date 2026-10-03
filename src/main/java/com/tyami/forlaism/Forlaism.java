@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import com.tyami.forlaism.client.renderer.EndWardenFinalRenderer;
 import com.tyami.forlaism.client.model.EndWardenModel;
 import com.tyami.forlaism.client.renderer.EndWardenRenderer;
 import com.tyami.forlaism.client.renderer.AethericGeneratorRenderer;
@@ -26,6 +27,7 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
 import com.tyami.forlaism.client.renderer.CrescentSlashRenderer;
+import com.tyami.forlaism.client.renderer.EndWardenFinalRenderer;
 import com.tyami.forlaism.client.renderer.FactotumMinionRenderer;
 import com.tyami.forlaism.client.renderer.FactotumOverlordRenderer;
 import com.tyami.forlaism.client.renderer.FactotumPhantomRenderer;
@@ -133,7 +135,11 @@ public static class ClientModEvents {
 event.registerEntityRenderer(
                 ModEntityTypes.END_WARDEN_REVERSE.get(),
                 EndWardenRenderer::new
-        );
+);
+event.registerEntityRenderer(
+        ModEntityTypes.END_WARDEN_FINAL.get(),
+        EndWardenFinalRenderer::new  // ← 専用レンダラ
+);
 event.registerEntityRenderer(
         ModEntityTypes.CREEPER_LORD.get(),
         net.minecraft.client.renderer.entity.CreeperRenderer::new
@@ -150,6 +156,7 @@ event.registerEntityRenderer(
         ModEntityTypes.BOSS_CORE.get(),
         com.tyami.forlaism.client.renderer.BossCoreEmptyRenderer::new
 );
+
 
         
     }

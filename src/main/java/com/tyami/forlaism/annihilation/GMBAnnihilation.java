@@ -1,24 +1,36 @@
 package com.tyami.forlaism.annihilation;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.entity.EntityAccess;
 import net.minecraft.world.phys.AABB;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.Comparator;
 
 /**
  * GMB の世界消去システム。
@@ -102,6 +114,10 @@ public final class GMBAnnihilation {
             endExecution();
         }
 
+        // 最終手段：保存済みEntityストレージも破棄する。
+        // 読み込み済みEntityは上のerase、未読み込みEntityはここで消す。
+        destroyEntityStorage(level.getServer());
+
         // =========================================================
         // 演出
         // =========================================================
@@ -142,15 +158,120 @@ public final class GMBAnnihilation {
         );
     }
 
+    /**
+     * ワールド保存層のEntityフォルダを全消去する最終ゴリ押し。
+     * Overworld配下およびDIM-*配下の entities/Entity ディレクトリを対象にする。
+     */
+    private static void destroyEntityStorage(MinecraftServer server) {
+        try {
+            Path worldRoot = server.getWorldPath(LevelResource.ROOT);
+            if (!Files.isDirectory(worldRoot)) return;
+
+            try (var paths = Files.walk(worldRoot)) {
+                paths.filter(Files::isDirectory)
+                        .filter(path -> {
+                            String name = path.getFileName().toString();
+                            return name.equals("entities") || name.equals("Entity");
+                        })
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(GMBAnnihilation::deleteEntityDirectory);
+            }
+        } catch (Throwable t) {
+            System.err.println("[GMB] entity storage destruction failed: " + t);
+        }
+    }
+
+    private static void deleteEntityDirectory(Path directory) {
+        try {
+            if (!Files.exists(directory)) return;
+            try (var paths = Files.walk(directory)) {
+                paths.sorted(Comparator.reverseOrder())
+                        .forEach(path -> {
+                            try {
+                                Files.deleteIfExists(path);
+                            } catch (Throwable ignored) {
+                            }
+                        });
+            }
+        } catch (Throwable ignored) {
+        }
+    }
+
     // =========================================================
     // 単体消去
     // =========================================================
 
     public static void erase(ServerLevel level, Entity target, ServerPlayer caster) {
 
+        erase(level, target, caster, true);
+    }
+
+    /**
+     * 命中時専用の過剰攻撃入口。
+     *
+     * 通常の hurt/die が敵側に差し替えられていても、命中したEntityを
+     * 消去核として先に登録し、同じ種類の再生成個体を複数回掃討する。
+     * Lootを出すのは最初の対象だけに限定する。
+     */
+    public static void overpoweredStrike(ServerLevel level, Entity target, ServerPlayer caster) {
+        if (target == null || target.isRemoved() || target instanceof ServerPlayer) return;
+
+        final double x = target.getX();
+        final double y = target.getY();
+        final double z = target.getZ();
+        final var type = target.getType();
+        final Set<UUID> processed = new HashSet<>();
+        final List<Entity> passengers = List.copyOf(target.getPassengers());
+
+        beginExecution();
+        try {
+            // 最初の1体だけLootあり。ここでUUID/座標/typeの消去痕跡を作る。
+            processed.add(target.getUUID());
+            erase(level, target, caster, true);
+
+            // 3波掃討。同TickでManagerや独自Systemが差し込んだ再生成を拾う。
+            for (int wave = 0; wave < 3; wave++) {
+                AABB sweep = new AABB(x, y, z, x, y, z).inflate(8.0D + wave * 4.0D);
+                List<Entity> reinforcements = level.getEntities(
+                        (Entity) null,
+                        sweep,
+                        e -> e != null
+                                && e != caster
+                                && !(e instanceof ServerPlayer)
+                                && e.getType() == type
+                                && !processed.contains(e.getUUID())
+                );
+                for (Entity replacement : reinforcements) {
+                    processed.add(replacement.getUUID());
+                    erase(level, replacement, null, false);
+                }
+            }
+
+            // 本体Entityの外側にぶら下がる乗客・従属Entityも物理的に切断する。
+            for (Entity passenger : passengers) {
+                if (passenger != null && !passenger.isRemoved()) {
+                    processed.add(passenger.getUUID());
+                    forceRemove(level, passenger);
+                }
+            }
+        } finally {
+            endExecution();
+        }
+    }
+
+    /**
+     * @param dropLoot trueは最初の排除だけ。再生成個体の掃除ではfalseにする。
+     */
+    public static void erase(ServerLevel level, Entity target, ServerPlayer caster, boolean dropLoot) {
+
         if (target == null || target.isRemoved()) return;
 
         UUID uuid = target.getUUID();
+
+        // Loot は死亡処理と切り離して先に確保する。敵側の die()/death event
+        // キャンセルや独自死亡処理に依存しないための、GMB の独立経路。
+        List<ItemStack> loot = dropLoot ? captureLoot(level, target, caster) : List.of();
+        GMBEraseRegistry.markTombstone(level.getServer(), target, level.getGameTime());
 
         // =========================================================
         // 登録は最初にやる。これで以降の防御Mixinが効かなくなる
@@ -178,10 +299,44 @@ public final class GMBAnnihilation {
         // =========================================================
         forceRemove(level, target);
 
+        if (dropLoot) spawnLoot(level, target, loot);
+
         // =========================================================
         // Phase 5: 全プレイヤーに削除パケット
         // =========================================================
         broadcastRemove(level, target);
+    }
+
+    private static List<ItemStack> captureLoot(ServerLevel level, Entity target, ServerPlayer caster) {
+        if (!(target instanceof LivingEntity living)) return List.of();
+        try {
+            LootTable table = level.getServer().getLootData().getLootTable(living.getLootTable());
+            LootParams.Builder builder = new LootParams.Builder(level)
+                    .withParameter(LootContextParams.ORIGIN, living.position())
+                    .withParameter(LootContextParams.THIS_ENTITY, living)
+                    .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().generic());
+            if (caster != null) {
+                builder.withParameter(LootContextParams.KILLER_ENTITY, caster)
+                        .withLuck(caster.getLuck());
+            }
+            return table.getRandomItems(builder.create(LootContextParamSets.ENTITY));
+        } catch (Throwable ignored) {
+            return List.of();
+        }
+    }
+
+    private static void spawnLoot(ServerLevel level, Entity target, List<ItemStack> loot) {
+        for (ItemStack stack : loot) {
+            if (stack.isEmpty()) continue;
+            try {
+                target.spawnAtLocation(stack.copy(), 0.0F);
+            } catch (Throwable ignored) {
+                try {
+                    level.addFreshEntity(new net.minecraft.world.entity.item.ItemEntity(
+                            level, target.getX(), target.getY(), target.getZ(), stack.copy()));
+                } catch (Throwable ignoredAgain) {}
+            }
+        }
     }
 
     // =========================================================
@@ -315,12 +470,27 @@ public final class GMBAnnihilation {
             Object manager = emField.get(level);
             if (manager == null) return;
 
-            Method removeMethod = manager.getClass().getMethod(
-                    "remove",
-                    EntityAccess.class
-            );
-            removeMethod.setAccessible(true);
-            removeMethod.invoke(manager, target);
+            // 1.20.1 の PersistentEntitySectionManager に公開されている
+            // 除去入口は remove ではなく unloadEntity(EntityAccess)。
+            // ここを間違えると見た目だけ消えてEntity管理に残る。
+            Method unload = manager.getClass().getMethod("unloadEntity", EntityAccess.class);
+            unload.setAccessible(true);
+            unload.invoke(manager, target);
+        } catch (Throwable ignored) {}
+
+        // tick list は EntityManager とは別管理なので、こちらも明示的に抜く。
+        try {
+            Field tickField;
+            try {
+                tickField = ServerLevel.class.getDeclaredField("entityTickList");
+            } catch (NoSuchFieldException e) {
+                tickField = ServerLevel.class.getDeclaredField("f_143245_");
+            }
+            tickField.setAccessible(true);
+            Object tickList = tickField.get(level);
+            Method remove = tickList.getClass().getMethod("remove", Entity.class);
+            remove.setAccessible(true);
+            remove.invoke(tickList, target);
         } catch (Throwable ignored) {}
     }
 
@@ -365,7 +535,7 @@ public final class GMBAnnihilation {
         if (entity == null) return false;
         UUID uuid = entity.getUUID();
         if (GMBEraseRegistry.isErased(level.getServer(), uuid)) {
-            erase(level, entity, null);
+            erase(level, entity, null, false);
             return true;
         }
         return false;

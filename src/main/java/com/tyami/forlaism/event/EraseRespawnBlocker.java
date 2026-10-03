@@ -2,6 +2,8 @@ package com.tyami.forlaism.event;
 
 import com.tyami.forlaism.erase.EraseHelper;
 import com.tyami.forlaism.erase.EraseRegistry;
+import com.tyami.forlaism.annihilation.GMBAnnihilation;
+import com.tyami.forlaism.annihilation.GMBEraseRegistry;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -42,13 +44,18 @@ public final class EraseRespawnBlocker {
         UUID uuid = entity.getUUID();
 
         // 抹消済みなら追加させない
-        if (EraseRegistry.isErased(serverLevel.getServer(), uuid)) {
+        if (EraseRegistry.isErased(serverLevel.getServer(), uuid)
+                || GMBEraseRegistry.isErased(serverLevel.getServer(), uuid)) {
             event.setCanceled(true);
 
             // さらに念のため物理削除も仕込む
             // （canceledでも何かが追加される可能性があるため）
             serverLevel.getServer().execute(() -> {
-                EraseHelper.forceRemove(serverLevel, entity);
+                if (GMBEraseRegistry.isErased(serverLevel.getServer(), uuid)) {
+                    GMBAnnihilation.forceRemove(serverLevel, entity);
+                } else {
+                    EraseHelper.forceRemove(serverLevel, entity);
+                }
             });
         }
     }
@@ -72,9 +79,14 @@ public final class EraseRespawnBlocker {
             for (Entity entity : level.getAllEntities()) {
                 UUID uuid = entity.getUUID();
 
-                if (EraseRegistry.isErased(server, uuid)) {
+                if (EraseRegistry.isErased(server, uuid)
+                        || GMBEraseRegistry.isErased(server, uuid)) {
                     // 復活してる！ 即抹消
-                    EraseHelper.forceRemove(level, entity);
+                    if (GMBEraseRegistry.isErased(server, uuid)) {
+                        GMBAnnihilation.erase(level, entity, null, false);
+                    } else {
+                        EraseHelper.forceRemove(level, entity);
+                    }
                 }
             }
         }

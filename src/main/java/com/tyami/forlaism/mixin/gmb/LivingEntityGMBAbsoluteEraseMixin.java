@@ -1,6 +1,7 @@
 package com.tyami.forlaism.mixin.gmb;
 
 import com.tyami.forlaism.annihilation.GMBEraseRegistry;
+import net.minecraft.server.level.ServerLevel;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,12 +30,30 @@ public abstract class LivingEntityGMBAbsoluteEraseMixin {
         return GMBEraseRegistry.isErased(self.level().getServer(), self.getUUID());
     }
 
+    @Inject(method = "isAlive", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbNotAlive(CallbackInfoReturnable<Boolean> cir) {
+        if (forlaism$isGMBErased()) cir.setReturnValue(false);
+    }
+
     /**
      * hurt: 消去済みは絶対に成功させない（無敵化）
      */
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     private void forlaism$gmbBlockHurt(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (forlaism$isGMBErased()) {
+            cir.setReturnValue(false);
+            return;
+        }
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self.level() instanceof ServerLevel level
+                && GMBEraseRegistry.isSuppressedAttack(level, source.getEntity(), level.getGameTime())) {
+            // 再生成→攻撃→除去のレースより前に、ダメージ適用そのものを遮断する。
+            cir.setReturnValue(false);
+            return;
+        }
+        if (self.level() instanceof ServerLevel level
+                && GMBEraseRegistry.isInSuppressionZone(level, self, level.getGameTime())) {
+            // 独自Manager/独自DamageSourceが攻撃元情報を隠しても、封印領域では通さない。
             cir.setReturnValue(false);
         }
     }
@@ -44,11 +63,16 @@ public abstract class LivingEntityGMBAbsoluteEraseMixin {
      */
     @Inject(method = "setHealth", at = @At("HEAD"), cancellable = true)
     private void forlaism$gmbSetHealth(float health, CallbackInfo ci) {
+        LivingEntity self = (LivingEntity) (Object) this;
         if (forlaism$isGMBErased()) {
-            LivingEntity self = (LivingEntity) (Object) this;
             if (health > self.getHealth()) {
                 ci.cancel();
             }
+        } else if (self.level() instanceof ServerLevel level
+                && health < self.getHealth()
+                && GMBEraseRegistry.isInSuppressionZone(level, self, level.getGameTime())) {
+            // hurt()を経由せずsetHealthを直接呼ぶ独自攻撃への対策。
+            ci.cancel();
         }
     }
 

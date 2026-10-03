@@ -111,17 +111,14 @@ public final class GMBAbility {
         registerOnHit(new OnHitFeature() {
             @Override
             public void onHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-                target.invulnerableTime = 0;
-                target.hurtTime = 0;
-                target.setHealth(0.0F);
-                if (!target.isDeadOrDying()) {
-                    target.die(target.damageSources().playerAttack(
-                            attacker instanceof Player p ? p : null));
-                }
+                if (!(attacker instanceof Player player)
+                        || !(target.level() instanceof ServerLevel level)) return;
+                com.tyami.forlaism.annihilation.GMBAnnihilation
+                        .overpoweredStrike(level, target, player instanceof net.minecraft.server.level.ServerPlayer sp ? sp : null);
             }
             @Override
             public String describe() {
-                return "絶対即死（無敵貫通）";
+                return "超過消去（多重掃討・再生成封殺）";
             }
         });
 
@@ -131,26 +128,13 @@ public final class GMBAbility {
         registerOnHit(new OnHitFeature() {
             @Override
             public void onHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-                if (!(attacker.level() instanceof ServerLevel sl)) return;
-                AABB area = attacker.getBoundingBox().inflate(10.0);
-                var nearby = sl.getEntitiesOfClass(
-                        LivingEntity.class, area,
-                        e -> e != attacker && e != target
-                                && e.isAlive() && !e.isSpectator()
-                );
-                for (LivingEntity e : nearby) {
-                    e.invulnerableTime = 0;
-                    e.hurtTime = 0;
-                    e.setHealth(0.0F);
-                    if (!e.isDeadOrDying()) {
-                        e.die(e.damageSources().playerAttack(
-                                attacker instanceof Player p ? p : null));
-                    }
-                }
+                // 範囲攻撃は overpoweredStrike の同型再生成掃討へ統合した。
+                // ここで通常死亡を重ねると、敵MODの独自Lootと競合して無限ドロップになるため、
+                // Loot生成を持つ攻撃経路は一つに固定する。
             }
             @Override
             public String describe() {
-                return "範囲伝染（半径10m）";
+                return "再生成掃討波（同型Entityを追加消去）";
             }
         });
 

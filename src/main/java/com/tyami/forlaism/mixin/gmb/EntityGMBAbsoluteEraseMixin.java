@@ -25,6 +25,38 @@ public abstract class EntityGMBAbsoluteEraseMixin {
         return GMBEraseRegistry.isErased(self.level().getServer(), self.getUUID());
     }
 
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbStopTick(CallbackInfo ci) {
+        if (forlaism$isGMBErased()) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "canBeCollidedWith", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbNoCollision(CallbackInfoReturnable<Boolean> cir) {
+        if (forlaism$isGMBErased()) cir.setReturnValue(false);
+    }
+
+    @Inject(method = "isPickable", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbNotPickable(CallbackInfoReturnable<Boolean> cir) {
+        if (forlaism$isGMBErased()) cir.setReturnValue(false);
+    }
+
+    @Inject(method = "isRemoved", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbReportRemoved(CallbackInfoReturnable<Boolean> cir) {
+        if (forlaism$isGMBErased()) cir.setReturnValue(true);
+    }
+
+    @Inject(method = "isAttackable", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbNotAttackable(CallbackInfoReturnable<Boolean> cir) {
+        if (forlaism$isGMBErased()) cir.setReturnValue(false);
+    }
+
+    @Inject(method = "canBeHitByProjectile", at = @At("HEAD"), cancellable = true)
+    private void forlaism$gmbNotProjectileTarget(CallbackInfoReturnable<Boolean> cir) {
+        if (forlaism$isGMBErased()) cir.setReturnValue(false);
+    }
+
     @Inject(method = "setRemoved", at = @At("HEAD"), cancellable = true)
     private void forlaism$gmbSetRemoved(Entity.RemovalReason reason, CallbackInfo ci) {
         if (forlaism$isGMBErased()) {

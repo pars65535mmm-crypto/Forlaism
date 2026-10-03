@@ -27,6 +27,9 @@
     "gmb.EntityGMBAbsoluteEraseMixin",
     "gmb.LivingEntityGMBAbsoluteEraseMixin",
     "gmb.ServerLevelGMBBlockJoinMixin"
+    ,"gmb.MobGMBAbsoluteEraseMixin"
+    ,"gmb.ServerLevelGMBTickBlockMixin"
+    ,"gmb.PersistentEntitySectionManagerGMBMixin"
   ],
   "client": [
     "MinecraftMixin",
@@ -37,9 +40,9 @@
     "HumanoidArmorLayerMixin",
     "HumanoidMobRendererMixin",
     "gmb.ClientLevelGMBEraseMixin"
+    ,"gmb.EntityRenderDispatcherGMBEraseMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   }
 }
-

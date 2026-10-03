@@ -170,6 +170,19 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.BossCore
                             .updateInterval(1)
                             .fireImmune()
                             .build("end_warden_reverse"));
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.EndWardenFinalEntity>> END_WARDEN_FINAL =
+        ENTITY_TYPES.register("end_warden_final",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.EndWardenFinalEntity>of(
+                                com.tyami.forlaism.entity.EndWardenFinalEntity::new,
+                                MobCategory.MONSTER
+                        )
+                        .sized(1.2F, 4.0F)
+                        .clientTrackingRange(256)
+                        .updateInterval(1)
+                        .fireImmune()
+                        .build("end_warden_final"));
+
+
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(FACTOTUM_PHANTOM.get(), FactotumPhantomEntity.createAttributes().build());
@@ -183,5 +196,6 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.BossCore
         event.put(BOSS_CORE.get(), com.tyami.forlaism.entity.BossCoreEntity.createAttributes().build());
                 event.put(END_WARDEN.get(), com.tyami.forlaism.entity.EndWardenEntity.createAttributes().build());
                         event.put(END_WARDEN_REVERSE.get(), com.tyami.forlaism.entity.EndWardenReverseEntity.createAttributes().build());
+                        event.put(END_WARDEN_FINAL.get(), com.tyami.forlaism.entity.EndWardenFinalEntity.createAttributes().build());
     }
 }

@@ -168,38 +168,8 @@ public class GamingMasterBladeItem extends SwordItem implements IAnimatedTextIte
             List<Component> tooltip,
             TooltipFlag flag
     ) {
-        tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("§d§l【Tier 7 / Gaming Master Blade】")
+        tooltip.add(Component.literal("無限と虚無は対になるもの、ならば\"夢幻\"は何と対になるのだろうか")
                 .withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltip.add(Component.literal("§c攻撃力: §f" + (int) ATTACK_DAMAGE)
-                .withStyle(ChatFormatting.RED));
-        tooltip.add(Component.literal("§c攻撃速度: §f" + (int) ATTACK_SPEED)
-                .withStyle(ChatFormatting.RED));
-
-        // =========================================================
-        // GMBAbility から拡張機能の一覧を取得
-        // =========================================================
-        for (String line : GMBAbility.describeFeatures(stack)) {
-            tooltip.add(Component.literal(line)
-                    .withStyle(ChatFormatting.LIGHT_PURPLE));
-        }
-
-        tooltip.add(Component.literal("§8全てのゲームを制覇せし者の剣。")
-                .withStyle(ChatFormatting.DARK_GRAY));
-
-        if (net.minecraft.client.gui.screens.Screen.hasShiftDown()) {
-            tooltip.add(Component.literal(""));
-            tooltip.add(Component.literal("§6【GMB】").withStyle(ChatFormatting.GOLD));
-            tooltip.add(Component.literal("§e・\"Master\" の名を冠するに相応しき一振り。")
-                    .withStyle(ChatFormatting.YELLOW));
-            tooltip.add(Component.literal("§e・右クリックで能力を発動。")
-                    .withStyle(ChatFormatting.YELLOW));
-            tooltip.add(Component.literal("§8…GG. ノーコンティニュー。")
-                    .withStyle(ChatFormatting.DARK_GRAY));
-        } else {
-            tooltip.add(Component.literal("§8[Shift] で詳細を表示")
-                    .withStyle(ChatFormatting.DARK_GRAY));
-        }
     }
 
     @Override
