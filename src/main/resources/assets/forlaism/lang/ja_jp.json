@@ -264,5 +264,6 @@
 "enchantment.forlaism.mugen": "無幻",
 "enchantment.forlaism.mugen.desc": "デスメタル防具専用。最大HP+500%、回復力+100%、装備の耐久値が1/t回復する。",
 "item.forlaism.disaster": "ディザスター",
-"item.forlaism.energy_dagger": "エネルギーダガー"
+"item.forlaism.energy_dagger": "エネルギーダガー",
+"item.forlaism.prism_light": "プリズムライト"
 }

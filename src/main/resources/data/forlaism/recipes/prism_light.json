@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " QC",
+    " SQ",
+    "S  "
+  ],
+  "key": {
+    "Q": { "item": "forlaism:forlaism_star_core" },
+    "C": { "item": "forlaism:forlaism_crystal" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "forlaism:prism_light",
+    "count": 1
+  }
+}

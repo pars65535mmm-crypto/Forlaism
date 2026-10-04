@@ -193,6 +193,17 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.EnergyKn
                         .updateInterval(1)
                         .build("energy_knife"));
 
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.PrismLightOrbEntity>> PRISM_LIGHT_ORB =
+        ENTITY_TYPES.register("prism_light_orb",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.PrismLightOrbEntity>of(
+                                com.tyami.forlaism.entity.PrismLightOrbEntity::new,
+                                MobCategory.MISC
+                        )
+                        .sized(0.3F, 0.3F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("prism_light_orb"));
+
 
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {

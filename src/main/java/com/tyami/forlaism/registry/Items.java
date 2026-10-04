@@ -1066,6 +1066,11 @@ public static final RegistryObject<Item> ENERGY_DAGGER =
                 () -> new com.tyami.forlaism.item.EnergyDaggerItem(
                         new Item.Properties()
                 ));
+public static final RegistryObject<Item> PRISM_LIGHT =
+        ITEMS.register("prism_light",
+                () -> new com.tyami.forlaism.item.PrismLightItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
 
 }
 

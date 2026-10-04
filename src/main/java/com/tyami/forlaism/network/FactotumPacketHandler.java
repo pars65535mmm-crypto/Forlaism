@@ -58,5 +58,12 @@ public class FactotumPacketHandler {
                 .encoder(GrappleFirePacket::encode)
                 .consumerMainThread(GrappleFirePacket::handle)
                 .add();
+
+                // ★追加: PrismLockPacket (CLIENT → SERVER)
+        CHANNEL.messageBuilder(PrismLockPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PrismLockPacket::new)
+                .encoder(PrismLockPacket::encode)
+                .consumerMainThread(PrismLockPacket::handle)
+                .add();
     }
 }

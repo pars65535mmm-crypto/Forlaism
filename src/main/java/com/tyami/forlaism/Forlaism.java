@@ -161,6 +161,10 @@ event.registerEntityRenderer(
         ModEntityTypes.ENERGY_KNIFE.get(),
         com.tyami.forlaism.client.renderer.EnergyKnifeRenderer::new
 );
+event.registerEntityRenderer(
+        ModEntityTypes.PRISM_LIGHT_ORB.get(),
+        com.tyami.forlaism.client.renderer.PrismLightOrbRenderer::new
+);
 
 
         
