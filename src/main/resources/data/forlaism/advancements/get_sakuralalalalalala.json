@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": { "item": "forlaism:sakuralalalalalala" },
+    "title": { "text": "入院食は案外美味しいらしい", "color": "light_purple" },
+    "description": { "text": "※あくまで個人の感想です" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "get_sakura": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": [ "forlaism:sakuralalalalalala" ] }
+        ]
+      }
+    }
+  },
+  "rewards": { "experience": 2147000 }
+}

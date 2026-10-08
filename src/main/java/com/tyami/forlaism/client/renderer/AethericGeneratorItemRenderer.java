@@ -1,16 +1,16 @@
 package com.tyami.forlaism.client.renderer;
 
-import com.tyami.forlaism.block.entity.AethericGeneratorBlockEntity;
-import com.tyami.forlaism.client.model.AethericGeneratorModel;
+import com.tyami.forlaism.client.model.AethericGeneratorItemModel;
+import com.tyami.forlaism.item.AethericGeneratorItem;
 
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+/**
+ * 電核機アイテムのGeckoLibレンダラ。
+ */
+public class AethericGeneratorItemRenderer extends GeoItemRenderer<AethericGeneratorItem> {
 
-public class AethericGeneratorItemRenderer
-        extends GeoBlockRenderer<AethericGeneratorBlockEntity> {
-
-    public AethericGeneratorItemRenderer(BlockEntityRendererProvider.Context context) {
-        super(new AethericGeneratorModel());
+    public AethericGeneratorItemRenderer() {
+        super(new AethericGeneratorItemModel());
     }
 }

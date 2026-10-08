@@ -444,6 +444,7 @@ public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.getServer() == null) return;
 
         com.tyami.forlaism.quantum.WarpDeliveryData.tick(event.getServer());
+        com.tyami.forlaism.damage.FrostbiteExecution.tick(event.getServer());
     }
 
 }

@@ -173,6 +173,34 @@ public class CreativeTabs {
                                 output.accept(Items.DEATH_METAL_BOOTS.get());
                                 output.accept(Items.ENERGY_DAGGER.get());
                                 output.accept(Items.PRISM_LIGHT.get());
+                                output.accept(Items.FRASLATIA.get());
+                                output.accept(Items.ICE_CRYSTAL.get());
+                                output.accept(Items.NOXLUX.get());
+                                output.accept(Items.SAKURANIUM.get());
+                                output.accept(Items.SENPAI_FIRE_AXE.get());
+                                output.accept(Items.SKR360_INF.get());
+                                output.accept(Items.KORONEKO.get());
+                                output.accept(Items.AETHERIC_GENERATOR.get());
+                                output.accept(Items.ANBICRLEBER.get());
+                                output.accept(Items.HANIWA_NO_YARI.get());
+                                output.accept(Items.FORLAISM_GLASS.get());
+                                output.accept(Items.INFINITE_WATER_TANK.get());
+                                output.accept(Items.FIREPROOF_FORLAISM_GLASS.get());
+                                output.accept(Items.INFINITE_LAVA_TANK.get());
+                                output.accept(Items.INFINITE_COBBLESTONE_TANK.get());
+                                output.accept(Items.INFINITE_SOIL.get());
+                                output.accept(Items.CHRONOS_DAGGER.get());
+                                output.accept(Items.HIHIIROKANE.get());
+                                output.accept(Items.HIHIIROKANE_ORE.get());
+                                output.accept(Items.DIMENSIONAL_BREAKER.get());
+                                output.accept(Items.DIMENSION_SHARD.get());
+                                output.accept(Items.AWAKENING_POTION.get());
+                                output.accept(Items.DETERMINATION.get());
+                                output.accept(Items.UTSUWA.get());
+                                output.accept(Items.FREEDOM.get());
+                                output.accept(Items.MASTERPIECE_CLOCK.get());
+                                
+                                
                                 
 
 
@@ -181,6 +209,12 @@ public class CreativeTabs {
                                 output.accept(Items.POSSIBILITY.get());
                                 output.accept(Items.CHALLENGE.get());
                                 output.accept(Items.GAMING_MASTER_BLADE.get());
+                                output.accept(Items.DULAM_CLOCK.get());
+                                output.accept(Items.DREAM.get());
+                                output.accept(Items.INFINITY.get());
+                                output.accept(Items.MADOROMI.get());
+                                output.accept(Items.IMAGINATION.get());
+                        
                                
                             })
                             .build()
@@ -193,6 +227,9 @@ public static final RegistryObject<CreativeModeTab> FORLAISM_DIARY_TAB =
                         .icon(() -> new ItemStack(Items.DIARY.get()))
                         .displayItems((parameters, output) -> {
 
+
+
+                            output.accept(Items.HIDDEN_DIARY.get());
                             output.accept(Items.DIARY.get());
                             output.accept(Items.MINERAL_RESEARCHER_DIARY.get());
                             output.accept(Items.MINERAL_RESEARCHER_DIARY_2.get());

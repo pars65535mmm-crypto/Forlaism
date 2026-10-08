@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    " C ",
+    " G "
+  ],
+  "key": {
+    "T": { "item": "minecraft:tall_grass" },
+    "C": { "item": "minecraft:copper_block" },
+    "G": { "item": "minecraft:glass" }
+  },
+  "result": {
+    "item": "forlaism:yatsuhanisaku",
+    "count": 1
+  }
+}

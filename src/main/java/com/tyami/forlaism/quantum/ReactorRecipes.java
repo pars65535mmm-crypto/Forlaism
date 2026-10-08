@@ -52,7 +52,39 @@ public final class ReactorRecipes {
                 2_000_000_000,
                 new ItemStack(Items.CHERENKOV_META_ADAMANEDIUM_RAILGUN_BLADE.get())
         ));
+// =========================================================
+// 夢幻
+//   夢幻の欠片 × 576
+//   賢者の石 × 64
+//   FE: 1,000,000,000 (1 GFE)
+// =========================================================
+register(new ReactorRecipe(
+        ReactorRecipe.inputs(
+                com.tyami.forlaism.registry.Items.DREAM_FRAGMENT.get(), 576,
+                com.tyami.forlaism.registry.Items.TRUE_SAGE_STONE.get(), 64
+        ),
+        1_000_000_000,
+        new ItemStack(com.tyami.forlaism.registry.Items.DREAM.get())
+));
 
-        // ここにじゃんじゃん追加していく
+
+
+// =========================================================
+// 微睡
+//   微睡む九十九の夢の塊 × 512
+//   草ブロック × 1
+//   FE: 1,000,000,000 (1 GFE)
+// =========================================================
+register(new ReactorRecipe(
+        ReactorRecipe.inputs(
+                com.tyami.forlaism.registry.Items.MADOROMU_BLOCK.get(), 512,
+                net.minecraft.world.item.Items.GRASS_BLOCK, 1
+        ),
+        1_000_000_000,
+        new ItemStack(com.tyami.forlaism.registry.Items.MADOROMI.get())
+));
+
+
+
     }
 }

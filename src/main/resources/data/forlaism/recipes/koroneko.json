@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "minecraft:bread" },
+    { "item": "minecraft:cocoa_beans" },
+    { "item": "minecraft:milk_bucket" },
+    { "item": "minecraft:sugar" }
+  ],
+  "result": {
+    "item": "forlaism:koroneko",
+    "count": 1
+  }
+}

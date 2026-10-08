@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    " C ",
+    " D "
+  ],
+  "key": {
+    "N": { "item": "minecraft:netherite_ingot" },
+    "C": { "item": "minecraft:clock" },
+    "D": { "item": "forlaism:meta_adamantine" }
+  },
+  "result": {
+    "item": "forlaism:anbicrleber",
+    "count": 1
+  }
+}

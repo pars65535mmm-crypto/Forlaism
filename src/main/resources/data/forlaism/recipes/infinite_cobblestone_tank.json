@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:infinite_lava_tank" },
+    { "item": "forlaism:infinite_water_tank" },
+    { "item": "forlaism:sage_stone" }
+  ],
+  "result": {
+    "item": "forlaism:infinite_cobblestone_tank",
+    "count": 1
+  }
+}

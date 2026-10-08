@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:cherry_sapling"
+    },
+    {
+      "tag": "forge:ingots/uranium"
+    },
+    {
+      "tag": "forge:ingots/lead"
+    },
+    {
+      "item": "forlaism:death_metal"
+    }
+  ],
+  "result": {
+    "item": "forlaism:sakuranium",
+    "count": 1
+  }
+}

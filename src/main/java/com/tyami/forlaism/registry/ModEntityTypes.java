@@ -204,6 +204,65 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.PrismLig
                         .updateInterval(1)
                         .build("prism_light_orb"));
 
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.FraslatiaThrowEntity>> FRASLATIA_THROW =
+        ENTITY_TYPES.register("fraslatia_throw",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.FraslatiaThrowEntity>of(
+                                com.tyami.forlaism.entity.FraslatiaThrowEntity::new,
+                                MobCategory.MISC
+                        )
+                        .sized(0.6F, 0.6F)
+                        .clientTrackingRange(256)   // ← 視認距離を伸ばす
+                        .updateInterval(1)            // ← 毎tick同期
+                        .build("fraslatia_throw"));
+
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.SakuraBulletEntity>> SAKURA_BULLET =
+        ENTITY_TYPES.register("sakura_bullet",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.SakuraBulletEntity>of(
+                                com.tyami.forlaism.entity.SakuraBulletEntity::new,
+                                MobCategory.MISC
+                        )
+                        .sized(0.3F, 0.3F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("sakura_bullet"));
+
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.HaniwaNoYariProjectile>> HANIWA_NO_YARI =
+        ENTITY_TYPES.register("haniwa_no_yari",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.HaniwaNoYariProjectile>of(
+                                com.tyami.forlaism.entity.HaniwaNoYariProjectile::new,
+                                MobCategory.MISC
+                        )
+                        .sized(0.5F, 0.5F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("haniwa_no_yari"));
+
+public static final RegistryObject<EntityType<com.tyami.forlaism.entity.IinekoreKnifeEntity>> IINEKORE_KNIFE =
+        ENTITY_TYPES.register("iinekore_knife",
+                () -> EntityType.Builder.<com.tyami.forlaism.entity.IinekoreKnifeEntity>of(
+                                com.tyami.forlaism.entity.IinekoreKnifeEntity::new,
+                                MobCategory.MISC
+                        )
+                        .sized(0.4F, 0.4F)
+                        .clientTrackingRange(64)
+                        .updateInterval(1)
+                        .build("iinekore_knife"));
+
+    // =========================================================
+    // Yatsuhanisaku: Meteor
+    // =========================================================
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.MeteorEntity>> METEOR =
+            ENTITY_TYPES.register("meteor",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.MeteorEntity>of(
+                                    com.tyami.forlaism.entity.MeteorEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(3.0F, 3.0F)
+                            .clientTrackingRange(256)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("meteor"));
+
 
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {

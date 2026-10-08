@@ -73,7 +73,7 @@ public class ChallengeItem extends ForalisItem implements IAnimatedTextItem {
                     */
 
             // 2行目
-            case 1 -> AnimatedText.of("§7あらゆる現実をすべて")
+            case 1 -> AnimatedText.of("あらゆる現実をすべて")
                     // 軽く傾ける = 現実をねじ曲げる
                 .rotate(-18.0f)
                 // 中央から外へ色が流れる（自分の方へ引き寄せるイメージ）
@@ -94,7 +94,7 @@ public class ChallengeItem extends ForalisItem implements IAnimatedTextItem {
   
 
             // 3行目
-            case 2 -> AnimatedText.of("§7自分の方へねじ曲げたのだ")
+            case 2 -> AnimatedText.of("自分の方へねじ曲げたのだ")
                     // 軽く傾ける = 現実をねじ曲げる
                 .rotate(-10.0f)
                 // 中央から外へ色が流れる（自分の方へ引き寄せるイメージ）
@@ -135,8 +135,6 @@ public class ChallengeItem extends ForalisItem implements IAnimatedTextItem {
             TooltipFlag flag
     ) {
         tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("§4§l【Tier 7】").withStyle(ChatFormatting.DARK_RED));
-        tooltip.add(Component.literal("§c隠しアイテム。").withStyle(ChatFormatting.RED));
         tooltip.add(Component.literal("§8現実をねじ曲げた先にあるもの。")
                 .withStyle(ChatFormatting.DARK_GRAY));
 

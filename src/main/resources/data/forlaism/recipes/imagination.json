@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ACB",
+    "IRM",
+    "GST"
+  ],
+  "key": {
+    "A": { "item": "forlaism:forlaism_concentrated_iron_alloy" },
+    "C": { "item": "forlaism:steel_question" },
+    "B": { "item": "forlaism:cons_steel" },
+    "I": { "item": "forlaism:forlaism_iron_alloy" },
+    "R": { "item": "forlaism:rinnedium_ingot" },
+    "M": { "item": "forlaism:meta_adamantine" },
+    "G": { "item": "forlaism:garbage_metal" },
+    "S": { "item": "forlaism:rough_steel" },
+    "T": { "item": "forlaism:steel_ingot" }
+  },
+  "result": {
+    "item": "forlaism:imagination",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MDQ",
+    "SCL",
+    "FIT"
+  ],
+  "key": {
+    "M": { "item": "forlaism:madoromu" },
+    "D": { "item": "forlaism:dream_fragment" },
+    "S": { "item": "forlaism:cherenkov_konnyaku_daite" },
+    "C": { "item": "minecraft:clock" },
+    "L": { "item": "forlaism:rinnedium_ingot" },
+    "F": { "item": "forlaism:forlaism_crystal" },
+    "I": { "item": "forlaism:inochi_no_kakera" },
+    "T": { "item": "forlaism:meta_adamantine" },
+    "Q": { "item": "forlaism:forlaism_ore_star" }
+  },
+  "result": {
+    "item": "forlaism:dulam_clock",
+    "count": 1
+  }
+}

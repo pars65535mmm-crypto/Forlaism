@@ -321,15 +321,10 @@ public static final RegistryObject<Item> SOVEREIGN_SCEPTER_SWORD =
                 )
         );
 
-
 public static final RegistryObject<Item> AETHERIC_GENERATOR =
-
         ITEMS.register("aetheric_generator",
-
-                () -> new net.minecraft.world.item.BlockItem(
-
+                () -> new com.tyami.forlaism.item.AethericGeneratorItem(
                         Blocks.AETHERIC_GENERATOR.get(),
-
                         new Item.Properties()));
 
 
@@ -1071,7 +1066,237 @@ public static final RegistryObject<Item> PRISM_LIGHT =
                 () -> new com.tyami.forlaism.item.PrismLightItem(
                         new Item.Properties().stacksTo(1).fireResistant()
                 ));
+public static final RegistryObject<Item> FRASLATIA =
+        ITEMS.register("fraslatia",
+                () -> new com.tyami.forlaism.item.FraslatiaItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+public static final RegistryObject<Item> ICE_CRYSTAL =
+        ITEMS.register("ice_crystal",
+                () -> new com.tyami.forlaism.item.IceCrystalItem(
+                        new Item.Properties().fireResistant()
+                ));
+    // ===== 拳 =====
+    public static final RegistryObject<Item> FIST =
+            ITEMS.register("fist",
+                    () -> new com.tyami.forlaism.item.FistItem(
+                            new Item.Properties()
+                    ));
+    // ===== ノクスルクス =====
+    public static final RegistryObject<Item> NOXLUX =
+            ITEMS.register("noxlux",
+                    () -> new com.tyami.forlaism.item.NoxLuxItem(
+                            new Item.Properties()
+                    ));
+    public static final RegistryObject<Item> HIDDEN_DIARY =
+            ITEMS.register("hidden_diary",
+                    () -> new com.tyami.forlaism.item.HiddenDiaryItem(
+                            new Item.Properties().stacksTo(1)
+                    ));
+    public static final RegistryObject<Item> SAKURANIUM =
+            ITEMS.register("sakuranium",
+                    () -> new com.tyami.forlaism.item.SakuraniumItem(
+                            new Item.Properties()
+                    ));
+    public static final RegistryObject<Item> SENPAI_FIRE_AXE =
+            ITEMS.register("senpai_fire_axe",
+                    () -> new com.tyami.forlaism.item.SenpaiFireAxeItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+    public static final RegistryObject<Item> SKR360_INF =
+            ITEMS.register("skr360_inf",
+                    () -> new com.tyami.forlaism.item.SKR360InfItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+    // ===== ころねこ =====
+    public static final RegistryObject<Item> KORONEKO =
+            ITEMS.register("koroneko",
+                    () -> new Item(new Item.Properties()
+                            .food(new net.minecraft.world.food.FoodProperties.Builder()
+                                    .nutrition(8)
+                                    .saturationMod(4.0F)
+                                    .alwaysEat()
+                                    .build()
+                            )
+                    ));;
 
+    // ===== 時を忘れた剣（アンビシレーバー） =====
+    public static final RegistryObject<Item> ANBICRLEBER =
+            ITEMS.register("anbicrleber",
+                    () -> new com.tyami.forlaism.item.AnbicrleberItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+    // ===== ハニワノヤリ =====
+    public static final RegistryObject<Item> HANIWA_NO_YARI =
+            ITEMS.register("haniwa_no_yari",
+                    () -> new com.tyami.forlaism.item.HaniwaNoYariItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+    // ===== 投げナイフ =====
+    public static final RegistryObject<Item> IINEKORE_KNIFE =
+            ITEMS.register("iinekore_knife",
+                    () -> new com.tyami.forlaism.item.IinekoreKnifeItem(
+                            new Item.Properties()
+                    ));
+// ===== SAKURAぁぁぁぁぁ =====
+public static final RegistryObject<Item> SAKURALALALALALALA =
+        ITEMS.register("sakuralalalalalala",
+                () -> new com.tyami.forlaism.item.SakuralalalalalalaItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+// ===== ドゥラムクロック =====
+public static final RegistryObject<Item> DULAM_CLOCK =
+        ITEMS.register("dulam_clock",
+                () -> new com.tyami.forlaism.item.DulamClockItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+// ===== 夢幻 =====
+public static final RegistryObject<Item> DREAM =
+        ITEMS.register("dream",
+                () -> new com.tyami.forlaism.item.DreamItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+// ===== 無限 =====
+public static final RegistryObject<Item> INFINITY =
+        ITEMS.register("infinity",
+                () -> new com.tyami.forlaism.item.InfinityItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+// ===== 微睡 =====
+public static final RegistryObject<Item> MADOROMI =
+        ITEMS.register("madoromi",
+                () -> new com.tyami.forlaism.item.MadoromiItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+// ===== 想像 =====
+public static final RegistryObject<Item> IMAGINATION =
+        ITEMS.register("imagination",
+                () -> new com.tyami.forlaism.item.ImaginationItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+    public static final RegistryObject<Item> FORLAISM_GLASS =
+            ITEMS.register("forlaism_glass",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.FORLAISM_GLASS.get(),
+                            new Item.Properties()));
+
+    public static final RegistryObject<Item> INFINITE_WATER_TANK =
+            ITEMS.register("infinite_water_tank",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.INFINITE_WATER_TANK.get(),
+                            new Item.Properties()));
+    public static final RegistryObject<Item> FIREPROOF_FORLAISM_GLASS =
+            ITEMS.register("fireproof_forlaism_glass",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.FIREPROOF_FORLAISM_GLASS.get(),
+                            new Item.Properties()));
+
+    public static final RegistryObject<Item> INFINITE_LAVA_TANK =
+            ITEMS.register("infinite_lava_tank",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.INFINITE_LAVA_TANK.get(),
+                            new Item.Properties()));
+
+    public static final RegistryObject<Item> INFINITE_COBBLESTONE_TANK =
+            ITEMS.register("infinite_cobblestone_tank",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.INFINITE_COBBLESTONE_TANK.get(),
+                            new Item.Properties()));
+
+    public static final RegistryObject<Item> INFINITE_SOIL =
+            ITEMS.register("infinite_soil",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.INFINITE_SOIL.get(),
+                            new Item.Properties()));
+
+    public static final RegistryObject<Item> CHRONOS_DAGGER =
+            ITEMS.register("chronos_dagger",
+                    () -> new com.tyami.forlaism.item.ChronosDaggerItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+
+    // =========================================================
+    // Fakedream: Fstone (BlockItem)
+    // =========================================================
+    public static final RegistryObject<Item> FSTONE =
+            ITEMS.register("fstone",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            Blocks.FSTONE.get(),
+                            new Item.Properties()
+                    ));
+
+    // =========================================================
+    // ヤツハニサク
+    // =========================================================
+    public static final RegistryObject<Item> YATSUHANISAKU =
+            ITEMS.register("yatsuhanisaku",
+                    () -> new com.tyami.forlaism.item.YatsuhanisakuItem(
+                            new Item.Properties().durability(1)  // ← stacksTo(1) を削除
+                    ));
+
+    // =========================================================
+    // ヒヒイロカネ
+    public static final RegistryObject<Item> HIHIIROKANE =
+            ITEMS.register("hihiirokane",
+                    () -> new com.tyami.forlaism.item.HihiirokaneItem(
+                            new Item.Properties().fireResistant()
+                    ));
+                    
+    public static final RegistryObject<Item> HIHIIROKANE_ORE =
+            ITEMS.register("hihiirokane_ore",
+                    () -> new net.minecraft.world.item.BlockItem(
+                            com.tyami.forlaism.registry.Blocks.HIHIIROKANE_ORE.get(),
+                            new Item.Properties()
+                    ));
+
+// ===== 壁シリーズ =====
+public static final RegistryObject<Item> DIMENSIONAL_BREAKER =
+        ITEMS.register("dimensional_breaker",
+                () -> new com.tyami.forlaism.item.DimensionalBreakerItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+
+public static final RegistryObject<Item> DIMENSION_SHARD =
+        ITEMS.register("dimension_shard",
+                () -> new com.tyami.forlaism.item.DimensionShardItem(
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> AWAKENING_POTION =
+        ITEMS.register("awakening_potion",
+                () -> new com.tyami.forlaism.item.AwakeningPotionItem(
+                        new Item.Properties().stacksTo(1)
+                ));
+
+// ===== 決意 =====
+public static final RegistryObject<Item> DETERMINATION =
+        ITEMS.register("determination",
+                () -> new com.tyami.forlaism.item.DeterminationItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+
+// ===== 自由 =====
+public static final RegistryObject<Item> FREEDOM =
+        ITEMS.register("freedom",
+                () -> new com.tyami.forlaism.item.FreedomItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+
+// ===== マスターピースクロック =====
+public static final RegistryObject<Item> MASTERPIECE_CLOCK =
+        ITEMS.register("masterpiece_clock",
+                () -> new com.tyami.forlaism.item.MasterpieceClockItem(
+                        new Item.Properties().stacksTo(1).fireResistant()
+                ));
+
+// ===== ウツワ =====
+public static final RegistryObject<Item> UTSUWA =
+        ITEMS.register("utsuwa",
+                () -> new Item(new Item.Properties().stacksTo(1)));
+
+
+
+                
 }
 
 

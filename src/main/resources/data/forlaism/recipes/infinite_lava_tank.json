@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FGF",
+    "FBF",
+    "OOO"
+  ],
+  "key": {
+    "F": { "item": "forlaism:fireproof_forlaism_glass" },
+    "G": { "item": "minecraft:bucket" },
+    "O": { "item": "minecraft:obsidian" },
+    "B": { "item": "minecraft:magma_block" }
+  },
+  "result": {
+    "item": "forlaism:infinite_lava_tank",
+    "count": 1
+  }
+}

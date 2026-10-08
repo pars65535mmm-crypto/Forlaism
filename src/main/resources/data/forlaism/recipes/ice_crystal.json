@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BSB",
+    "BBB"
+  ],
+  "key": {
+    "B": { "item": "minecraft:blue_ice" },
+    "S": { "item": "forlaism:forlaism_star_core" }
+  },
+  "result": {
+    "item": "forlaism:ice_crystal",
+    "count": 1
+  }
+}

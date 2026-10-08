@@ -307,4 +307,50 @@ public abstract class LivingEntityMixin {
          */
         ci.cancel();
     }
+
+
+    // =========================================================
+    // 味方化Mobがプレイヤーに殴られてもターゲット化しない保険
+    // =========================================================
+
+    @Inject(
+            method = "setLastHurtByPlayer",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void forlaism$blockAlliedLastHurtByPlayer(
+            net.minecraft.world.entity.player.Player player,
+            CallbackInfo ci
+    ) {
+        LivingEntity self = (LivingEntity) (Object) this;
+
+        if (!(self instanceof Mob mob)) return;
+
+        if (com.tyami.forlaism.event.AlliedMobHandler.isAllied(mob)) {
+            ci.cancel();
+        }
+    }
+
+    // =========================================================
+    // 味方化Mobがプレイヤーを攻撃対象にしない（保険）
+    // =========================================================
+
+    @Inject(
+            method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void forlaism$blockAlliedCanAttackPlayer(
+            LivingEntity target,
+            CallbackInfoReturnable<Boolean> cir
+    ) {
+        LivingEntity self = (LivingEntity) (Object) this;
+
+        if (!(self instanceof Mob mob)) return;
+
+        if (com.tyami.forlaism.event.AlliedMobHandler.isAllied(mob)
+                && target instanceof Player) {
+            cir.setReturnValue(false);
+        }
+    }
 }

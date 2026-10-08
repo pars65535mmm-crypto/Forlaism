@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBG",
+    "SCD",
+    "NKU"
+  ],
+  "key": {
+    "I": { "item": "forlaism:ice_crystal" },
+    "B": { "item": "minecraft:bedrock" },
+    "G": { "item": "minecraft:glass_bottle" },
+    "S": { "item": "forlaism:end_warden_summoner_reverse" },
+    "C": { "item": "forlaism:dulam_clock" },
+    "D": { "item": "minecraft:grass_block" },
+    "N": { "item": "forlaism:nucleus" },
+    "K": { "item": "forlaism:kyogenkaku" },
+    "U": { "item": "forlaism:sakuranium" }
+  },
+  "result": {
+    "item": "forlaism:infinity",
+    "count": 1
+  }
+}

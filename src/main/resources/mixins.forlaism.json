@@ -14,6 +14,9 @@
     "EntityFreezeMixin",
     "LivingEntityFreezeMixin",
     "LivingEntityRinneMixin",
+    "ChronosSlowMixin",
+    "ChronosLivingSlowMixin",
+    "ChronosMobSlowMixin",
     "AttributeInstanceMixin",
     "LivingEntityMadoromiMixin",
     "LivingEntityOvernullMixin",
@@ -29,7 +32,8 @@
     "gmb.ServerLevelGMBBlockJoinMixin"
     ,"gmb.MobGMBAbsoluteEraseMixin"
     ,"gmb.ServerLevelGMBTickBlockMixin"
-    ,"gmb.PersistentEntitySectionManagerGMBMixin"
+    ,"gmb.PersistentEntitySectionManagerGMBMixin",
+    "FistMixin"
   ],
   "client": [
     "MinecraftMixin",
@@ -39,8 +43,10 @@
     "ItemRendererMixin",
     "HumanoidArmorLayerMixin",
     "HumanoidMobRendererMixin",
-    "gmb.ClientLevelGMBEraseMixin"
-    ,"gmb.EntityRenderDispatcherGMBEraseMixin"
+    "gmb.ClientLevelGMBEraseMixin",
+    "client.FistHandRenderMixin",
+    "client.PauseScreenMixin",
+    "gmb.EntityRenderDispatcherGMBEraseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -229,4 +229,118 @@ public static final RegistryObject<Block> QUANTUM_TRANSFER_DEVICE_OUT =
                                     .strength(4.0F, 1200.0F)
                                     .sound(SoundType.METAL)
                     ));
+//гғ•гӮ©гғ©гғӘгӮ№гӮ¬гғ©гӮ№って何..?
+
+public static final RegistryObject<Block> FORLAISM_GLASS =
+        BLOCKS.register("forlaism_glass", () ->
+                new net.minecraft.world.level.block.GlassBlock(
+                        BlockBehaviour.Properties.of()
+                                .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                                .strength(2.0F, 1200.0F)
+                                .sound(SoundType.GLASS)
+                                .noOcclusion()
+                                .isValidSpawn((s, l, p, e) -> false)
+                                .isRedstoneConductor((s, l, p) -> false)
+                                .isSuffocating((s, l, p) -> false)
+                                .isViewBlocking((s, l, p) -> false)
+                ));
+
+    public static final RegistryObject<Block> INFINITE_WATER_TANK =
+            BLOCKS.register("infinite_water_tank", () ->
+                    new com.tyami.forlaism.block.InfiniteWaterTankBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                                    .strength(2.0F, 1200.0F)
+                                    .sound(SoundType.GLASS)
+                                    .noOcclusion()
+                                    .isValidSpawn((s, l, p, e) -> false)
+                                    .isRedstoneConductor((s, l, p) -> false)
+                                    .isSuffocating((s, l, p) -> false)
+                                    .isViewBlocking((s, l, p) -> false)
+                    ));
+
+    public static final RegistryObject<Block> FIREPROOF_FORLAISM_GLASS =
+            BLOCKS.register("fireproof_forlaism_glass", () ->
+                    new net.minecraft.world.level.block.Block(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_BLACK)
+                                    .strength(2.0F, 1200.0F)
+                                    .sound(SoundType.GLASS)
+                                    .noOcclusion()
+                                    .isValidSpawn((s, l, p, e) -> false)
+                                    .isRedstoneConductor((s, l, p) -> false)
+                                    .isSuffocating((s, l, p) -> false)
+                                    .isViewBlocking((s, l, p) -> false)
+                    ));
+
+
+    public static final RegistryObject<Block> INFINITE_LAVA_TANK =
+            BLOCKS.register("infinite_lava_tank", () ->
+                    new com.tyami.forlaism.block.InfiniteLavaTankBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_ORANGE)
+                                    .strength(2.0F, 1200.0F)
+                                    .sound(SoundType.GLASS)
+                                    .noOcclusion()
+                                    .isValidSpawn((s, l, p, e) -> false)
+                                    .isRedstoneConductor((s, l, p) -> false)
+                                    .isSuffocating((s, l, p) -> false)
+                                    .isViewBlocking((s, l, p) -> false)
+                    ));
+
+    public static final RegistryObject<Block> INFINITE_COBBLESTONE_TANK =
+            BLOCKS.register("infinite_cobblestone_tank", () ->
+                    new com.tyami.forlaism.block.InfiniteCobblestoneTankBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.STONE)
+                                    .strength(2.0F, 1200.0F)
+                                    .sound(SoundType.GLASS)
+                                    .noOcclusion()
+                                    .isValidSpawn((s, l, p, e) -> false)
+                                    .isRedstoneConductor((s, l, p) -> false)
+                                    .isSuffocating((s, l, p) -> false)
+                                    .isViewBlocking((s, l, p) -> false)
+                    ));
+
+    public static final RegistryObject<Block> INFINITE_SOIL =
+            BLOCKS.register("infinite_soil", () ->
+                    new com.tyami.forlaism.block.InfiniteSoilBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.DIRT)
+                                    .strength(2.0F, 1200.0F)
+                                    .sound(SoundType.GRASS)
+                                    .noOcclusion()
+                                    .isValidSpawn((s, l, p, e) -> false)
+                                    .isRedstoneConductor((s, l, p) -> false)
+                                    .isSuffocating((s, l, p) -> false)
+                                    .isViewBlocking((s, l, p) -> false)
+                    ));
+
+    // =========================================================
+    // Fakedream: Fstone
+    // =========================================================
+    public static final RegistryObject<Block> FSTONE =
+            BLOCKS.register("fstone", () ->
+                    new com.tyami.forlaism.block.FstoneBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.STONE)
+                                    .requiresCorrectToolForDrops()
+                                    .strength(-1.0F, 3_600_000.0F) // 岩盤と同じ
+                                    .noLootTable()
+                                    .sound(SoundType.STONE)
+                    ));
+
+    // =========================================================
+    // ヒヒイロカネ鉱石
+    // メタアダマンタインのツルハシでのみ採掘可能
+    // =========================================================
+    public static final RegistryObject<Block> HIHIIROKANE_ORE =
+            BLOCKS.register("hihiirokane_ore", () ->
+                    new com.tyami.forlaism.block.HihiirokaneOreBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.STONE)
+                                    .requiresCorrectToolForDrops()
+                                    .strength(2.0F, 9.0F)
+                                    .sound(SoundType.NETHERITE_BLOCK)));
+
 }

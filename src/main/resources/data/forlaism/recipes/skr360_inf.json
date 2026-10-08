@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS ",
+    "RN ",
+    " S "
+  ],
+  "key": {
+    "S": { "item": "forlaism:sakuranium" },
+    "R": { "item": "forlaism:rinnedium_ingot" },
+    "N": { "item": "minecraft:netherite_ingot" }
+  },
+  "result": {
+    "item": "forlaism:skr360_inf",
+    "count": 1
+  }
+}

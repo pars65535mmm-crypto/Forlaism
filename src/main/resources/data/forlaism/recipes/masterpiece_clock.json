@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MDF",
+    "CLP",
+    "INR"
+  ],
+  "key": {
+    "M": { "item": "forlaism:madoromi" },
+    "D": { "item": "forlaism:determination" },
+    "F": { "item": "forlaism:freedom" },
+    "C": { "item": "forlaism:challenge" },
+    "L": { "item": "forlaism:dulam_clock" },
+    "P": { "item": "forlaism:possibility" },
+    "I": { "item": "forlaism:imagination" },
+    "N": { "item": "forlaism:infinity" },
+    "R": { "item": "forlaism:dream" }
+  },
+  "result": {
+    "item": "forlaism:masterpiece_clock",
+    "count": 1
+  }
+}

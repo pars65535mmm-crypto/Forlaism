@@ -77,4 +77,30 @@ public static final RegistryObject<BlockEntityType<QuantumTransferDeviceOutBlock
                             com.tyami.forlaism.block.entity.WarpSenderBlockEntity::new,
                             Blocks.WARP_SENDER.get()
                     ).build(null));
+
+public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.entity.InfiniteWaterTankBlockEntity>> INFINITE_WATER_TANK =
+        BLOCK_ENTITIES.register("infinite_water_tank", () ->
+                BlockEntityType.Builder.of(
+                        com.tyami.forlaism.block.entity.InfiniteWaterTankBlockEntity::new,
+                        Blocks.INFINITE_WATER_TANK.get()
+                ).build(null));
+public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.entity.InfiniteLavaTankBlockEntity>> INFINITE_LAVA_TANK =
+        BLOCK_ENTITIES.register("infinite_lava_tank", () ->
+                BlockEntityType.Builder.of(
+                        com.tyami.forlaism.block.entity.InfiniteLavaTankBlockEntity::new,
+                        Blocks.INFINITE_LAVA_TANK.get()
+                ).build(null));
+public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.entity.InfiniteCobblestoneTankBlockEntity>> INFINITE_COBBLESTONE_TANK =
+        BLOCK_ENTITIES.register("infinite_cobblestone_tank", () ->
+                BlockEntityType.Builder.of(
+                        com.tyami.forlaism.block.entity.InfiniteCobblestoneTankBlockEntity::new,
+                        Blocks.INFINITE_COBBLESTONE_TANK.get()
+                ).build(null));
+
+public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.entity.InfiniteSoilBlockEntity>> INFINITE_SOIL =
+        BLOCK_ENTITIES.register("infinite_soil", () ->
+                BlockEntityType.Builder.of(
+                        com.tyami.forlaism.block.entity.InfiniteSoilBlockEntity::new,
+                        Blocks.INFINITE_SOIL.get()
+                ).build(null));
 }

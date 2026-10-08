@@ -56,10 +56,12 @@ public class Forlaism {
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         com.tyami.forlaism.registry.ModLootModifiers.LOOT_MODIFIERS.register(modEventBus);
+        
 
         
 
         com.tyami.forlaism.network.FactotumPacketHandler.register();
+        com.tyami.forlaism.registry.ModPotions.POTIONS.register(modEventBus);
         com.tyami.forlaism.magic.MagicCircleSummoner.registerNetwork();
 
         modEventBus.addListener(this::commonSetup);
@@ -74,6 +76,7 @@ public class Forlaism {
     @net.minecraftforge.eventbus.api.SubscribeEvent
     public void onServerStarting(net.minecraftforge.event.server.ServerStartingEvent event) {
         com.tyami.forlaism.quantum.QuantumTransferNetwork.setServer(event.getServer());
+        com.tyami.forlaism.world.PossibilityGlobalData.isPending();
     }
 
 
@@ -101,6 +104,10 @@ public static class ClientModEvents {
                 EndWardenModel.LAYER_LOCATION,
                 EndWardenModel::createBodyLayer
         );
+        event.registerLayerDefinition(
+        com.tyami.forlaism.client.model.IinekoreKnifeModel.LAYER_LOCATION,
+        com.tyami.forlaism.client.model.IinekoreKnifeModel::createBodyLayer
+);
         
 }
 
@@ -137,6 +144,10 @@ event.registerEntityRenderer(
                 ModEntityTypes.END_WARDEN_REVERSE.get(),
                 EndWardenRenderer::new
 );
+        event.registerEntityRenderer(
+                ModEntityTypes.SAKURA_BULLET.get(),
+                com.tyami.forlaism.client.renderer.SakuraBulletRenderer::new
+        );
 event.registerEntityRenderer(
         ModEntityTypes.END_WARDEN_FINAL.get(),
         EndWardenFinalRenderer::new  // ← 専用レンダラ
@@ -165,6 +176,22 @@ event.registerEntityRenderer(
         ModEntityTypes.PRISM_LIGHT_ORB.get(),
         com.tyami.forlaism.client.renderer.PrismLightOrbRenderer::new
 );
+event.registerEntityRenderer(
+        ModEntityTypes.FRASLATIA_THROW.get(),
+        com.tyami.forlaism.client.renderer.FraslatiaThrowRenderer::new
+);
+event.registerEntityRenderer(
+        ModEntityTypes.HANIWA_NO_YARI.get(),
+        com.tyami.forlaism.client.renderer.HaniwaNoYariRenderer::new
+);
+event.registerEntityRenderer(
+        ModEntityTypes.IINEKORE_KNIFE.get(),
+        com.tyami.forlaism.client.renderer.IinekoreKnifeRenderer::new
+);
+        event.registerEntityRenderer(
+                ModEntityTypes.METEOR.get(),
+                com.tyami.forlaism.client.renderer.MeteorRenderer::new
+        );
 
 
         
@@ -202,6 +229,7 @@ event.registerEntityRenderer(
                     MenuTypes.FORLAISM_CONCENTRATOR_MENU.get(),
                     Tier2MachineScreen::new
             );
+            
 
             MenuScreens.register(
                     MenuTypes.FORLAISM_REACTOR_MENU.get(),
@@ -310,6 +338,7 @@ private void commonSetup(FMLCommonSetupEvent event) {
     event.enqueueWork(() -> {
         com.tyami.forlaism.quantum.QuantumFusionRecipes.bootstrap();
         com.tyami.forlaism.quantum.ReactorRecipes.bootstrap();
+        com.tyami.forlaism.recipe.ModBrewingRecipes.registerRecipes();
     });
 }
 

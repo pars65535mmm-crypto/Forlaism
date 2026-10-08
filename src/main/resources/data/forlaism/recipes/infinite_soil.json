@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GSG",
+    "GWG",
+    "DDD"
+  ],
+  "key": {
+    "G": { "item": "forlaism:forlaism_glass" },
+    "D": { "item": "minecraft:dirt" },
+    "S": { "item": "minecraft:wheat_seeds" },
+    "W": { "item": "minecraft:grass_block" }
+  },
+  "result": {
+    "item": "forlaism:infinite_soil",
+    "count": 1
+  }
+}

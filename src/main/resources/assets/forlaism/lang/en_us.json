@@ -1,33 +1,26 @@
 {
   "item_group.forlaism.forlaism_tab": "Forlaism",
-
   "item.forlaism.forlaism_crystal": "Forlaism Crystal",
   "item.forlaism.forlaism_crude_powder": "Crude Forlaism Powder",
   "item.forlaism.forlaism_powder": "Forlaism Powder",
   "item.forlaism.forlaism_culture_bottle": "Bottle of Forlaism Culture Solution",
   "item.forlaism.forlaism_culture_bucket": "Bucket of Forlaism Culture Solution",
-
   "item.forlaism.crushed_iron": "Crushed Iron",
   "item.forlaism.rough_steel": "Rough Steel",
   "item.forlaism.steel_question": "Steel?",
   "item.forlaism.steel_ingot": "Steel Ingot",
-
   "item.forlaism.redstone_question": "Redstone?",
   "item.forlaism.sage_stone": "Sage Stone?",
-
   "item.forlaism.forlaism_polycrystal": "Forlaism Polycrystal",
   "item.forlaism.forlaism_polycrystal_bucket": "Forlaism Polycrystal Bucket",
   "item.forlaism.forlaism_polycrystal_solution_bucket": "Bucket of Forlaism Polycrystal Solution",
   "item.forlaism.forlaism_polycrystal_bottle": "Forlaism Polycrystal Bottle",
   "item.forlaism.forlaism_polycrystal_solution_bottle": "Bottle of Forlaism Polycrystal Solution",
-
   "item.forlaism.fo_bucket": "Bucket of Foralis",
   "item.forlaism.tokino_staff_tier1": "Tokino Staff Tier 1",
-
   "block.forlaism.forlaism_culture": "Forlaism Culture Solution",
   "block.forlaism.forlaism_polycrystal_solution": "Forlaism Polycrystal Solution",
   "block.forlaism.fo": "Foralis (FO)",
-
   "block.forlaism.forlaism_ore": "Forlaism Ore",
   "block.forlaism.deepslate_forlaism_ore": "Deepslate Forlaism Ore",
   "block.forlaism.forlaism_crystal_block": "Forlaism Crystal Block",
@@ -35,7 +28,6 @@
   "block.forlaism.forlaism_high_crystal_block": "Forlaism High Crystal Block",
   "block.forlaism.forlaism_fusion_machine": "Forlaism Fusion Machine",
   "block.forlaism.forlaism_inserter": "Forlaism Inserter",
-
   "tooltip.forlaism.tokino_staff_fo": "FO: %s / %s mB",
   "tooltip.forlaism.tokino_staff_desc": "Accelerates target block 16x for 16 seconds (Cost: 10mB FO)",
   "item.forlaism.forlaism_iron_alloy": "Forlaism Iron Alloy",
@@ -50,5 +42,11 @@
   "tooltip.forlaism.tokino_staff_tier2_desc": "Accelerates target block 64x for 16 seconds (Cost: 100mB FO)",
   "item.forlaism.halo_of_the_advent": "Halo of the Advent",
   "item.forlaism.halo_of_the_firmament": "Halo of the Firmament",
-  "item.forlaism.regalia_of_the_factotum": "Regalia of the Factotum"
+  "item.forlaism.regalia_of_the_factotum": "Regalia of the Factotum",
+  "block.forlaism.infinite_water_tank": "Infinite Water Tank",
+  "block.forlaism.fireproof_forlaism_glass": "Fireproof Forlaism Glass",
+  "block.forlaism.infinite_lava_tank": "Infinite Lava Tank",
+  "block.forlaism.infinite_cobblestone_tank": "Infinite Cobblestone Tank",
+  "block.forlaism.infinite_soil": "Infinite Soil",
+  "item.forlaism.chronos_dagger": "Chronos Dagger"
 }

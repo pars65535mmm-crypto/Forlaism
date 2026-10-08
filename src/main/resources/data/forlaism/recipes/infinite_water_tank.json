@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "CTS",
+    "GGG"
+  ],
+  "key": {
+    "G": { "item": "forlaism:forlaism_glass" },
+    "C": { "item": "minecraft:charcoal" },
+    "T": { "item": "minecraft:dirt" },
+    "S": { "item": "minecraft:stone" }
+  },
+  "result": {
+    "item": "forlaism:infinite_water_tank",
+    "count": 1
+  }
+}

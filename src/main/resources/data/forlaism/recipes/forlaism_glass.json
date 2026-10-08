@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GCG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "forlaism:forlaism_crystal"
+    }
+  },
+  "result": {
+    "item": "forlaism:forlaism_glass",
+    "count": 8
+  }
+}

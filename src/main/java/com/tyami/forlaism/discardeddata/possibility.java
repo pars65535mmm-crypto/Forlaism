@@ -1,0 +1,1 @@
+//"Do not cast away your only life, carrying nothing, abandoning all, and lasting not even ten minutes."

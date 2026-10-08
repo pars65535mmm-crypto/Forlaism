@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " II",
+    "ICI",
+    " NO"
+  ],
+  "key": {
+    "I": { "item": "forlaism:ice_crystal" },
+    "C": { "item": "minecraft:netherite_ingot" },
+    "O": { "item": "minecraft:obsidian" },
+    "N": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "forlaism:fraslatia",
+    "count": 1
+  }
+}

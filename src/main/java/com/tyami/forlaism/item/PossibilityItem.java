@@ -67,11 +67,11 @@ public class PossibilityItem extends ForalisItem implements IAnimatedTextItem {
                     .glitch(3.0f, 0.25f, 0xFFFF00FF);
 
             // 2行目
-            case 1 -> AnimatedText.of("§7可能性という名の無限は")
+            case 1 -> AnimatedText.of("可能性という名の無限は")
                     .glitch(1.5f, 0.08f, 0xFF8888FF);
 
             // 3行目
-            case 2 -> AnimatedText.of("§7君から万物を想像させるだろう")
+            case 2 -> AnimatedText.of("君から万物を想像させるだろう")
                     .glitch(1.5f, 0.08f, 0xFF8888FF);
 
             // 4行目（空行）
@@ -98,8 +98,6 @@ public class PossibilityItem extends ForalisItem implements IAnimatedTextItem {
         // ここに書いた Component は
         // createAnimatedTooltip が null を返した行にだけ出る
         tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("§5§l【Tier 7】").withStyle(ChatFormatting.DARK_PURPLE));
-        tooltip.add(Component.literal("§d隠しアイテム。").withStyle(ChatFormatting.LIGHT_PURPLE));
         tooltip.add(Component.literal("§8無限の可能性を内包している。")
                 .withStyle(ChatFormatting.DARK_GRAY));
 

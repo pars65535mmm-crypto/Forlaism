@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SR",
+    " R"
+  ],
+  "key": {
+    "S": { "item": "forlaism:sakuranium" },
+    "R": { "item": "forlaism:forlaism_concentrated_iron_alloy_rod" }
+  },
+  "result": {
+    "item": "forlaism:senpai_fire_axe",
+    "count": 1
+  }
+}

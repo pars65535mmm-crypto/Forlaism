@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "MRM",
+    " S "
+  ],
+  "key": {
+    "M": { "item": "forlaism:meta_adamantine" },
+    "R": { "item": "forlaism:rinnedium_ingot" },
+    "S": { "item": "forlaism:forlaism_concentrated_iron_alloy_rod" }
+  },
+  "result": {
+    "item": "forlaism:dimensional_breaker",
+    "count": 1
+  }
+}

@@ -19,6 +19,7 @@ public class AethericGeneratorModel extends GeoModel<AethericGeneratorBlockEntit
 
     @Override
     public ResourceLocation getTextureResource(AethericGeneratorBlockEntity animatable) {
+        // ★ アイテム側と完全に同じパス
         return new ResourceLocation(
                 Forlaism.MOD_ID,
                 "textures/block/forlaism_aetheric_generator_p.png"

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    " E ",
+    " S "
+  ],
+  "key": {
+    "A": { "item": "forlaism:anbicrleber" },
+    "E": { "item": "forlaism:energy_dagger" },
+    "S": { "item": "forlaism:sakuranium" }
+  },
+  "result": {
+    "item": "forlaism:chronos_dagger",
+    "count": 1
+  }
+}
