@@ -5,6 +5,7 @@
   "slots": [
     "back",
     "head",
-    "ring"
+    "ring",
+    "clock"
   ]
 }

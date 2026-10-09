@@ -103,4 +103,15 @@ public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.enti
                         com.tyami.forlaism.block.entity.InfiniteSoilBlockEntity::new,
                         Blocks.INFINITE_SOIL.get()
                 ).build(null));
+
+    public static final RegistryObject<BlockEntityType<com.tyami.forlaism.block.entity.AltarBlockEntity>> RITUAL_ALTAR =
+            BLOCK_ENTITIES.register("ritual_altar", () ->
+                    BlockEntityType.Builder.of(
+                            com.tyami.forlaism.block.entity.AltarBlockEntity::new,
+                            Blocks.RITUAL_ALTAR.get()
+                    ).build(null));
+
+
+
+
 }

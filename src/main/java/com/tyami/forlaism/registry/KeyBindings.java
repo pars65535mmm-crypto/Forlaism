@@ -29,11 +29,20 @@ public final class KeyBindings {
             "key.categories.forlaism"
     );
 
+    /** マスターピースクロック バインド画面キー（デフォルト C）。 */
+    public static final KeyMapping MASTERPIECE_CLOCK_BIND = new KeyMapping(
+            "key.forlaism.masterpiece_clock_bind",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_C,
+            "key.categories.forlaism"
+    );
+
     private KeyBindings() {
     }
 
     @SubscribeEvent
     public static void registerKeys(RegisterKeyMappingsEvent event) {
         event.register(GRAPPLE_FIRE);
+        event.register(MASTERPIECE_CLOCK_BIND);
     }
 }

@@ -48,5 +48,7 @@
   "block.forlaism.infinite_lava_tank": "Infinite Lava Tank",
   "block.forlaism.infinite_cobblestone_tank": "Infinite Cobblestone Tank",
   "block.forlaism.infinite_soil": "Infinite Soil",
-  "item.forlaism.chronos_dagger": "Chronos Dagger"
+  "item.forlaism.chronos_dagger": "Chronos Dagger",
+  "block.forlaism.ritual_altar": "Ritual Altar",
+  "item.forlaism.ritual_altar": "Ritual Altar"
 }

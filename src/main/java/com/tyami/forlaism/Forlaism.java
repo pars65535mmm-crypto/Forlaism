@@ -128,6 +128,10 @@ public static class ClientModEvents {
         BlockEntities.AETHERIC_GENERATOR.get(),
         AethericGeneratorRenderer::new
         );
+        event.registerBlockEntityRenderer(
+                BlockEntities.RITUAL_ALTAR.get(),
+                com.tyami.forlaism.client.renderer.AltarBlockEntityRenderer::new
+        );
         event.registerEntityRenderer(
             ModEntityTypes.ZOMBIE_LORD.get(),
             net.minecraft.client.renderer.entity.ZombieRenderer::new
@@ -339,6 +343,7 @@ private void commonSetup(FMLCommonSetupEvent event) {
         com.tyami.forlaism.quantum.QuantumFusionRecipes.bootstrap();
         com.tyami.forlaism.quantum.ReactorRecipes.bootstrap();
         com.tyami.forlaism.recipe.ModBrewingRecipes.registerRecipes();
+        com.tyami.forlaism.recipe.AltarRecipes.bootstrap();
     });
 }
 

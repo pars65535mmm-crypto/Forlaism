@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "S": { "item": "minecraft:smooth_stone" },
+    "C": { "item": "forlaism:forlaism_crystal" }
+  },
+  "result": {
+    "item": "forlaism:ritual_altar",
+    "count": 1
+  }
+}

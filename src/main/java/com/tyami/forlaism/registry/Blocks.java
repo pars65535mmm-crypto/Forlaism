@@ -343,4 +343,21 @@ public static final RegistryObject<Block> FORLAISM_GLASS =
                                     .strength(2.0F, 9.0F)
                                     .sound(SoundType.NETHERITE_BLOCK)));
 
+    // =========================================================
+    // 儀式祭壇
+    // =========================================================
+    public static final RegistryObject<Block> RITUAL_ALTAR =
+            BLOCKS.register("ritual_altar", () ->
+                    new com.tyami.forlaism.block.AltarBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.QUARTZ)
+                                    .requiresCorrectToolForDrops()
+                                    .strength(3.5F, 1200.0F)
+                                    .sound(SoundType.STONE)
+                                    .noOcclusion()
+                    ));
+
+
+
+
 }

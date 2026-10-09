@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "forlaism:block/ritual_altar_top",
+    "bottom": "forlaism:block/ritual_altar_bottom",
+    "side": "forlaism:block/ritual_altar_side"
+  }
+}

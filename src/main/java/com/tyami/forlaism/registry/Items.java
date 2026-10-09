@@ -1294,8 +1294,15 @@ public static final RegistryObject<Item> UTSUWA =
         ITEMS.register("utsuwa",
                 () -> new Item(new Item.Properties().stacksTo(1)));
 
-
-
+    // =========================================================
+    // 儀式祭壇
+    // =========================================================
+    public static final RegistryObject<Item> RITUAL_ALTAR =
+            ITEMS.register("ritual_altar",
+                    () -> new com.tyami.forlaism.item.AltarBlockItem(
+                            com.tyami.forlaism.registry.Blocks.RITUAL_ALTAR.get(),
+                            new Item.Properties()
+                    ));
                 
 }
 

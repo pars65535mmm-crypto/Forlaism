@@ -288,5 +288,7 @@
   "item.forlaism.utsuwa": "ウツワ",
   "item.forlaism.freedom": "自由",
   "item.forlaism.masterpiece_clock": "マスターピースクロック",
-  "entity.forlaism.meteor": "隕石"
+  "entity.forlaism.meteor": "隕石",
+  "block.forlaism.ritual_altar": "儀式祭壇",
+  "item.forlaism.ritual_altar": "儀式祭壇"
 }

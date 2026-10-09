@@ -199,6 +199,7 @@ public class CreativeTabs {
                                 output.accept(Items.UTSUWA.get());
                                 output.accept(Items.FREEDOM.get());
                                 output.accept(Items.MASTERPIECE_CLOCK.get());
+                                output.accept(Items.RITUAL_ALTAR.get());
                                 
                                 
                                 

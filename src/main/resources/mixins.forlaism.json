@@ -29,11 +29,13 @@
     "overovernull.EntityJoinLevelBlockerMixin",
     "gmb.EntityGMBAbsoluteEraseMixin",
     "gmb.LivingEntityGMBAbsoluteEraseMixin",
-    "gmb.ServerLevelGMBBlockJoinMixin"
-    ,"gmb.MobGMBAbsoluteEraseMixin"
-    ,"gmb.ServerLevelGMBTickBlockMixin"
-    ,"gmb.PersistentEntitySectionManagerGMBMixin",
-    "FistMixin"
+    "gmb.ServerLevelGMBBlockJoinMixin",
+    "gmb.MobGMBAbsoluteEraseMixin",
+    "gmb.ServerLevelGMBTickBlockMixin",
+    "gmb.PersistentEntitySectionManagerGMBMixin",
+    "FistMixin",
+    "PlayerInventoryClockProtectionMixin",
+    "LivingEntityDropLootClockMixin"
   ],
   "client": [
     "MinecraftMixin",
