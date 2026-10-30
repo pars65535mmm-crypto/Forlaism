@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:tokino_staff_tier3"
+    },
+    "title": {
+      "text": "過去からの旅人",
+      "color": "gold"
+    },
+    "description": {
+      "text": "時刻乃杖 Tier 3を入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_tokino_staff_2",
+  "criteria": {
+    "has_get_tokino_staff_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:tokino_staff_tier3"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

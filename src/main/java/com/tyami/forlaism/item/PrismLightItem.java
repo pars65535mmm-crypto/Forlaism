@@ -159,21 +159,11 @@ public class PrismLightItem extends ForalisItem implements IAnimatedTextItem {
                     double x = pos.x + Math.cos(angle) * radius;
                     double z = pos.z + Math.sin(angle) * radius;
 
-                    // 地面スレスレの輪
-                    sl.sendParticles(
-                            ParticleTypes.END_ROD,
-                            x, pos.y + 0.1, z,
-                            1, 0, 0.02, 0, 0.0
-                    );
+
 
                     // 上に伸びる光の柱
                     if (i % 4 == 0) {
                         for (double y = 0; y < 1.5; y += 0.3) {
-                            sl.sendParticles(
-                                    ParticleTypes.SOUL_FIRE_FLAME,
-                                    x, pos.y + y, z,
-                                    1, 0, 0, 0, 0.0
-                            );
                         }
                     }
                 }
@@ -195,16 +185,6 @@ public class PrismLightItem extends ForalisItem implements IAnimatedTextItem {
                     double x = pos.x + Math.cos(angle) * r;
                     double z = pos.z + Math.sin(angle) * r;
 
-                    sl.sendParticles(
-                            ParticleTypes.FLASH,
-                            x, pos.y + 1.0, z,
-                            1, 0, 0, 0, 0
-                    );
-                    sl.sendParticles(
-                            ParticleTypes.ELECTRIC_SPARK,
-                            x, pos.y + 1.0, z,
-                            5, 0.1, 0.1, 0.1, 0.05
-                    );
                 }
 
                 // フルチャージ到達時
@@ -215,11 +195,7 @@ public class PrismLightItem extends ForalisItem implements IAnimatedTextItem {
                             pos.x, pos.y + 1.0, pos.z,
                             1, 0, 0, 0, 0
                     );
-                    sl.sendParticles(
-                            ParticleTypes.FLASH,
-                            pos.x, pos.y + 1.0, pos.z,
-                            3, 0.5, 0.5, 0.5, 0
-                    );
+
                     sl.playSound(null, pos.x, pos.y, pos.z,
                             SoundEvents.LIGHTNING_BOLT_THUNDER,
                             SoundSource.PLAYERS, 1.5F, 1.8F);
@@ -277,12 +253,7 @@ public class PrismLightItem extends ForalisItem implements IAnimatedTextItem {
                         );
                     }
 
-                    // 中心マーカー
-                    sl.sendParticles(
-                            ParticleTypes.FLASH,
-                            lx, ly, lz,
-                            1, 0, 0, 0, 0
-                    );
+
                 }
             }
 

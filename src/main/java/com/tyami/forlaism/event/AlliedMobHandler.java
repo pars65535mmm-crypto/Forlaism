@@ -84,6 +84,9 @@ public final class AlliedMobHandler {
         // タグ付与
         mob.getPersistentData().putBoolean(ALLIED_TAG, true);
 
+        // 索敵ターゲットハンドラーの追跡リストへ登録
+        AlliedMobTargetHandler.trackAlliedMob(mob);
+
         // プレイヤー関連の敵対情報をクリア
         mob.setTarget(null);
         mob.setLastHurtByMob(null);

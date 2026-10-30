@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:rocket_ring"
+    },
+    "title": {
+      "text": "星の彼方へ突撃",
+      "color": "gold"
+    },
+    "description": {
+      "text": "ロケットリングを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_jump_ring",
+  "criteria": {
+    "has_get_rocket_ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:rocket_ring"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

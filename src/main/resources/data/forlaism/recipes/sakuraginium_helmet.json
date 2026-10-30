@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "M M",
+    "   "
+  ],
+  "key": {
+    "M": { "item": "forlaism:sakuraginium_ingot" }
+  },
+  "result": {
+    "item": "forlaism:sakuraginium_helmet",
+    "count": 1
+  }
+}

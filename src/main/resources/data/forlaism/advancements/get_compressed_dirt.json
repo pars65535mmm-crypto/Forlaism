@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:compressed_dirt"
+    },
+    "title": {
+      "text": "倍プッシュだ…！",
+      "color": "gray"
+    },
+    "description": {
+      "text": "500倍圧縮土を手に入れる。土をそこまで圧縮してどうする。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_compressed_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:compressed_dirt"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" },
+    { "item": "forlaism:wood_arrow" }
+  ],
+  "result": {
+    "item": "forlaism:wood_arrow_bundle",
+    "count": 1
+  }
+}

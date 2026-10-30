@@ -135,27 +135,6 @@ public class EnergyDaggerItem extends ForalisItem implements IAnimatedTextItem {
                 1.8F
         );
 
-        // 手元にエネルギーが集まる演出
-        sl.sendParticles(
-                ParticleTypes.ELECTRIC_SPARK,
-                spawn.x, spawn.y, spawn.z,
-                8,
-                0.15, 0.15, 0.15,
-                0.1
-        );
-        sl.sendParticles(
-                ParticleTypes.END_ROD,
-                spawn.x, spawn.y, spawn.z,
-                4,
-                0.1, 0.1, 0.1,
-                0.02
-        );
-        sl.sendParticles(
-                ParticleTypes.FLASH,
-                spawn.x, spawn.y, spawn.z,
-                1,
-                0, 0, 0, 0
-        );
     }
 
     // =========================================================

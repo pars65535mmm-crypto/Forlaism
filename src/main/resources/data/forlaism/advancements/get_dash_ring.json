@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:dash_ring"
+    },
+    "title": {
+      "text": "風よりも速く",
+      "color": "white"
+    },
+    "description": {
+      "text": "ダッシュリングを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_dash_ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:dash_ring"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

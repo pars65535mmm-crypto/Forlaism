@@ -67,6 +67,31 @@ public class FactotumPacketHandler {
                 .consumerMainThread(OpenClockBindPacket::handle)
                 .add();
 
+                // ===== Masterpiece Clock 追加 =====
+        CHANNEL.messageBuilder(ClockActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ClockActionPacket::new)
+                .encoder(ClockActionPacket::encode)
+                .consumerMainThread(ClockActionPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(ClockStateSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ClockStateSyncPacket::new)
+                .encoder(ClockStateSyncPacket::encode)
+                .consumerMainThread(ClockStateSyncPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(ClockSaveEntityPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ClockSaveEntityPacket::new)
+                .encoder(ClockSaveEntityPacket::encode)
+                .consumerMainThread(ClockSaveEntityPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(ClockEntityListSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ClockEntityListSyncPacket::new)
+                .encoder(ClockEntityListSyncPacket::encode)
+                .consumerMainThread(ClockEntityListSyncPacket::handle)
+                .add();
+
         CHANNEL.messageBuilder(OpenClockBindClientPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(OpenClockBindClientPacket::new)
                 .encoder(OpenClockBindClientPacket::encode)
@@ -78,5 +103,61 @@ public class FactotumPacketHandler {
                 .encoder(AltarScrollPacket::encode)
                 .consumerMainThread(AltarScrollPacket::handle)
                 .add();
+
+        CHANNEL.messageBuilder(TimeFreezeSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(TimeFreezeSyncPacket::new)
+                .encoder(TimeFreezeSyncPacket::encode)
+                .consumerMainThread(TimeFreezeSyncPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(JillstlairleatWaveTextPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(JillstlairleatWaveTextPacket::new)
+                .encoder(JillstlairleatWaveTextPacket::encode)
+                .consumerMainThread(JillstlairleatWaveTextPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(JillstlairleatDeathPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(JillstlairleatDeathPacket::new)
+                .encoder(JillstlairleatDeathPacket::encode)
+                .consumerMainThread(JillstlairleatDeathPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(JillstlairleatSelfDestructPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(JillstlairleatSelfDestructPacket::new)
+                .encoder(JillstlairleatSelfDestructPacket::encode)
+                .consumerMainThread(JillstlairleatSelfDestructPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(ClockExtraActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ClockExtraActionPacket::new)
+                .encoder(ClockExtraActionPacket::encode)
+                .consumerMainThread(ClockExtraActionPacket::handle)
+                .add();
+
+        CHANNEL.messageBuilder(ClockPlayerStateSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ClockPlayerStateSyncPacket::new)
+                .encoder(ClockPlayerStateSyncPacket::encode)
+                .consumerMainThread(ClockPlayerStateSyncPacket::handle)
+                .add();
+
+                // =========================================================
+        // ハニワイニウム地震: 画面揺れ
+        // =========================================================
+        CHANNEL.messageBuilder(ScreenShakePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ScreenShakePacket::new)
+                .encoder(ScreenShakePacket::encode)
+                .consumerMainThread(ScreenShakePacket::handle)
+                .add();
+
+        
+
+                // BloodMoon 同期
+        CHANNEL.registerMessage(
+          /*ID*/ 100,
+          BloodMoonSyncPacket.class,
+          BloodMoonSyncPacket::encode,
+          BloodMoonSyncPacket::decode,
+          BloodMoonSyncPacket::handle
+        );
     }
 }

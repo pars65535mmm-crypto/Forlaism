@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:vampire_ring"
+    },
+    "title": {
+      "text": "君は今まで使った道具の数を覚えているのか？",
+      "color": "dark_red"
+    },
+    "description": {
+      "text": "ヴァンパイアリングを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_vampire_ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:vampire_ring"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import com.tyami.forlaism.block.entity.FusionMachineBlockEntity;
 import com.tyami.forlaism.block.entity.InserterBlockEntity;
 import com.tyami.forlaism.block.entity.QuantumTransferDeviceInBlockEntity;
 import com.tyami.forlaism.block.entity.QuantumTransferDeviceOutBlockEntity;
+import com.tyami.forlaism.block.entity.PhotonMachineBlockEntity;
 import com.tyami.forlaism.block.entity.AlloyMachineBlockEntity;
 import com.tyami.forlaism.block.entity.ConcentratorBlockEntity;
 import com.tyami.forlaism.block.entity.ReactorBlockEntity;
@@ -20,6 +21,8 @@ public class BlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Forlaism.MOD_ID);
+
+    public static final RegistryObject<BlockEntityType<PhotonMachineBlockEntity>> PHOTON_MACHINE = BLOCK_ENTITIES.register("photon_machine", () -> BlockEntityType.Builder.of((pos, state) -> new PhotonMachineBlockEntity(pos, state, PhotonMachineBlockEntity.Kind.COLLECTOR), Blocks.PHOTON_COLLECTOR.get(), Blocks.PHOTON_DECAY_CHAMBER.get(), Blocks.PHOTON_BLASTER_INFUSER.get(), Blocks.PHOTON_CONDENSER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<FusionMachineBlockEntity>> FORLAISM_FUSION_MACHINE =
             BLOCK_ENTITIES.register("forlaism_fusion_machine", () ->

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:grimoire"
+    },
+    "title": {
+      "text": "禁忌の魔導書",
+      "color": "dark_purple"
+    },
+    "description": {
+      "text": "グリモワールを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_dream_book",
+  "criteria": {
+    "has_get_grimoire": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:grimoire"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

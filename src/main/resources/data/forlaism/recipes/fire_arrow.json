@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BFB",
+    "BBB"
+  ],
+  "key": {
+    "B": { "item": "forlaism:wood_arrow_bundle" },
+    "F": { "item": "minecraft:flint_and_steel" }
+  },
+  "result": {
+    "item": "forlaism:fire_arrow",
+    "count": 64
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "forlaism:utsuwa" },
+    { "item": "forlaism:mechanical_determination" }
+  ],
+  "result": {
+    "item": "forlaism:mechanical_vessel",
+    "count": 1
+  }
+}

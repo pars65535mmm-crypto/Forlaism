@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:star_ore_book"
+    },
+    "title": {
+      "text": "限界突破の書",
+      "color": "aqua"
+    },
+    "description": {
+      "text": "星鉱の書を入手する。エンチャントを限界以上に強化しよう。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_ore_star",
+  "criteria": {
+    "has_get_star_ore_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:star_ore_book"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

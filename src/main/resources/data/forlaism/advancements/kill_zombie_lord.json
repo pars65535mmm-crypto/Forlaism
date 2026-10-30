@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:zombie_head"
+    },
+    "title": {
+      "text": "お前のようなゾンビがいるか",
+      "color": "dark_green"
+    },
+    "description": {
+      "text": "ゾンビロードを討伐する。"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_book_of_sacrifice",
+  "criteria": {
+    "kill_kill_zombie_lord": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "forlaism:zombie_lord"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

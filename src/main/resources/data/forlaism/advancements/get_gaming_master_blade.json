@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:gaming_master_blade"
+    },
+    "title": {
+      "text": "ゲーミングの夜明け",
+      "color": "light_purple"
+    },
+    "description": {
+      "text": "ゲーミングマスターブレードを入手し、七色に輝く。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_garbage_metal",
+  "criteria": {
+    "has_get_gaming_master_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:gaming_master_blade"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

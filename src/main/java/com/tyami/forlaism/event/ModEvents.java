@@ -447,4 +447,78 @@ public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         com.tyami.forlaism.damage.FrostbiteExecution.tick(event.getServer());
     }
 
+        // =========================================================
+    // Masterpiece Clock: 重力反転の毎tick適用
+    // =========================================================
+
+    @SubscribeEvent
+    public static void onServerTickClockGravity(net.minecraftforge.event.TickEvent.ServerTickEvent event) {
+        if (event.phase != net.minecraftforge.event.TickEvent.Phase.END) return;
+
+        var server = event.getServer();
+        if (server == null) return;
+
+        boolean active = com.tyami.forlaism.world.GravityInversionManager.isActive();
+
+        if (!active) {
+            // 解除時：一度だけ全EntityからModifier除去（軽量化のため5tickおき）
+            if (server.getTickCount() % 5 == 0) {
+                for (var level : server.getAllLevels()) {
+                    level.getAllEntities().forEach(e -> {
+                        if (e instanceof net.minecraft.world.entity.LivingEntity living) {
+                            com.tyami.forlaism.world.GravityInversionManager.applyTo(living);
+                        }
+                    });
+                }
+            }
+            return;
+        }
+
+        // 適用中：毎tick全LivingEntityに適用
+        for (var level : server.getAllLevels()) {
+            level.getAllEntities().forEach(e -> {
+                if (e instanceof net.minecraft.world.entity.LivingEntity living) {
+                    com.tyami.forlaism.world.GravityInversionManager.applyTo(living);
+                }
+            });
+        }
+
+        // 状態同期（5秒ごと）
+        if (server.getTickCount() % 100 == 0) {
+            com.tyami.forlaism.network.ClockStateSyncPacket.broadcast(server);
+        }
+    }
+
+    // =========================================================
+    // Masterpiece Clock: 装備時初期同期
+    // =========================================================
+
+    @SubscribeEvent
+    public static void onPlayerLoggedInClock(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
+        if (!(event.getEntity() instanceof net.minecraft.server.level.ServerPlayer player)) return;
+
+        var server = player.server;
+        com.tyami.forlaism.network.ClockStateSyncPacket.sendToPlayer(player);
+
+        com.tyami.forlaism.network.FactotumPacketHandler.CHANNEL.sendTo(
+                com.tyami.forlaism.network.ClockStateSyncPacket.build(server),
+                player.connection.connection,
+                net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT
+        );
+
+        // Entityリストも送信
+        var data = com.tyami.forlaism.world.SavedEntityData.get(server);
+        var list = new java.util.ArrayList<com.tyami.forlaism.network.ClockEntityListSyncPacket.Entry>();
+        for (var e : data.getAll()) {
+            list.add(new com.tyami.forlaism.network.ClockEntityListSyncPacket.Entry(
+                    e.id, e.displayName, e.entityTypeId
+            ));
+        }
+        com.tyami.forlaism.network.FactotumPacketHandler.CHANNEL.sendTo(
+                new com.tyami.forlaism.network.ClockEntityListSyncPacket(list),
+                player.connection.connection,
+                net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT
+        );
+    }
+
 }

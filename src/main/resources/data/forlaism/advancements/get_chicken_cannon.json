@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:chicken_cannon"
+    },
+    "title": {
+      "text": "飛ばねえ鳥はただの鶏だ",
+      "color": "gold"
+    },
+    "description": {
+      "text": "チキンキャノンを手に入れる。チキンを撃ち出せ！"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_chicken_cannon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:chicken_cannon"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

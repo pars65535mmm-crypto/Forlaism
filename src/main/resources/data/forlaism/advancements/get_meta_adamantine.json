@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:meta_adamantine"
+    },
+    "title": {
+      "text": "一番いいのを頼む",
+      "color": "dark_aqua"
+    },
+    "description": {
+      "text": "メタアダマンタインを入手する。"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_star_core",
+  "criteria": {
+    "has_get_meta_adamantine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:meta_adamantine"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:blaze_ring"
+    },
+    "title": {
+      "text": "業火の化身",
+      "color": "dark_red"
+    },
+    "description": {
+      "text": "ブレイズリングを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_fire_ring",
+  "criteria": {
+    "has_get_blaze_ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:blaze_ring"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:true_sage_stone"
+    },
+    "title": {
+      "text": "等価交換の向こう側",
+      "color": "red"
+    },
+    "description": {
+      "text": "真なる賢者の石を手に入れる。"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_star_core",
+  "criteria": {
+    "has_get_true_sage_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:true_sage_stone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

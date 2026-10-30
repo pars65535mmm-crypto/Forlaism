@@ -67,6 +67,13 @@ register(new ReactorRecipe(
         new ItemStack(com.tyami.forlaism.registry.Items.DREAM.get())
 ));
 
+        // =========================================================
+        // 500倍圧縮土
+        // 入力: 土 ×500 + 想像 ×1
+        // 出力: 500倍圧縮土 ×1
+        // FE: 1,000,000
+        // =========================================================
+
 
 
 // =========================================================
@@ -84,6 +91,21 @@ register(new ReactorRecipe(
         new ItemStack(com.tyami.forlaism.registry.Items.MADOROMI.get())
 ));
 
+
+        // =========================================================
+        // 500倍圧縮土
+        // 入力: 土 ×500 + 想像 ×1
+        // FE: 1,000,000
+        // 出力: 500倍圧縮土 ×1
+        // =========================================================
+        register(new ReactorRecipe(
+                ReactorRecipe.inputs(
+                        net.minecraft.world.item.Items.DIRT, 500,
+                        com.tyami.forlaism.registry.Items.IMAGINATION.get(), 1
+                ),
+                1_000_000,
+                new ItemStack(com.tyami.forlaism.registry.Items.COMPRESSED_DIRT.get())
+        ));
 
 
     }

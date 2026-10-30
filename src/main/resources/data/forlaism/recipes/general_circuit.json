@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","pattern":["RIG","IPG","PP "],"key":{"R":{"item":"minecraft:redstone"},"I":{"item":"minecraft:iron_ingot"},"G":{"item":"minecraft:gold_ingot"},"P":{"item":"minecraft:paper"}},"result":{"item":"forlaism:general_circuit","count":1}}

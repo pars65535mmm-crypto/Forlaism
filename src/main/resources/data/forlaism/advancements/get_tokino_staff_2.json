@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:tokino_staff_tier2"
+    },
+    "title": {
+      "text": "そして時は動き出す",
+      "color": "yellow"
+    },
+    "description": {
+      "text": "刻流乃杖 Tier 2を入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_tokino_staff",
+  "criteria": {
+    "has_get_tokino_staff_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:tokino_staff_tier2"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

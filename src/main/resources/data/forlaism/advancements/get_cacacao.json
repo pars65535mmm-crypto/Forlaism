@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:cacacaccacacacacacaccacacacacaaoooooooooooo"
+    },
+    "title": {
+      "text": "カッカオカッカオ",
+      "color": "gold"
+    },
+    "description": {
+      "text": "謎のカカオを手に入れる。舌を噛みそうな名前だ。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_cacacao": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:cacacaccacacacacacaccacacacacaaoooooooooooo"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

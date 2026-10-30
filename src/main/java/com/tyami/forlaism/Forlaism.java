@@ -4,6 +4,7 @@ import com.tyami.forlaism.registry.*;
 import com.tyami.forlaism.screen.FusionMachineScreen;
 import com.tyami.forlaism.screen.InserterScreen;
 import com.tyami.forlaism.screen.Tier2MachineScreen;
+import com.tyami.forlaism.screen.PhotonMachineScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -49,6 +50,8 @@ public class Forlaism {
         Items.ITEMS.register(modEventBus);
         com.tyami.forlaism.registry.ModEnchantments.ENCHANTMENTS.register(modEventBus);
         Blocks.BLOCKS.register(modEventBus);
+        PhotonChemicals.GASES.register(modEventBus);
+        ModEffects.MOB_EFFECTS.register(modEventBus);
         Fluids.FLUIDS.register(modEventBus);
         FluidTypes.FLUID_TYPES.register(modEventBus);
         BlockEntities.BLOCK_ENTITIES.register(modEventBus);
@@ -56,6 +59,8 @@ public class Forlaism {
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         com.tyami.forlaism.registry.ModLootModifiers.LOOT_MODIFIERS.register(modEventBus);
+
+        com.tyami.forlaism.ironsspells.ForlaismKokuAttribute.register(modEventBus);
         
 
         
@@ -77,6 +82,7 @@ public class Forlaism {
     public void onServerStarting(net.minecraftforge.event.server.ServerStartingEvent event) {
         com.tyami.forlaism.quantum.QuantumTransferNetwork.setServer(event.getServer());
         com.tyami.forlaism.world.PossibilityGlobalData.isPending();
+        com.tyami.forlaism.erase.EraseRegistry.loadFrom(event.getServer());
     }
 
 
@@ -124,6 +130,22 @@ public static class ClientModEvents {
                 ModEntityTypes.END_WARDEN.get(),
                 EndWardenRenderer::new
         );
+        event.registerEntityRenderer(
+                ModEntityTypes.WOOD_ARROW.get(),
+                com.tyami.forlaism.client.renderer.WoodArrowRenderer::new
+        );
+        event.registerEntityRenderer(
+                ModEntityTypes.FIRE_ARROW.get(),
+                com.tyami.forlaism.client.renderer.FireArrowRenderer::new
+        );
+        event.registerEntityRenderer(
+        ModEntityTypes.CHICKEN_CANNON_PROJECTILE.get(),
+        com.tyami.forlaism.client.renderer.ChickenCannonProjectileRenderer::new
+);
+        event.registerEntityRenderer(
+                ModEntityTypes.NOXSLRATIA.get(),
+                com.tyami.forlaism.client.renderer.NoxslratiaRenderer::new
+        );
         event.registerBlockEntityRenderer(
         BlockEntities.AETHERIC_GENERATOR.get(),
         AethericGeneratorRenderer::new
@@ -131,6 +153,10 @@ public static class ClientModEvents {
         event.registerBlockEntityRenderer(
                 BlockEntities.RITUAL_ALTAR.get(),
                 com.tyami.forlaism.client.renderer.AltarBlockEntityRenderer::new
+        );
+                event.registerEntityRenderer(
+                ModEntityTypes.METEOR_STAR.get(),
+                com.tyami.forlaism.client.renderer.MeteorStarRenderer::new
         );
         event.registerEntityRenderer(
             ModEntityTypes.ZOMBIE_LORD.get(),
@@ -196,6 +222,14 @@ event.registerEntityRenderer(
                 ModEntityTypes.METEOR.get(),
                 com.tyami.forlaism.client.renderer.MeteorRenderer::new
         );
+        event.registerEntityRenderer(
+                ModEntityTypes.STUCK_JILLSTLAIRLEAT.get(),
+                com.tyami.forlaism.client.renderer.StuckJillstlairleatRenderer::new
+        );
+        event.registerEntityRenderer(
+        ModEntityTypes.FLYING_STAR.get(),
+        com.tyami.forlaism.client.renderer.FlyingStarRenderer::new
+);
 
 
         
@@ -213,6 +247,15 @@ event.registerEntityRenderer(
             .gradientSpeed(2.5f)   // スピードを大幅アップ（シャカシャカ動かす）
             .gradientPhase(0.15f)  // 位相のズレを小さくして、色が溶け合うようにする
 );
+
+        WaveTextRegistry.registerItemName(
+            Items.FREEZER_CLOCK.get(),
+            stack -> AnimatedText.of("回る冷凍時計")
+                .wave(2.8f, 0.15f, 0.45f)
+                .gradient(0xFF00FFFF, 0xFFE0FFFF, 0xFF87CEFA, 0xFFFFFFFF)
+                .gradientSpeed(1.5f)
+                .gradientPhase(0.25f)
+        );
 
             MenuScreens.register(
                     MenuTypes.FORLAISM_FUSION_MACHINE_MENU.get(),
@@ -239,6 +282,7 @@ event.registerEntityRenderer(
                     MenuTypes.FORLAISM_REACTOR_MENU.get(),
                     Tier2MachineScreen::new
             );
+            MenuScreens.register(MenuTypes.PHOTON_MACHINE_MENU.get(), PhotonMachineScreen::new);
 
                         net.minecraft.client.renderer.item.ItemProperties.register(
                     Items.DEMISE_ELD_METAL_BOW.get(),
@@ -290,6 +334,19 @@ ItemProperties.register(
             return frame / 8.0F;
         }
 );
+
+
+            // =========================================================
+            // インサジネーター テクスチャ切替（魂100で full に）
+            // =========================================================
+            net.minecraft.client.renderer.item.ItemProperties.register(
+                    Items.INSATHENELRTER.get(),
+                    new ResourceLocation(Forlaism.MOD_ID, "soul"),
+                    (stack, level, entity, seed) -> {
+                        int soul = com.tyami.forlaism.item.InsathenelrterItem.getSoul(stack);
+                        return soul >= com.tyami.forlaism.item.InsathenelrterItem.SOUL_MAX ? 1.0F : 0.0F;
+                    }
+            );
 
             net.minecraft.client.renderer.item.ItemProperties.register(
                     Items.DEMISE_ELD_METAL_BOW.get(),

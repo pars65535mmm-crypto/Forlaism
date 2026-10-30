@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM ",
+    "MS ",
+    " S "
+  ],
+  "key": {
+    "M": { "item": "forlaism:sakuraginium_ingot" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "forlaism:sakuraginium_axe",
+    "count": 1
+  }
+}

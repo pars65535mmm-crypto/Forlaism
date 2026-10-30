@@ -76,9 +76,7 @@ public class MasterpieceClockItem extends Item
                 .gradientSpeed(0.35F)
                 .gradientPhase(0.50F)
                 .typewriter(3, 5)
-                .rainbowCycle(0.45F, 0.30F, 0.35F, 0.95F)
-                .sparkle(0xFFFFFFFF, 2.5F, 0.75F)
-                .glow(0xA0FFFFFF, 1);
+                .rainbowCycle(0.45F, 0.30F, 0.35F, 0.95F);
     }
 
     // =========================================================
@@ -100,44 +98,17 @@ public class MasterpieceClockItem extends Item
     @Override
     public AnimatedText createAnimatedTooltip(ItemStack stack, int lineIndex) {
         if (lineIndex == 1) {
-            return AnimatedText.of("常に決意を持ち、自由を手に入れ、可能性を信じ続け、")
-                    .wave(Waveform.SINE, 1.5F, 0.35F, 0.40F)
+            return AnimatedText.of("針は止まらない。世界が止まろうとも。所有者が居なくなろうとも。")
+                    .wave(Waveform.SINE, 0.5F, 0.35F, 0.40F)
                     .sway(0.8F, 0.25F, 0.30F)
                     .gradient(GradientDirection.LEFT_TO_RIGHT,
                             0xFFE0E0E0, 0xFFFFFFFF, 0xFFFFD700)
                     .gradientSpeed(0.30F)
                     .gradientPhase(0.45F)
-                    .rainbowCycle(0.30F, 0.35F, 0.40F, 0.90F)
-                    .sparkle(0xFFFFEECC, 1.5F, 0.65F)
-                    .outline(0x80000000, 1)
-                    .glow(0x80FFFFFF, 1);
+                    .typewriter(3, 5)
+                    .rainbowCycle(0.30F, 0.35F, 0.40F, 0.90F);
         }
-        if (lineIndex == 2) {
-            return AnimatedText.of("夢幻の力を使い、無限を超え、想像し、挑戦をやめず、")
-                    .wave(Waveform.SINE, 1.5F, 0.35F, 0.40F)
-                    .sway(0.8F, 0.25F, 0.30F)
-                    .gradient(GradientDirection.LEFT_TO_RIGHT,
-                            0xFFFFFFFF, 0xFFFFD700, 0xFFFFFFFF)
-                    .gradientSpeed(0.30F)
-                    .gradientPhase(0.55F)
-                    .rainbowCycle(0.30F, 0.30F, 0.45F, 0.95F)
-                    .sparkle(0xFFFFEECC, 1.5F, 0.65F)
-                    .outline(0x80000000, 1)
-                    .glow(0x80FFFFFF, 1);
-        }
-        if (lineIndex == 3) {
-            return AnimatedText.of("微睡を持った者のみが手に入れることのできる銀時計")
-                    .wave(Waveform.SMOOTHSTEP, 2.0F, 0.45F, 0.45F)
-                    .sway(1.2F, 0.30F, 0.35F)
-                    .gradient(GradientDirection.CENTER_OUT,
-                            0xFFFFD700, 0xFFFFFFFF, 0xFFE0E0E0)
-                    .gradientSpeed(0.25F)
-                    .gradientPhase(0.60F)
-                    .rainbowCycle(0.50F, 0.40F, 0.35F, 1.0F)
-                    .sparkle(0xFFFFD700, 1.5F, 0.80F)
-                    .outline(0x80000000, 1)
-                    .glow(0x90FFD700, 1);
-        }
+
         return null;
     }
 

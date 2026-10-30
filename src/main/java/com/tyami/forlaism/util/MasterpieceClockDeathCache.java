@@ -1,4 +1,4 @@
-package com.tyami.forlaism.mixin;
+package com.tyami.forlaism.util;
 
 import net.minecraft.world.item.ItemStack;
 
@@ -8,6 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 死亡時ドロップから MasterpieceClock を退避する一時キャッシュ。
+ *
+ * ※ 元々は com.tyami.forlaism.mixin パッケージにあったが、
+ *    Mixin専用パッケージ内のクラスは他クラスから直接参照できないため、
+ *    util パッケージへ移動した。
  */
 public final class MasterpieceClockDeathCache {
 

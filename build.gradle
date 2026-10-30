@@ -158,6 +158,11 @@ maven {
         url 'https://dvs1.progwml6.com/files/maven'
     }
 
+    maven {
+    name = "Iron's Maven - Release"
+    url = "https://code.redspace.io/releases"
+}
+
 maven {
         url "https://www.cursemaven.com"
     }
@@ -200,7 +205,14 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.14.1+1.20.1:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.14.1+1.20.1")
 
+    compileOnly fg.deobf("io.redspace:irons_spellbooks:1.20.1-3.16.3:api")
+    runtimeOnly fg.deobf("io.redspace:irons_spellbooks:1.20.1-3.16.3")
+    runtimeOnly fg.deobf("io.redspace:irons_lib:1.20.1-2.2.0")
+
+    runtimeOnly fg.deobf("curse.maven:playeranimator-658587:4587214")
+    
     runtimeOnly fg.deobf("curse.maven:jade-324717:8479276")
+    compileOnly "curse.maven:jade-324717:8479276"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))

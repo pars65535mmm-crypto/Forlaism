@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:jump_ring"
+    },
+    "title": {
+      "text": "空へと手を伸ばして",
+      "color": "white"
+    },
+    "description": {
+      "text": "ジャンプリングを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_dash_ring",
+  "criteria": {
+    "has_get_jump_ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:jump_ring"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

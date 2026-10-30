@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:masterpiece_clock"
+    },
+    "title": {
+      "text": "時を刻む傑作",
+      "color": "gold"
+    },
+    "description": {
+      "text": "マスターピースクロックを手に入れる。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_tokino_staff",
+  "criteria": {
+    "has_get_masterpiece_clock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:masterpiece_clock"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

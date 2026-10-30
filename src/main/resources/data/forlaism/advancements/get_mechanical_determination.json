@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:mechanical_determination"
+    },
+    "title": {
+      "text": "ケツイがみなぎった",
+      "color": "yellow"
+    },
+    "description": {
+      "text": "機械仕掛けの決意を手に入れる。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_concentrated_alloy",
+  "criteria": {
+    "has_get_mechanical_determination": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:mechanical_determination"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

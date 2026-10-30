@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:swrequimet_blade"
+    },
+    "title": {
+      "text": "糖分が足りねェ",
+      "color": "aqua"
+    },
+    "description": {
+      "text": "Re糖分の剣を手に入れる。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_null_sugar",
+  "criteria": {
+    "has_get_swrequimet_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:swrequimet_blade"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

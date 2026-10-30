@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:anbicrleber"
+    },
+    "title": {
+      "text": "すべてを過去にする",
+      "color": "dark_purple"
+    },
+    "description": {
+      "text": "時を忘れた剣「アンビシレーバー」を入手する。"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_tokino_staff_4",
+  "criteria": {
+    "has_get_anbicrleber": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:anbicrleber"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 200
+  }
+}

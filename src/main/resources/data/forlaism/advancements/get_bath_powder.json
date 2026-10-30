@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:bath_powder"
+    },
+    "title": {
+      "text": "いい湯だな",
+      "color": "aqua"
+    },
+    "description": {
+      "text": "簡易温泉(?)粉を入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_bath_powder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:bath_powder"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

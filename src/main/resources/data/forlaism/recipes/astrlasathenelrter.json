@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    " S ",
+    " K "
+  ],
+  "key": {
+    "B": { "item": "forlaism:star_ore_book" },
+    "S": { "item": "forlaism:rapruslsathenelrter" },
+    "K": { "item": "forlaism:paradox" }
+  },
+  "result": {
+    "item": "forlaism:astrlasathenelrter",
+    "count": 1
+  }
+}

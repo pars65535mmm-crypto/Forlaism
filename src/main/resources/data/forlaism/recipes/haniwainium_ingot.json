@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "OCO",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "C": {
+      "item": "forlaism:compressed_dirt"
+    }
+  },
+  "result": {
+    "item": "forlaism:haniwainium_ingot",
+    "count": 1
+  }
+}

@@ -1,4 +1,4 @@
-{
+/*{
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "SSS",
@@ -14,3 +14,4 @@
     "count": 1
   }
 }
+*/

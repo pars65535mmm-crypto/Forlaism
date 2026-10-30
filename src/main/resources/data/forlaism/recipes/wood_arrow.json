@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "minecraft:planks"
+    },
+    {
+      "tag": "minecraft:wooden_buttons"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    }
+  ],
+  "result": {
+    "item": "forlaism:wood_arrow",
+    "count": 16
+  }
+}

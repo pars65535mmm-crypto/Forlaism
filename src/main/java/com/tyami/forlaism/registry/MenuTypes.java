@@ -4,6 +4,7 @@ import com.tyami.forlaism.Forlaism;
 import com.tyami.forlaism.screen.FusionMachineMenu;
 import com.tyami.forlaism.screen.InserterMenu;
 import com.tyami.forlaism.screen.Tier2MachineMenu;
+import com.tyami.forlaism.screen.PhotonMachineMenu;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -25,6 +26,7 @@ public class MenuTypes {
     public static final RegistryObject<MenuType<Tier2MachineMenu>> FORLAISM_ALLOY_MACHINE_MENU = registerMenuType("forlaism_alloy_machine_menu", Tier2MachineMenu::new);
     public static final RegistryObject<MenuType<Tier2MachineMenu>> FORLAISM_CONCENTRATOR_MENU = registerMenuType("forlaism_concentrator_menu", Tier2MachineMenu::new);
     public static final RegistryObject<MenuType<Tier2MachineMenu>> FORLAISM_REACTOR_MENU = registerMenuType("forlaism_reactor_menu", Tier2MachineMenu::new);
+    public static final RegistryObject<MenuType<PhotonMachineMenu>> PHOTON_MACHINE_MENU = registerMenuType("photon_machine_menu", PhotonMachineMenu::new);
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));

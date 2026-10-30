@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:knife_of_sacrifice"
+    },
+    "title": {
+      "text": "儀式の代償",
+      "color": "dark_red"
+    },
+    "description": {
+      "text": "儀式の短剣を入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_book_of_sacrifice",
+  "criteria": {
+    "has_get_knife_of_sacrifice": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:knife_of_sacrifice"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

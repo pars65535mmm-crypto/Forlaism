@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:freezer_clock"
+    },
+    "title": {
+      "text": "絶対零度の静止",
+      "color": "aqua"
+    },
+    "description": {
+      "text": "フリーザークロックを入手し、時間を凍結させる。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_masterpiece_clock",
+  "criteria": {
+    "has_get_freezer_clock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:freezer_clock"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

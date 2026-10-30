@@ -3,6 +3,8 @@ package com.tyami.forlaism.registry;
 import com.tyami.forlaism.Forlaism;
 import com.tyami.forlaism.item.TrialHaloItem;
 import com.tyami.forlaism.item.BathPowderItem;
+import com.tyami.forlaism.item.BloodMoonItem;
+import com.tyami.forlaism.item.ChickenCannonItem;
 import com.tyami.forlaism.item.DemiseEldMetalBowItem;
 import com.tyami.forlaism.item.DreamBookItem;
 import com.tyami.forlaism.item.GarbageMetalArmorMaterial;
@@ -12,6 +14,8 @@ import com.tyami.forlaism.item.QuantumWrenchItem;
 import com.tyami.forlaism.item.GarbageMetalTier;
 import com.tyami.forlaism.item.HaloOfTheAdventItem;
 import com.tyami.forlaism.item.HaloOfTheFirmamentItem;
+import com.tyami.forlaism.item.HaniwainiumArmorMaterial;
+import com.tyami.forlaism.item.HaniwainiumTier;
 import com.tyami.forlaism.item.KyogenkakuItem;
 import com.tyami.forlaism.item.MadoromuItem;
 import com.tyami.forlaism.item.MugenkakuItem;
@@ -21,8 +25,14 @@ import com.tyami.forlaism.item.SovereignScepterSwordItem;
 import com.tyami.forlaism.item.StarOreBookItem;
 import com.tyami.forlaism.item.TokinoStaffTier3Item;
 
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+
 import com.tyami.forlaism.ForalisItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -183,6 +193,26 @@ public static final RegistryObject<Item> FORLAISM_STAR_CORE =
     public static final RegistryObject<Item> FORLAISM_ALLOY_MACHINE = ITEMS.register("forlaism_alloy_machine", () -> new net.minecraft.world.item.BlockItem(Blocks.FORLAISM_ALLOY_MACHINE.get(), new Item.Properties()));
     public static final RegistryObject<Item> FORLAISM_CONCENTRATOR = ITEMS.register("forlaism_concentrator", () -> new net.minecraft.world.item.BlockItem(Blocks.FORLAISM_CONCENTRATOR.get(), new Item.Properties()));
     public static final RegistryObject<Item> FORLAISM_REACTOR = ITEMS.register("forlaism_reactor", () -> new net.minecraft.world.item.BlockItem(Blocks.FORLAISM_REACTOR.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> GENERAL_CIRCUIT = ITEMS.register("general_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GENERAL_PHOTON_CIRCUIT = ITEMS.register("general_photon_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_CIRCUIT = ITEMS.register("photon_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ADVANCED_PHOTON_CIRCUIT = ITEMS.register("advanced_photon_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> REFINED_PHOTON_CIRCUIT = ITEMS.register("refined_photon_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> HIGH_DENSITY_PHOTON_CIRCUIT = ITEMS.register("high_density_photon_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> HEAVY_PHOTON_CIRCUIT = ITEMS.register("heavy_photon_circuit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> KAIRO_SOTAI = ITEMS.register("kairo_sotai", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_TINY_CRYSTAL = ITEMS.register("photon_tiny_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_SMALL_CRYSTAL = ITEMS.register("photon_small_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_CRYSTAL = ITEMS.register("photon_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_HIGH_CRYSTAL = ITEMS.register("photon_high_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_HIGH_PURITY_CRYSTAL = ITEMS.register("photon_high_purity_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_MAXIMAL_HIGH_PURITY_CRYSTAL = ITEMS.register("photon_maximal_high_purity_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_CRITICAL_CRYSTAL = ITEMS.register("photon_critical_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_COLLECTOR = ITEMS.register("photon_collector", () -> new net.minecraft.world.item.BlockItem(Blocks.PHOTON_COLLECTOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_DECAY_CHAMBER = ITEMS.register("photon_decay_chamber", () -> new net.minecraft.world.item.BlockItem(Blocks.PHOTON_DECAY_CHAMBER.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_BLASTER_INFUSER = ITEMS.register("photon_blaster_infuser", () -> new net.minecraft.world.item.BlockItem(Blocks.PHOTON_BLASTER_INFUSER.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PHOTON_CONDENSER = ITEMS.register("photon_condenser", () -> new net.minecraft.world.item.BlockItem(Blocks.PHOTON_CONDENSER.get(), new Item.Properties()));
 
 
 
@@ -1303,7 +1333,278 @@ public static final RegistryObject<Item> UTSUWA =
                             com.tyami.forlaism.registry.Blocks.RITUAL_ALTAR.get(),
                             new Item.Properties()
                     ));
-                
+
+    // =========================================================
+    // 回る冷凍時計
+    // =========================================================
+    public static final RegistryObject<Item> FREEZER_CLOCK =
+            ITEMS.register("freezer_clock",
+                    () -> new com.tyami.forlaism.item.FreezerClockItem(
+                            new Item.Properties()
+                    ));
+
+    // =========================================================
+    // ジルスレイト
+    // =========================================================
+    public static final RegistryObject<Item> JILLSTLAIRLEAT =
+            ITEMS.register("jillstlairleat",
+                    () -> new com.tyami.forlaism.item.JillstlairleatItem(
+                            new Item.Properties()
+                    ));
+
+    public static final RegistryObject<Item> BROKEN_JILLSTLAIRLEAT =
+            ITEMS.register("broken_jillstlairleat",
+                    () -> new com.tyami.forlaism.item.BrokenJillstlairleatItem(
+                            new Item.Properties()
+                    ));
+
+    // =========================================================
+    // インサジネーター
+    // =========================================================
+    public static final RegistryObject<Item> INSATHENELRTER =
+            ITEMS.register("insathenelrter",
+                    () -> new com.tyami.forlaism.item.InsathenelrterItem(
+                            new Item.Properties()
+                    ));
+
+    // =========================================================
+    // アウトサジネーター
+    // =========================================================
+    public static final RegistryObject<Item> OUTSATHENELRTER =
+            ITEMS.register("outsathenelrter",
+                    () -> new com.tyami.forlaism.item.OutsathenelrterItem(
+                            new Item.Properties()
+                    ));
+    // =========================================================
+    // ラプラスサジネーター
+    // =========================================================
+    public static final RegistryObject<Item> RAPRUSLSATHENELRTER =
+            ITEMS.register("rapruslsathenelrter",
+                    () -> new com.tyami.forlaism.item.RapruslsathenelrterItem(
+                            new Item.Properties()
+                    ));
+    // =========================================================
+    // アストラサジネーター
+    // =========================================================
+    public static final RegistryObject<Item> ASTRLA_SATHENELRTER =
+            ITEMS.register("astrlasathenelrter",
+                    () -> new com.tyami.forlaism.item.AstrlaSathenelrterItem(
+                            new Item.Properties()
+                    ));
+    // =========================================================
+    // 木の矢
+    // =========================================================
+    public static final RegistryObject<Item> WOOD_ARROW =
+            ITEMS.register("wood_arrow",
+                    () -> new com.tyami.forlaism.item.WoodArrowItem(
+                            new Item.Properties()
+                    ));
+    // =========================================================
+    // 木の矢の束
+    // =========================================================
+    public static final RegistryObject<Item> WOOD_ARROW_BUNDLE =
+            ITEMS.register("wood_arrow_bundle",
+                    () -> new com.tyami.forlaism.item.WoodArrowBundleItem(
+                            new Item.Properties()
+                    ));
+
+    // =========================================================
+    // 火の矢
+    // =========================================================
+    public static final RegistryObject<Item> FIRE_ARROW =
+            ITEMS.register("fire_arrow",
+                    () -> new com.tyami.forlaism.item.FireArrowItem(
+                            new Item.Properties()
+                    ));
+
+
+    public static final RegistryObject<Item> SILVER_FOIL_ROLL =
+            ITEMS.register("silver_foil_roll",
+                    () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PURE_GOLD_THREAD =
+            ITEMS.register("pure_gold_thread",
+                    () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> LIGHT_ALUMINUM_PLATE =
+            ITEMS.register("light_aluminum_plate",
+                    () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> METAL_SCRAP =
+            ITEMS.register("metal_scrap",
+                    () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> MECHANICAL_DETERMINATION =
+            ITEMS.register("mechanical_determination",
+                    () -> new Item(new Item.Properties().fireResistant()));
+
+
+    // =========================================================
+    // 機械仕掛けのウツワ
+    // =========================================================
+    public static final RegistryObject<Item> MECHANICAL_VESSEL =
+            ITEMS.register("mechanical_vessel",
+                    () -> new com.tyami.forlaism.item.MechanicalVesselItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+    // =========================================================
+    // ノクスルクスヴェルク
+    // =========================================================
+    public static final RegistryObject<Item> NOXLUXUHRWERK =
+            ITEMS.register("noxluxuhrwerk",
+                    () -> new com.tyami.forlaism.item.NoxLuxUhrwerkItem(
+                            new Item.Properties().stacksTo(1).fireResistant()
+                    ));
+                    
+public static final RegistryObject<Item> GRIMOIRE =
+            ITEMS.register("grimoire",
+                    () -> new com.tyami.forlaism.item.GrimoireItem(
+                            new Item.Properties().stacksTo(1)
+                    ));
+
+public static final RegistryObject<Item> BLOOD_MOON =
+        ITEMS.register("blood_moon",
+                () -> new BloodMoonItem(new Item.Properties()));
+
+public static final RegistryObject<Item> CHICKEN_CANNON =
+        ITEMS.register("chicken_cannon",
+                () -> new ChickenCannonItem(new Item.Properties()));
+
+    // =========================================================
+    // 500倍圧縮土（アイテム）
+    // =========================================================
+
+    public static final RegistryObject<Item> COMPRESSED_DIRT =
+            ITEMS.register(
+                    "compressed_dirt",
+                    () -> new com.tyami.forlaism.item.CompressedDirtItem(
+                            com.tyami.forlaism.registry.Blocks.COMPRESSED_DIRT.get(),
+                            new Item.Properties()
+                    )
+            );
+
+    // =========================================================
+    // ハニワイニウムシリーズ
+    // =========================================================
+
+    public static final RegistryObject<Item> HANIWAINIUM_INGOT =
+            ITEMS.register("haniwainium_ingot",
+                    () -> new Item(new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_SWORD =
+            ITEMS.register("haniwainium_sword",
+                    () -> new com.tyami.forlaism.item.HaniwainiumSwordItem(
+                            new Item.Properties()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_PICKAXE =
+            ITEMS.register("haniwainium_pickaxe",
+                    () -> new PickaxeItem(HaniwainiumTier.INSTANCE, 1, -2.8F,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_AXE =
+            ITEMS.register("haniwainium_axe",
+                    () -> new AxeItem(HaniwainiumTier.INSTANCE, 5.0F, -3.0F,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_SHOVEL =
+            ITEMS.register("haniwainium_shovel",
+                    () -> new ShovelItem(HaniwainiumTier.INSTANCE, 1.5F, -3.0F,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_HOE =
+            ITEMS.register("haniwainium_hoe",
+                    () -> new HoeItem(HaniwainiumTier.INSTANCE, -4, 0.0F,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_HELMET =
+            ITEMS.register("haniwainium_helmet",
+                    () -> new ArmorItem(HaniwainiumArmorMaterial.INSTANCE,
+                            ArmorItem.Type.HELMET,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_CHESTPLATE =
+            ITEMS.register("haniwainium_chestplate",
+                    () -> new ArmorItem(HaniwainiumArmorMaterial.INSTANCE,
+                            ArmorItem.Type.CHESTPLATE,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_LEGGINGS =
+            ITEMS.register("haniwainium_leggings",
+                    () -> new ArmorItem(HaniwainiumArmorMaterial.INSTANCE,
+                            ArmorItem.Type.LEGGINGS,
+                            new Item.Properties().fireResistant()));
+
+    public static final RegistryObject<Item> HANIWAINIUM_BOOTS =
+            ITEMS.register("haniwainium_boots",
+                    () -> new ArmorItem(HaniwainiumArmorMaterial.INSTANCE,
+                            ArmorItem.Type.BOOTS,
+                            new Item.Properties().fireResistant()));
+
+// =========================================================
+// サクラギニウムシリーズ
+// =========================================================
+
+public static final RegistryObject<Item> SAKURAGINIUM_INGOT =
+        ITEMS.register("sakuraginium_ingot",
+                () -> new com.tyami.forlaism.item.SakuraginiumIngotItem(
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> SAKURAGINIUM_SWORD =
+        ITEMS.register("sakuraginium_sword",
+                () -> new com.tyami.forlaism.item.SakuraginiumSwordItem(
+                        new Item.Properties()
+                ));
+
+public static final RegistryObject<Item> SAKURAGINIUM_PICKAXE =
+        ITEMS.register("sakuraginium_pickaxe",
+                () -> new com.tyami.forlaism.item.SakuraginiumTools.Pickaxe());
+
+public static final RegistryObject<Item> SAKURAGINIUM_AXE =
+        ITEMS.register("sakuraginium_axe",
+                () -> new com.tyami.forlaism.item.SakuraginiumTools.Axe());
+
+public static final RegistryObject<Item> SAKURAGINIUM_SHOVEL =
+        ITEMS.register("sakuraginium_shovel",
+                () -> new com.tyami.forlaism.item.SakuraginiumTools.Shovel());
+
+public static final RegistryObject<Item> SAKURAGINIUM_HOE =
+        ITEMS.register("sakuraginium_hoe",
+                () -> new com.tyami.forlaism.item.SakuraginiumTools.Hoe());
+
+public static final RegistryObject<Item> SAKURAGINIUM_HELMET =
+        ITEMS.register("sakuraginium_helmet",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.SakuraginiumArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.HELMET,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> SAKURAGINIUM_CHESTPLATE =
+        ITEMS.register("sakuraginium_chestplate",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.SakuraginiumArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.CHESTPLATE,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> SAKURAGINIUM_LEGGINGS =
+        ITEMS.register("sakuraginium_leggings",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.SakuraginiumArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.LEGGINGS,
+                        new Item.Properties().fireResistant()
+                ));
+
+public static final RegistryObject<Item> SAKURAGINIUM_BOOTS =
+        ITEMS.register("sakuraginium_boots",
+                () -> new net.minecraft.world.item.ArmorItem(
+                        com.tyami.forlaism.item.SakuraginiumArmorMaterial.INSTANCE,
+                        net.minecraft.world.item.ArmorItem.Type.BOOTS,
+                        new Item.Properties().fireResistant()
+                ));
+
+
 }
 
 

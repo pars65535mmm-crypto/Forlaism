@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:ring_of_rings"
+    },
+    "title": {
+      "text": "指輪の王",
+      "color": "light_purple"
+    },
+    "description": {
+      "text": "全ての指輪を束ねる「リングオブリングス」を手に入れる。"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_rocket_ring",
+  "criteria": {
+    "has_get_ring_of_rings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:ring_of_rings"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}

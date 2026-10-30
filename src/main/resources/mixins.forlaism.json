@@ -14,6 +14,7 @@
     "EntityFreezeMixin",
     "LivingEntityFreezeMixin",
     "LivingEntityRinneMixin",
+    "LivingEntityRevengeMixin",
     "ChronosSlowMixin",
     "ChronosLivingSlowMixin",
     "ChronosMobSlowMixin",
@@ -35,7 +36,13 @@
     "gmb.PersistentEntitySectionManagerGMBMixin",
     "FistMixin",
     "PlayerInventoryClockProtectionMixin",
-    "LivingEntityDropLootClockMixin"
+    "LivingEntityDropLootClockMixin",
+    "ServerLevelTimeFreezeMixin",
+    "LevelTimeFreezeMixin",
+    "EntityTimeFreezeMixin",
+    "ServerLevelTickControlMixin",
+    "MobBloodMoonAIMixin",
+    "LivingEntityBloodMoonHealMixin"
   ],
   "client": [
     "MinecraftMixin",
@@ -48,6 +55,7 @@
     "gmb.ClientLevelGMBEraseMixin",
     "client.FistHandRenderMixin",
     "client.PauseScreenMixin",
+    "client.CreateWorldScreenNightmareMixin",
     "gmb.EntityRenderDispatcherGMBEraseMixin"
   ],
   "injectors": {

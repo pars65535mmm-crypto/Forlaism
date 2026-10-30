@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:mechanical_vessel"
+    },
+    "title": {
+      "text": "魂を宿す器",
+      "color": "gold"
+    },
+    "description": {
+      "text": "機械仕掛けのウツワを手に入れる。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_mechanical_determination",
+  "criteria": {
+    "has_get_mechanical_vessel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:mechanical_vessel"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

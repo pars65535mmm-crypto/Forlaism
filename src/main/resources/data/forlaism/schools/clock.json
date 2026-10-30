@@ -1,0 +1,8 @@
+{
+  "name": "刻",
+  "color": "0x6699FF",
+  "power_attribute": "forlaism:clock_spell_power",
+  "resistance_attribute": "forlaism:clock_magic_resist",
+  "default_cast_sound": "irons_spellbooks:block.inscription_table.use",
+  "icon": "forlaism:textures/gui/school_icons/clock.png"
+}

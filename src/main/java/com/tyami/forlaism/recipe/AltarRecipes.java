@@ -66,6 +66,29 @@ public final class AltarRecipes {
             ));
         }
 
+// =========================================================
+// サクラギニウムインゴット
+//  ネザースター ×1
+//  サクラニウム ×8
+//  桜の葉 ×4
+//  鉄ブロック ×4
+//  銅ブロック ×4
+// =========================================================
+{
+    List<ItemStack> inputs = new ArrayList<>();
+
+    inputs.add(new ItemStack(net.minecraft.world.item.Items.NETHER_STAR, 1));
+    inputs.add(new ItemStack(com.tyami.forlaism.registry.Items.SAKURANIUM.get(), 8));
+    inputs.add(new ItemStack(net.minecraft.world.item.Items.CHERRY_LEAVES, 4));
+    inputs.add(new ItemStack(net.minecraft.world.item.Items.IRON_BLOCK, 4));
+    inputs.add(new ItemStack(net.minecraft.world.item.Items.COPPER_BLOCK, 4));
+
+    register(AltarRecipe.shapeless(
+            inputs,
+            new ItemStack(com.tyami.forlaism.registry.Items.SAKURAGINIUM_INGOT.get(), 1)
+    ));
+}
+
         // =========================================================
         // サンプル3: 中央にエンダーパール8個（3x3の輪）→ エンダーアイ
         // =========================================================

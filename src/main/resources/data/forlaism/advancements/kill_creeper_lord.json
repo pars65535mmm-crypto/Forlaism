@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:creeper_head"
+    },
+    "title": {
+      "text": "大爆発の主",
+      "color": "green"
+    },
+    "description": {
+      "text": "クリーパーロードを討伐する。"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:kill_zombie_lord",
+  "criteria": {
+    "kill_kill_creeper_lord": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "forlaism:creeper_lord"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

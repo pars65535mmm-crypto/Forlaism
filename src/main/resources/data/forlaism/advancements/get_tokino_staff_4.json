@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:tokino_staff_tier4"
+    },
+    "title": {
+      "text": "刻と時って何が違うんでしょうネ",
+      "color": "light_purple"
+    },
+    "description": {
+      "text": "時空の杖 Tier 4を入手する。"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_tokino_staff_3",
+  "criteria": {
+    "has_get_tokino_staff_4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:tokino_staff_tier4"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

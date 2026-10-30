@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:null_sugar"
+    },
+    "title": {
+      "text": "繝後Ν繧ｷ繝･繧ｬ繝ｼ",
+      "color": "dark_purple"
+    },
+    "description": {
+      "text": "崩壊した糖分を手に入れる。甘い…のか…？"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:root",
+  "criteria": {
+    "has_get_null_sugar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:null_sugar"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

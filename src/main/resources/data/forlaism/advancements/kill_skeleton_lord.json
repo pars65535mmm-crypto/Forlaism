@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:skeleton_skull"
+    },
+    "title": {
+      "text": "骨の髄まで",
+      "color": "white"
+    },
+    "description": {
+      "text": "スケルトンロードを討伐する。"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:kill_zombie_lord",
+  "criteria": {
+    "kill_kill_skeleton_lord": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "forlaism:skeleton_lord"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

@@ -24,8 +24,14 @@ public class OpenClockBindClientPacket {
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() ->
                 DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                    net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
-                    mc.setScreen(new com.tyami.forlaism.client.MasterpieceClockBindScreen());
+                    // 状態を最新にしておく
+                    if (net.minecraft.client.Minecraft.getInstance().player != null) {
+                        // ClockStateCache はサーバーから同期済みなのでそのまま
+                    }
+
+                    net.minecraft.client.Minecraft.getInstance().setScreen(
+                            new com.tyami.forlaism.client.ClockBindScreen()
+                    );
                 })
         );
         ctx.get().setPacketHandled(true);

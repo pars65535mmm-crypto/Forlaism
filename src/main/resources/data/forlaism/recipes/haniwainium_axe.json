@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HH ",
+    "HS ",
+    " S "
+  ],
+  "key": {
+    "H": { "item": "forlaism:haniwainium_ingot" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "forlaism:haniwainium_axe",
+    "count": 1
+  }
+}

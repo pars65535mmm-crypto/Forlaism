@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " GS",
+    "GLG",
+    "NG "
+  ],
+  "key": {
+    "N": { "item": "forlaism:noxlux" },
+    "S": { "item": "forlaism:silver_foil_roll" },
+    "G": { "item": "forlaism:pure_gold_thread" },
+    "L": { "item": "forlaism:light_aluminum_plate" }
+  },
+  "result": {
+    "item": "forlaism:noxluxuhrwerk",
+    "count": 1
+  }
+}

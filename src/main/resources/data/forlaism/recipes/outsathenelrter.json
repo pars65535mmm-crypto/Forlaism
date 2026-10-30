@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    " G ",
+    " I "
+  ],
+  "key": {
+    "N": { "item": "minecraft:netherite_block" },
+    "G": { "item": "minecraft:ghast_tear" },
+    "I": { "item": "forlaism:insathenelrter" }
+  },
+  "result": {
+    "item": "forlaism:outsathenelrter",
+    "count": 1
+  }
+}

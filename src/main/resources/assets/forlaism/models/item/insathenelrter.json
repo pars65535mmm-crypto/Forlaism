@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "forlaism:item/insathenelrter"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "forlaism:soul": 1.0
+      },
+      "model": "forlaism:item/insathenelrter_full"
+    }
+  ]
+}

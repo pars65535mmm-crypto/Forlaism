@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:dream_book"
+    },
+    "title": {
+      "text": "夢か現か幻か",
+      "color": "light_purple"
+    },
+    "description": {
+      "text": "夢幻の書を入手する。知識と混沌が詰まっている。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_star_ore_book",
+  "criteria": {
+    "has_get_dream_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:dream_book"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "irons_spellbooks:item/scroll",
+    "layer1": "irons_spellbooks:item/scroll_tint"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "irons_spellbooks:school": 1.0
+      },
+      "model": "forlaism:item/koku_scroll"
+    }
+  ]
+}

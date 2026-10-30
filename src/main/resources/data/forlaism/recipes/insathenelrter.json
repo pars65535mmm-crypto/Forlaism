@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    " B ",
+    " S "
+  ],
+  "key": {
+    "C": { "item": "forlaism:forlaism_crystal" },
+    "B": { "item": "minecraft:glass_bottle" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "forlaism:insathenelrter",
+    "count": 1
+  }
+}

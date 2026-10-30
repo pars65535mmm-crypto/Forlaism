@@ -1,6 +1,7 @@
 package com.tyami.forlaism.registry;
 
 import com.tyami.forlaism.Forlaism;
+import com.tyami.forlaism.entity.ChickenCannonProjectileEntity;
 import com.tyami.forlaism.entity.CreeperLordEntity;
 import com.tyami.forlaism.entity.CrescentSlashEntity;
 import com.tyami.forlaism.entity.EliteZombieEntity;
@@ -24,6 +25,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import com.tyami.forlaism.entity.FactotumOverlordEntity;
+import com.tyami.forlaism.entity.ChickenCannonProjectileEntity;
 
 @Mod.EventBusSubscriber(modid = Forlaism.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntityTypes {
@@ -263,6 +265,98 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.Iinekore
                             .fireImmune()
                             .build("meteor"));
 
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.StuckJillstlairleatEntity>> STUCK_JILLSTLAIRLEAT =
+            ENTITY_TYPES.register("stuck_jillstlairleat",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.StuckJillstlairleatEntity>of(
+                                    com.tyami.forlaism.entity.StuckJillstlairleatEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(0.5F, 1.0F)
+                            .clientTrackingRange(64)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("stuck_jillstlairleat"));
+
+
+    // =========================================================
+    // インサジネーター流星
+    // =========================================================
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.MeteorStarEntity>> METEOR_STAR =
+            ENTITY_TYPES.register("meteor_star",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.MeteorStarEntity>of(
+                                    com.tyami.forlaism.entity.MeteorStarEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(0.5F, 0.5F)
+                            .clientTrackingRange(128)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("meteor_star"));
+
+
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.FlyingStarEntity>> FLYING_STAR =
+            ENTITY_TYPES.register("flying_star",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.FlyingStarEntity>of(
+                                    com.tyami.forlaism.entity.FlyingStarEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(0.4F, 0.4F)
+                            .clientTrackingRange(128)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("flying_star"));
+
+    // =========================================================
+    // 木の矢
+    // =========================================================
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.WoodArrowEntity>> WOOD_ARROW =
+            ENTITY_TYPES.register("wood_arrow",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.WoodArrowEntity>of(
+                                    com.tyami.forlaism.entity.WoodArrowEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(0.5F, 0.5F)
+                            .clientTrackingRange(4)
+                            .updateInterval(20)
+                            .build("wood_arrow"));
+
+    // =========================================================
+    // 火の矢
+    // =========================================================
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.FireArrowEntity>> FIRE_ARROW =
+            ENTITY_TYPES.register("fire_arrow",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.FireArrowEntity>of(
+                                    com.tyami.forlaism.entity.FireArrowEntity::new,
+                                    MobCategory.MISC
+                            )
+                            .sized(0.5F, 0.5F)
+                            .clientTrackingRange(4)
+                            .updateInterval(20)
+                            .build("fire_arrow"));
+
+    // =========================================================
+    // Noxslratia（ノクスラティア）
+    // =========================================================
+    public static final RegistryObject<EntityType<com.tyami.forlaism.entity.NoxslratiaEntity>> NOXSLRATIA =
+            ENTITY_TYPES.register("noxslratia",
+                    () -> EntityType.Builder.<com.tyami.forlaism.entity.NoxslratiaEntity>of(
+                                    com.tyami.forlaism.entity.NoxslratiaEntity::new,
+                                    MobCategory.MONSTER
+                            )
+                            .sized(0.6F, 1.95F)
+                            .clientTrackingRange(128)
+                            .updateInterval(1)
+                            .fireImmune()
+                            .build("noxslratia"));
+
+public static final RegistryObject<EntityType<ChickenCannonProjectileEntity>> CHICKEN_CANNON_PROJECTILE =
+        ENTITY_TYPES.register("chicken_cannon_projectile",
+                () -> EntityType.Builder
+                        .<ChickenCannonProjectileEntity>of(ChickenCannonProjectileEntity::new, MobCategory.MISC)
+                        .sized(0.4F, 0.7F)
+                        .clientTrackingRange(8)
+                        .build("chicken_cannon_projectile"));
+
 
     @SubscribeEvent
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
@@ -278,5 +372,6 @@ public static final RegistryObject<EntityType<com.tyami.forlaism.entity.Iinekore
                 event.put(END_WARDEN.get(), com.tyami.forlaism.entity.EndWardenEntity.createAttributes().build());
                         event.put(END_WARDEN_REVERSE.get(), com.tyami.forlaism.entity.EndWardenReverseEntity.createAttributes().build());
                         event.put(END_WARDEN_FINAL.get(), com.tyami.forlaism.entity.EndWardenFinalEntity.createAttributes().build());
+                                event.put(NOXSLRATIA.get(), com.tyami.forlaism.entity.NoxslratiaEntity.createAttributes().build());
     }
 }

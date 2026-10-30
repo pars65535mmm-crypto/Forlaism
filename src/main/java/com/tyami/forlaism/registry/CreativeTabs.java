@@ -61,6 +61,9 @@ public class CreativeTabs {
                                 output.accept(Items.FORLAISM_ALLOY_MACHINE.get());
                                 output.accept(Items.FORLAISM_CONCENTRATOR.get());
                                 output.accept(Items.FORLAISM_REACTOR.get());
+                                output.accept(Items.GENERAL_CIRCUIT.get()); output.accept(Items.GENERAL_PHOTON_CIRCUIT.get()); output.accept(Items.PHOTON_CIRCUIT.get()); output.accept(Items.ADVANCED_PHOTON_CIRCUIT.get()); output.accept(Items.REFINED_PHOTON_CIRCUIT.get()); output.accept(Items.HIGH_DENSITY_PHOTON_CIRCUIT.get()); output.accept(Items.HEAVY_PHOTON_CIRCUIT.get());
+                                output.accept(Items.KAIRO_SOTAI.get()); output.accept(Items.PHOTON_TINY_CRYSTAL.get()); output.accept(Items.PHOTON_SMALL_CRYSTAL.get()); output.accept(Items.PHOTON_CRYSTAL.get()); output.accept(Items.PHOTON_HIGH_CRYSTAL.get()); output.accept(Items.PHOTON_HIGH_PURITY_CRYSTAL.get()); output.accept(Items.PHOTON_MAXIMAL_HIGH_PURITY_CRYSTAL.get()); output.accept(Items.PHOTON_CRITICAL_CRYSTAL.get());
+                                output.accept(Items.PHOTON_COLLECTOR.get()); output.accept(Items.PHOTON_DECAY_CHAMBER.get()); output.accept(Items.PHOTON_BLASTER_INFUSER.get()); output.accept(Items.PHOTON_CONDENSER.get());
                                 output.accept(Items.GARBAGE_METAL_SWORD.get());
                                 output.accept(Items.GARBAGE_METAL_AXE.get());
                                 output.accept(Items.GARBAGE_METAL_PICKAXE.get());
@@ -199,7 +202,54 @@ public class CreativeTabs {
                                 output.accept(Items.UTSUWA.get());
                                 output.accept(Items.FREEDOM.get());
                                 output.accept(Items.MASTERPIECE_CLOCK.get());
+                                output.accept(Items.FREEZER_CLOCK.get());
                                 output.accept(Items.RITUAL_ALTAR.get());
+                                output.accept(Items.INSATHENELRTER.get());
+                                output.accept(Items.OUTSATHENELRTER.get());
+                                output.accept(Items.RAPRUSLSATHENELRTER.get());
+                                output.accept(Items.ASTRLA_SATHENELRTER.get());
+                                output.accept(Items.WOOD_ARROW.get());
+                                output.accept(Items.NOXLUXUHRWERK.get());
+                                output.accept(Items.GRIMOIRE.get());
+                                output.accept(Items.BLOOD_MOON.get());
+                                output.accept(Items.MECHANICAL_VESSEL.get());
+                                output.accept(Items.CHICKEN_CANNON.get());
+                                output.accept(Items.COMPRESSED_DIRT.get());
+                                // =========================================================
+                                // ハニワイニウムシリーズ
+                                // =========================================================
+                                output.accept(Items.HANIWAINIUM_INGOT.get());
+                                output.accept(Items.HANIWAINIUM_SWORD.get());
+                                output.accept(Items.HANIWAINIUM_PICKAXE.get());
+                                output.accept(Items.HANIWAINIUM_AXE.get());
+                                output.accept(Items.HANIWAINIUM_SHOVEL.get());
+                                output.accept(Items.HANIWAINIUM_HOE.get());
+                                output.accept(Items.HANIWAINIUM_HELMET.get());
+                                output.accept(Items.HANIWAINIUM_CHESTPLATE.get());
+                                output.accept(Items.HANIWAINIUM_LEGGINGS.get());
+                                output.accept(Items.HANIWAINIUM_BOOTS.get());
+                                output.accept(Items.SAKURAGINIUM_INGOT.get());
+                                output.accept(Items.SAKURAGINIUM_SWORD.get());
+                                output.accept(Items.SAKURAGINIUM_PICKAXE.get());
+                                output.accept(Items.SAKURAGINIUM_AXE.get());
+                                output.accept(Items.SAKURAGINIUM_SHOVEL.get());
+                                output.accept(Items.SAKURAGINIUM_HOE.get());
+                                output.accept(Items.SAKURAGINIUM_HELMET.get());
+                                output.accept(Items.SAKURAGINIUM_CHESTPLATE.get());
+                                output.accept(Items.SAKURAGINIUM_LEGGINGS.get());
+                                output.accept(Items.SAKURAGINIUM_BOOTS.get());
+        
+
+                                // ===== 矢 =====
+                                output.accept(Items.WOOD_ARROW.get());
+                                output.accept(Items.WOOD_ARROW_BUNDLE.get());
+                                output.accept(Items.FIRE_ARROW.get());
+                                output.accept(Items.NOXLUX.get());
+                                output.accept(Items.SILVER_FOIL_ROLL.get());
+                                output.accept(Items.PURE_GOLD_THREAD.get());
+                                output.accept(Items.LIGHT_ALUMINUM_PLATE.get());
+                                output.accept(Items.METAL_SCRAP.get());
+                                output.accept(Items.MECHANICAL_DETERMINATION.get());
                                 
                                 
                                 
@@ -215,6 +265,7 @@ public class CreativeTabs {
                                 output.accept(Items.INFINITY.get());
                                 output.accept(Items.MADOROMI.get());
                                 output.accept(Items.IMAGINATION.get());
+
                         
                                
                             })

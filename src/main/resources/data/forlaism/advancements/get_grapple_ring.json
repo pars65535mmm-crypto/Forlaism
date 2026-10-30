@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:grapple_ring"
+    },
+    "title": {
+      "text": "立体機動のススメ",
+      "color": "dark_green"
+    },
+    "description": {
+      "text": "グラップルリングを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_dash_ring",
+  "criteria": {
+    "has_get_grapple_ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:grapple_ring"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

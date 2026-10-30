@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    " I ",
+    " O "
+  ],
+  "key": {
+    "R": { "item": "forlaism:ring_of_rings" },
+    "I": { "item": "forlaism:insathenelrter" },
+    "O": { "item": "forlaism:outsathenelrter" }
+  },
+  "result": {
+    "item": "forlaism:rapruslsathenelrter",
+    "count": 1
+  }
+}

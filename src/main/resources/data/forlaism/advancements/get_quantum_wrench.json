@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:quantum_wrench"
+    },
+    "title": {
+      "text": "観測するまで回らない",
+      "color": "aqua"
+    },
+    "description": {
+      "text": "量子レンチを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_concentrated_alloy",
+  "criteria": {
+    "has_get_quantum_wrench": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:quantum_wrench"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

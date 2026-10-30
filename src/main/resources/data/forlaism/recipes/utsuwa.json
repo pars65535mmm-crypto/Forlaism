@@ -2,13 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "B B",
-    "BBB",
-    " B "
+    "BAB",
+    " C "
   ],
   "key": {
     "B": {
-      "item": "minecraft:bedrock"
+      "item": "forlaism:forlaism_concentrated_iron_alloy"
+    },
+    "A": {
+      "item": "forlaism:garbage_metal"
+    },
+    "C": {
+      "item": "forlaism:cons_steel"
     }
+
   },
   "result": {
     "item": "forlaism:utsuwa",

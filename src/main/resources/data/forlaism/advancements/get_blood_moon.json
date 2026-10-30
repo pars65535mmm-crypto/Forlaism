@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:blood_moon"
+    },
+    "title": {
+      "text": "血の惨劇",
+      "color": "dark_red"
+    },
+    "description": {
+      "text": "ブラッドムーンを手に入れる。赤き月が昇る。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_grimoire",
+  "criteria": {
+    "has_get_blood_moon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:blood_moon"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

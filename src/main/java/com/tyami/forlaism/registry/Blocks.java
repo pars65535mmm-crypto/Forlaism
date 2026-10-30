@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import com.tyami.forlaism.block.AethericGeneratorBlock;
+import com.tyami.forlaism.block.PhotonMachineBlock;
+import com.tyami.forlaism.block.entity.PhotonMachineBlockEntity;
 import com.tyami.forlaism.block.QuantumTransferDeviceInBlock;
 import com.tyami.forlaism.block.QuantumTransferDeviceOutBlock;
 import com.tyami.forlaism.block.QuantumTransferDeviceInBlock;
@@ -170,6 +172,11 @@ public static final RegistryObject<LiquidBlock> ONSEN =
                             .requiresCorrectToolForDrops()
                             .strength(4.0F, 6.0F)
                             .sound(SoundType.METAL)));
+
+    public static final RegistryObject<Block> PHOTON_COLLECTOR = BLOCKS.register("photon_collector", () -> new PhotonMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(4, 6).sound(SoundType.METAL), PhotonMachineBlockEntity.Kind.COLLECTOR));
+    public static final RegistryObject<Block> PHOTON_DECAY_CHAMBER = BLOCKS.register("photon_decay_chamber", () -> new PhotonMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(4, 6).sound(SoundType.METAL), PhotonMachineBlockEntity.Kind.DECAY));
+    public static final RegistryObject<Block> PHOTON_BLASTER_INFUSER = BLOCKS.register("photon_blaster_infuser", () -> new PhotonMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(4, 6).sound(SoundType.METAL), PhotonMachineBlockEntity.Kind.BLASTER));
+    public static final RegistryObject<Block> PHOTON_CONDENSER = BLOCKS.register("photon_condenser", () -> new PhotonMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).requiresCorrectToolForDrops().strength(4, 6).sound(SoundType.METAL), PhotonMachineBlockEntity.Kind.CONDENSER));
 
 
 public static final RegistryObject<Block> AETHERIC_GENERATOR =
@@ -356,6 +363,19 @@ public static final RegistryObject<Block> FORLAISM_GLASS =
                                     .sound(SoundType.STONE)
                                     .noOcclusion()
                     ));
+
+    // =========================================================
+    // 500倍圧縮土
+    // =========================================================
+
+    /** 500倍圧縮土ブロック。バニラの土と同じ挙動。 */
+    public static final RegistryObject<Block> COMPRESSED_DIRT =
+            BLOCKS.register(
+                    "compressed_dirt",
+                    () -> new com.tyami.forlaism.block.CompressedDirtBlock(
+                            BlockBehaviour.Properties.copy(net.minecraft.world.level.block.Blocks.DIRT)
+                    )
+            );
 
 
 

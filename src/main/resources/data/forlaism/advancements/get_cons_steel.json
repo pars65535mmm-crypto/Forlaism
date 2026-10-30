@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:cons_steel"
+    },
+    "title": {
+      "text": "更なる強靭さ",
+      "color": "dark_gray"
+    },
+    "description": {
+      "text": "コンスチールを入手する。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_steel_ingot",
+  "criteria": {
+    "has_get_cons_steel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:cons_steel"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

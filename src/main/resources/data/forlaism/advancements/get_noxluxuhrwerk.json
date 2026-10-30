@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "forlaism:noxluxuhrwerk"
+    },
+    "title": {
+      "text": "時計仕掛けの夜と光",
+      "color": "light_purple"
+    },
+    "description": {
+      "text": "ノクスルクスベルクを手に入れる。"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "forlaism:get_mechanical_vessel",
+  "criteria": {
+    "has_get_noxluxuhrwerk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "forlaism:noxluxuhrwerk"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}
